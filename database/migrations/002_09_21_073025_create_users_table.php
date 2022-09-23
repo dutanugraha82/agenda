@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->enum('role',['super_admin','admin_unit','admin_univ']);
-            $table->unsignedBigInteger('unit_id');
+            $table->unsignedBigInteger('unit_id')->nullable();
             $table->foreign('unit_id')->references('id')->on('units');
             $table->string('password');
             $table->timestamps();

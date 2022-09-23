@@ -19,22 +19,24 @@ class UserSeeder extends Seeder
 
         $users = [
             [
+                'name' => 'Super Admin',
                 'email' => 'superadmin@ptk.ubpkarawang.ac.id',
                 'password' => Hash::make('bismilah'),
                 'role' => 'super_admin',
-                'unit_id' =>'1'
+                'unit_id' =>null
             ],
             [
+                'name' => 'Admin Univ',
                 'email' => 'adminuniv@ptk.ubpkarawang.ac.id',
                 'password' => Hash::make('hamdalah'),
                 'role' => 'admin_univ',
-                'unit_id' =>'1'
+                'unit_id' =>null
             ]
             ];
 
             foreach($users as $item){
                 User::create([
-                    'name' => Str::random(10),
+                    'name' => $item['name'],
                     'email' => $item['email'],
                     'password' => $item['password'],
                     'role' => $item['role'],

@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/login',[LoginController::class,'login'])->name('login')->middleware('guest');
+Route::post('/login-proses',[LoginController::class,'authenticate']);
+Route::post('/logout',[LoginController::class,'logout']);
+Route::get('/',[UserController::class,'index'])->middleware('auth');
