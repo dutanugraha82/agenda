@@ -19,7 +19,8 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary p-3">
     <div class="card-header text-center">
-      <h3>Welcome Admin (:</h3>
+      <img class="w-50" src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="">
+      <h3>Agenda System</h3>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Please Sign in to get access</p>

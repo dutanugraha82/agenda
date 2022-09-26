@@ -1,6 +1,7 @@
 @extends('master')
+@section('pageTitle')
+    Agenda Report
+@endsection
 @section('content')
-    <div class="container">
-        <h3>Welcome!</h3>
-    </div>
+
 @endsection
