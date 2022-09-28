@@ -10,6 +10,8 @@ class Unit extends Model
     use HasFactory;
     protected $table  = 'units';
     protected $fillable = [
-        'unit_name','url'
-    ];
+     'unit_name','url'
+     ];
+    protected $guarded = [];
+    protected $dates = ['created_at'];
 }
