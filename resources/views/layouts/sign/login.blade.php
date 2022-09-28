@@ -24,6 +24,11 @@
     </div>
     <div class="card-body">
       <p class="login-box-msg">Please Sign in to get access</p>
+      @if($errors->any())
+        @foreach($errors->all() as $error)
+            <li>{{$error}}</li>
+        @endforeach
+      @endif
 
       <form action="/login-proses" method="POST">
         @csrf
