@@ -2,21 +2,20 @@
 
 namespace App\Models;
 
-use App\Models\SocMed;  
+use App\Models\Unit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Unit extends Model
+class SocMed extends Model
 {
     use HasFactory;
-    protected $table  = 'units';
+    protected $table = 'unit_social_media';
     protected $fillable = [
-     'unit_name','url'
-     ];
-    protected $guarded = [];
+        'name_unit_socmed', 'url', 'unit_id',
+    ];
     protected $dates = ['created_at'];
 
-    public function socMed(){
-       return $this->hasMany(SocMed::class);
+    public function Unit(){
+       return $this->belongsTo(Unit::class);
     }
 }

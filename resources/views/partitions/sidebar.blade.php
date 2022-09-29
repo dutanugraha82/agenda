@@ -25,6 +25,12 @@
               <p>Units Data</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="/social-media" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Unit Social Media Data</p>
+            </a>
+          </li>
         </ul>
       </li>
       <li class="nav-item">
@@ -76,10 +82,27 @@
               <p>Social Media Data</p>
             </a>
           </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-people-arrows"></i>
+          <p>
+            Create User
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="pages/tables/data.html" class="nav-link">
+            <a href="/superadmin/create-admin-univ" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Unit Social Media Data</p>
+              <p>Create Admin University</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/superadmin/create-admin-unit" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Create Admin Unit</p>
             </a>
           </li>
         </ul>

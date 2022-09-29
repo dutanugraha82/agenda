@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminUnivMiddleware
 {
@@ -16,6 +17,9 @@ class AdminUnivMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        if(Auth::user()->role == 'admin_univ'){
+            return $next($request);
+        }
+        return back();
     }
 }

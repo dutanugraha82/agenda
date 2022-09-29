@@ -19,13 +19,12 @@ class LoginController extends Controller
 
 
             if(Auth::user()->role === 'super_admin') {
-                // echo "halaman super admin";
                 return redirect('/superadmin');
             } else if(Auth::user()->role === 'admin_unit') {
-                echo "halaman admin unit";
+                return redirect('/adminunit');
 
             } else {
-                echo "halaman admin univ";
+                return redirect('/adminuniv');
             }
 
             die;
@@ -37,13 +36,7 @@ class LoginController extends Controller
                 'email' => $request->validated()['email'],
                 'password' => $request->validated()['password']
             ]);
-
-        //    dd($response);
         }
-
-        // return back()->withErrors([
-        //     'email' => 'The provided credentials do not match our records.',
-        // ])->onlyInput('email');
     }
 
     public function logout(Request $request){
