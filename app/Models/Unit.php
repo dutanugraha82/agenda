@@ -19,4 +19,8 @@ class Unit extends Model
     public function socMed(){
        return $this->hasMany(SocMed::class);
     }
+
+    public function website(){
+        return $this->hasMany(Website::class);
+    }
 }

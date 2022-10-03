@@ -34,9 +34,6 @@ class UnitController extends Controller
     }
 
     public function updateUnits($id, UnitRequest $request){
-
-
-
          Unit::where('id', $id)->update(
             $request->safe()->except(['_method', '_token']));
             return redirect ('/superadmin/data-unit');
@@ -60,6 +57,23 @@ class UnitController extends Controller
 
     public function storeSocmed(SocmedRequest $request){
         SocMed::create($request->validated());
-        return redirect('/social-media');
+        return redirect('/superadmin/social-media')->with('success','Data Unit Social Media submited!');
+    }
+
+    public function editSocmed($id){
+        $dataSocmed = SocMed::find($id);
+        $dataUnit = Unit::all();
+        return view('layouts.pages.unit.edit-socmed',compact('dataSocmed','dataUnit'));
+    }
+
+    public function updateSocmed($id, SocmedRequest $request){
+        SocMed::where('id',$id)->update($request->validated());
+
+        return redirect('/superadmin/social-media')->with('success','Data Unit Social Media Updated!');
+    }
+
+    public function deleteSocmed($id){
+        SocMed::find($id)->delete();
+        return redirect('/superadmin/social-media');
     }
 }

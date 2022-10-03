@@ -6,7 +6,7 @@
     <div class="container">
         <div class="card">
             <div class="container my-3">
-                <a class="btn text-white" style="background-color:blueviolet;" href="/input-unit-socmed">+ Add Unit Social Media</a>
+                <a class="btn text-white" style="background-color:blueviolet;" href="/superadmin/input-unit-socmed">+ Add Unit Social Media</a>
             </div>
             @if ($message = Session::get('success'))
                 <div class="alert alert-success" role="alert">
@@ -32,11 +32,11 @@
                             <td>{{ $row->url}}</td>
                             <td>{{ $row->Unit->created_at->format('D M Y') }}</td>
                         <td>
-                            <form action="/superadmin/delete-unit/{{ $row->Unit->id}}" method="post">
+                            <form action="/superadmin/delete-socmed/{{ $row->id}}" method="post">
                                 @method('delete')
                                 @csrf
                                 <div class="container text-center">
-                                    <a href="/superadmin/input/edit/{{ $row->Unit->id}}" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="/superadmin/edit-socmed/{{ $row->id }}" class="btn btn-sm btn-warning">Edit</a>
                                     <button type="submit" class="btn btn-sm btn-danger " data-toggle="modal" data-target="#delete">
                                         Delete
                                     </button>

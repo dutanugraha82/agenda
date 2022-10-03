@@ -26,7 +26,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/social-media" class="nav-link">
+            <a href="/superadmin/social-media" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Unit Social Media Data</p>
             </a>
@@ -43,7 +43,7 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="pages/charts/chartjs.html" class="nav-link">
+            <a href="/websites" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Websites Data</p>
             </a>
@@ -60,7 +60,7 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="pages/UI/general.html" class="nav-link">
+            <a href="/activities" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Activities Data</p>
             </a>

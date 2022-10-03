@@ -8,6 +8,7 @@ use App\Http\Controllers\EditController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\WebsiteController;
 use App\Models\Unit;
 
 /*
@@ -34,6 +35,12 @@ Route::get('/input/edit/{units_id}',[UnitController::class,'editUnits']);
 Route::put('/update-unit/{units_id}', [UnitController::class,'updateUnits']);
 Route::delete('/delete-unit/{units_id}', [UnitController::class,'deleteUnits']);
 Route::get('/create-admin-univ',[UserController::class,'createAdminUniv']);
+Route::get('/social-media',[UnitController::class,'socMed']);
+Route::get('/input-unit-socmed',[UnitController::class,'inputSocmed']);
+Route::post('/store-socmed',[UnitController::class,'storeSocmed']);
+Route::get('/edit-socmed/{id}',[UnitController::class,'editSocmed']);
+Route::put('/update-unit-socmed/{id}',[UnitController::class,'updateSocmed']);  
+Route::delete('/delete-socmed/{id}',[UnitController::class,'deleteSocmed']);
 });
 
 Route::middleware('adminuniv')->prefix('adminuniv')->group(function(){
@@ -44,8 +51,9 @@ Route::middleware('adminunit')->prefix('adminunit')->group(function(){
     //THIS IS FOR ADMIN UNIT
 });
 
-// Route Social Media Start
-Route::get('/social-media',[UnitController::class,'socMed']);
-Route::get('/input-unit-socmed',[UnitController::class,'inputSocmed']);
-Route::post('/store-socmed',[UnitController::class,'storeSocmed']);
-// Route Social Media End
+//Route Website Start
+Route::get('/websites',[WebsiteController::class,'index'])->name('website');
+Route::get('/websites/json',[WebsiteController::class,'json']);
+Route::get('/input-website',[WebsiteController::class,'input']);
+Route::post('/store-website',[WebsiteController::class,'store']);
+//Route Website End
