@@ -52,8 +52,7 @@ Route::middleware('adminunit')->prefix('adminunit')->group(function(){
 });
 
 //Route Website Start
-Route::get('/websites',[WebsiteController::class,'index'])->name('website');
-Route::get('/websites/json',[WebsiteController::class,'json']);
+Route::get('/websites',[WebsiteController::class,'index'])->name('websites');
 Route::get('/input-website',[WebsiteController::class,'input']);
 Route::post('/store-website',[WebsiteController::class,'store']);
 //Route Website End

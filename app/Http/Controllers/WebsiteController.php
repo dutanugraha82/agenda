@@ -5,19 +5,20 @@ use App\Models\Unit;
 use App\Models\Website;
 use Illuminate\Http\Request;
 use App\Http\Requests\WebsiteRequest;
-use DataTables;
+// use Yajra\DataTables\Facades\DataTables;
+use Yajra\DataTables\DataTables;
+// use DataTables;
 
 class WebsiteController extends Controller
 {
     public function index(){
+        $dataWebsite = Website::get();
+        if(request()->ajax()){
+            return datatables()
+            ->of($dataWebsite)
+            ->make(true);
+        }
         return view('layouts.pages.website.website');
-    }
-    
-    public function json(){
-        
-        $dataWebsite = Website::all();
-        return DataTables::of($dataWebsite)
-                ->make(true);
     }
 
     public function input(){

@@ -3,7 +3,7 @@
     Data Websites
 @endsection
 @section('content')
-    <div class="container">
+    <div class="container-fluid mx-2">
         <a style="background-color: blueviolet;color:white;width:10rem" class="btn" href="/input-website">+ Add Website</a>
         <div class="card">
             @if ($message = Session::get('success'))
@@ -13,7 +13,7 @@
             @endif
         </div>
         <div class="container-fluid">
-            <table class="table">
+            <table class="table table-striped table-bordered" id="table-website">
                 <thead>
                     <tr>
                     <th>ID</th>
@@ -27,23 +27,30 @@
         </div>
     </div>
 @endsection
-@push('scripts')
-<script>
-    let table;
-    $(function () {
-      table = $('.table').DataTable({
-        processing: true,
-        autoWidth: false, 
-        ajax: {
-          url: '/websites/json',
-        },
-        columns: [
-          {data: 'web_name'},
-          {data: 'web_date'},
-          {data: 'web_type'},
-          {data: 'web_category'},
-        ]
-      });
-    });
+@push('js')
+<script type="text/javascript">
+    $(document).ready(function(){
+        websites()
+    })
+    function websites(){
+        $('#table-website').DataTable({
+            serverside : true,
+            responsive : true,
+            ajax : {
+                url : "{{ route('websites') }}"
+            },
+            columns : [
+                {"data": null, "sortable": false,
+                render : function (data, type, row, meta){
+                    return meta.row + meta.settings._iDisplayStart + 1
+                }
+                },
+                {data: 'web_name', name: 'name'},
+                {data: 'web_date', name: 'date'},
+                {data: 'web_type', name: 'type'},
+                {data: 'web_category', name: 'category'},
+            ]
+        })
+    }
 </script>
 @endpush
