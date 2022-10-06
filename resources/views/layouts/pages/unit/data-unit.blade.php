@@ -12,38 +12,45 @@
         </div>
     @endif
     <div class="container">
-        <table class="table table-hover">
+        <table class="table table-striped table-bordered" id="table-unit">
             <thead>
                <tr>
                     <th scope="col">No</th>
                     <th scope="col">Unit Name</th>
                     <th scope="col">Url</th>
-                    <th scope="col">Dibuat</th>
-                    <th scope="col" class="text-center">Aksi</th>
+                    <th scope="col">Created At</th>
+                    <th>Updated At</th>
+                    <th scope="col" class="text-center">Action</th>
               </tr>
             </thead>
-            <tbody>
-            @foreach ($data as $row)
-            <tr>
-                <th scope="row">{{ $row->id }}</th>
-                    <td>{{ $row->unit_name }}</td>
-                    <td>{{ $row->url}}</td>
-                    <td>{{ $row->created_at->format('D M Y') }}</td>
-                <td>
-                    <form action="/superadmin/delete-unit/{{ $row->id}}" method="post">
-                        @method('delete')
-                        @csrf
-                        <div class="container text-center">
-                            <a href="/superadmin/input/edit/{{ $row->id}}" class="btn btn-sm btn-warning">Edit</a>
-                            <button type="submit" class="btn btn-sm btn-danger " data-toggle="modal" data-target="#delete">
-                                Delete
-                            </button>
-                        </div>
-                        </form>
-                </td>
-            </tr>
-            @endforeach
-            </tbody>
           </table>
     </div>
 @endsection
+@push('js')
+<script type="text/javascript">
+    $(document).ready(function(){
+        unit()
+    })
+    function unit(){
+    $('#table-unit').DataTable({
+        serverside : true,
+        responsive : true,
+        ajax : {
+            url : "{{ route('unit') }}"
+        },
+        columns : [
+            {"data": null, "sortable": false,
+            render : function (data, type, row, meta){
+                return meta.row + meta.settings._iDisplayStart + 1
+            }
+            },
+            {data: 'unit_name', name: 'unit_name'},
+            {data: 'url', name: 'url'},
+            {data: 'updated_at', name: 'updated_at'},
+            {data: 'created_at', name: 'created_at'},
+            {data: 'action', name: 'action'}
+        ]
+    })
+}
+</script>
+@endpush

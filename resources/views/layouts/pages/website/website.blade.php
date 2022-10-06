@@ -21,6 +21,7 @@
                     <th>Date</th>
                     <th>Type</th>
                     <th>Category</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
             </table>
@@ -29,28 +30,29 @@
 @endsection
 @push('js')
 <script type="text/javascript">
-    $(document).ready(function(){
-        websites()
-    })
-    function websites(){
-        $('#table-website').DataTable({
-            serverside : true,
-            responsive : true,
-            ajax : {
-                url : "{{ route('websites') }}"
+$(document).ready(function(){
+    websites()
+})
+function websites(){
+    $('#table-website').DataTable({
+        serverside : true,
+        responsive : true,
+        ajax : {
+            url : "{{ route('websites') }}"
+        },
+        columns : [
+            {"data": null, "sortable": false,
+            render : function (data, type, row, meta){
+                return meta.row + meta.settings._iDisplayStart + 1
+            }
             },
-            columns : [
-                {"data": null, "sortable": false,
-                render : function (data, type, row, meta){
-                    return meta.row + meta.settings._iDisplayStart + 1
-                }
-                },
-                {data: 'web_name', name: 'name'},
-                {data: 'web_date', name: 'date'},
-                {data: 'web_type', name: 'type'},
-                {data: 'web_category', name: 'category'},
-            ]
-        })
-    }
+            {data: 'web_name', name: 'name'},
+            {data: 'web_date', name: 'date'},
+            {data: 'web_type', name: 'type'},
+            {data: 'web_category', name: 'category'},
+            {data: 'Action', name: 'Action'}
+        ]
+    })
+}
 </script>
 @endpush

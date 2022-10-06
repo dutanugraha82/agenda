@@ -10,10 +10,19 @@ use App\Http\Requests\Unit\SocmedRequest;
 class UnitController extends Controller
 {
     public function unit(){
-
-        $data = Unit::all();
-        // dd($data);
-        return view('layouts.pages.unit.data-unit',compact('data'));
+        $dataUnit = Unit::get();
+        if(request()->ajax()){
+            return datatables()
+            ->of($dataUnit)
+            ->addIndexColumn()
+            ->addColumn('action', function($dataUnit){
+                return '<a href="/superadmin/input/edit/'.$dataUnit->id.'" class="btn btn-sm btn-warning btn-block mx-auto">Edit</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+        }
+        
+        return view('layouts.pages.unit.data-unit');
     }
 
     public function inputUnit(){
@@ -45,9 +54,26 @@ class UnitController extends Controller
     }
 
     public function socMed(){
-        $dataUnit = SocMed::all();
-        // dd($dataUnit);
-        return view('layouts.pages.unit.social-media',compact('dataUnit'));
+        $dataSocmed = SocMed::get();
+        if(request()->ajax()){
+            return datatables()
+            ->of($dataSocmed)
+            ->addIndexColumn()
+            ->addColumn('action', function($dataSocmed){
+                return '
+                <div class="text-center">
+                <a href="/superadmin/edit-socmed/'.$dataSocmed->id.'" style="width:5rem;" class="btn btn-sm btn-warning">Edit</a>
+                <button type="submit" style="width:5rem;" class="btn btn-sm btn-danger text-center">Delete</button>
+                </div>';
+                
+            })
+            ->addColumn('unit', function($dataSocmed){
+                return $dataSocmed->Unit->unit_name;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+        }
+        return view('layouts.pages.unit.social-media');
     }
 
     public function inputSocmed(){

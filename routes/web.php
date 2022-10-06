@@ -10,6 +10,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\WebsiteController;
 use App\Models\Unit;
+use App\Models\Website;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,14 +29,14 @@ Route::post('/logout',[LoginController::class,'logout']);
 
 Route::middleware(['superadmin','auth'])->prefix('superadmin')->group(function(){
 Route::get('/',[UserController::class,'index'])->name('home');
-Route::get('/data-unit',[UnitController::class,'unit']);
+Route::get('/data-unit',[UnitController::class,'unit'])->name('unit');
 Route::get('/input-unit',[UnitController::class,'inputUnit']);
 Route::post('/store-unit',[UnitController::class,'storeunit']);
 Route::get('/input/edit/{units_id}',[UnitController::class,'editUnits']);
 Route::put('/update-unit/{units_id}', [UnitController::class,'updateUnits']);
 Route::delete('/delete-unit/{units_id}', [UnitController::class,'deleteUnits']);
 Route::get('/create-admin-univ',[UserController::class,'createAdminUniv']);
-Route::get('/social-media',[UnitController::class,'socMed']);
+Route::get('/social-media',[UnitController::class,'socMed'])->name('socmed');
 Route::get('/input-unit-socmed',[UnitController::class,'inputSocmed']);
 Route::post('/store-socmed',[UnitController::class,'storeSocmed']);
 Route::get('/edit-socmed/{id}',[UnitController::class,'editSocmed']);
@@ -55,4 +56,8 @@ Route::middleware('adminunit')->prefix('adminunit')->group(function(){
 Route::get('/websites',[WebsiteController::class,'index'])->name('websites');
 Route::get('/input-website',[WebsiteController::class,'input']);
 Route::post('/store-website',[WebsiteController::class,'store']);
+Route::get('/website/detail/{websites_id}',[WebsiteController::class,'detail']);
+Route::get('/website/edit/{websites_id}',[WebsiteController::class,'edit']);
+Route::put('/website/update/{websites_id}',[WebsiteController::class,'update']);
+Route::delete('/website/delete/{websites_id}',[WebsiteController::class,'delete']);
 //Route Website End
