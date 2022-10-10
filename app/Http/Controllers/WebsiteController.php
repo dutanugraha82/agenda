@@ -6,6 +6,8 @@ use App\Models\Website;
 use Illuminate\Http\Request;
 use App\Http\Requests\WebsiteRequest;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class WebsiteController extends Controller
 {
@@ -34,11 +36,13 @@ class WebsiteController extends Controller
 
     public function store(WebsiteRequest $request){
         $validation = $request->validated();
-        $validation['web_thumbnail'] = $request->file('web_thumbnail')->store('web-thumbnail');
-        Website::create($validation);
+            $validation['web_thumbnail'] = $request->file('web_thumbnail')->store('web-thumbnail');
+            Website::create($validation);
+            Alert::success('Success!','Data success stored');
+
+            return redirect('/websites');
         
         // dd($image);
-        return redirect('/websites')->with('success','Data Submited!');
     }
 
     public function detail($id){
@@ -100,6 +104,7 @@ class WebsiteController extends Controller
     public function delete($id, Request $request){
         Storage::delete($request->oldImage);
         Website::where('id','=', $id)->delete();
+        Alert::warning('Delete Success','Data has deleted');
         return redirect('/websites')->with('Data success delete!');
     }
 

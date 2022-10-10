@@ -58,6 +58,6 @@
   </div>
   <!-- /.card -->
 </div>
-<!-- /.login-box -->
+@include('sweetalert::alert')
 </body>
 </html>
