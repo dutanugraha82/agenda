@@ -39,6 +39,7 @@ function socmed(){
     $('#table-socmed').DataTable({
         serverside : true,
         responsive : true,
+        searchable: true,
         ajax : {
             url : "{{ route('socmed') }}"
         },

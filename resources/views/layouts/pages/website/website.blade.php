@@ -37,6 +37,7 @@ function websites(){
     $('#table-website').DataTable({
         serverside : true,
         responsive : true,
+        serchable : true,
         ajax : {
             url : "{{ route('websites') }}"
         },

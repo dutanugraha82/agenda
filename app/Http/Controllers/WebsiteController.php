@@ -12,10 +12,9 @@ use RealRashid\SweetAlert\Facades\Alert;
 class WebsiteController extends Controller
 {
     public function index(){
-        $dataWebsite = Website::get();
         if(request()->ajax()){
             return datatables()
-            ->of($dataWebsite)
+            ->of(Website::get())
             ->addIndexColumn()
             ->addColumn('Action', function($dataWebsite){
                 return '<div class="btn-group d-flex">

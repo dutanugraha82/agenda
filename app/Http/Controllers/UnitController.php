@@ -6,17 +6,18 @@ use App\Models\Unit;
 use App\Models\SocMed;
 use App\Http\Requests\Unit\UnitRequest;
 use App\Http\Requests\Unit\SocmedRequest;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UnitController extends Controller
 {
     public function unit(){
-        $dataUnit = Unit::get();
         if(request()->ajax()){
             return datatables()
-            ->of($dataUnit)
+            ->of(Unit::get())
             ->addIndexColumn()
             ->addColumn('action', function($dataUnit){
-                return '<a href="/superadmin/input/edit/'.$dataUnit->id.'" class="btn btn-sm btn-warning btn-block mx-auto">Edit</a>';
+                return '<a href="/superadmin/input/edit/'.$dataUnit->id.'" class="btn btn-sm btn-warning btn-block mx-auto">Edit</a>
+                        <a href="/superadmin/delete-socmed/'.$dataUnit->id.'" style="width:5rem;" class="btn btn-sm btn-danger">Delete</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -50,20 +51,20 @@ class UnitController extends Controller
 
     public function deleteUnits($id){
         Unit::find($id)->delete();
+        Alert::warning('Delete Success','Data has deleted');
         return redirect ('/superadmin/data-unit');
     }
 
     public function socMed(){
-        $dataSocmed = SocMed::get();
         if(request()->ajax()){
             return datatables()
-            ->of($dataSocmed)
+            ->of(SocMed::get())
             ->addIndexColumn()
             ->addColumn('action', function($dataSocmed){
                 return '
                 <div class="text-center">
                 <a href="/superadmin/edit-socmed/'.$dataSocmed->id.'" style="width:5rem;" class="btn btn-sm btn-warning">Edit</a>
-                <button type="submit" style="width:5rem;" class="btn btn-sm btn-danger text-center">Delete</button>
+                <a href="/superadmin/delete-socmed/'.$dataSocmed->id.'" style="width:5rem;" class="btn btn-sm btn-danger">Delete</a>
                 </div>';
                 
             })
@@ -100,6 +101,7 @@ class UnitController extends Controller
 
     public function deleteSocmed($id){
         SocMed::find($id)->delete();
+        Alert::warning('Delete Success','Data has deleted');
         return redirect('/superadmin/social-media');
     }
 }
