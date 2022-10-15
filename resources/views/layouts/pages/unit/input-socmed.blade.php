@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <div class="card">
-            <form action="/superadmin/store-socmed" class="p-2" method="POST">
+            <form action="/superadmin/unit-socmed" class="p-2" method="POST">
                 @csrf
                 <div class="my-3">
                     <label for="name">Platform Name</label>

@@ -3,7 +3,7 @@
       <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
       <li class="nav-item">
-        <a href="#" class="nav-link active">
+        <a href="/adminuniv" class="nav-link">
           <i class="nav-icon fas fa-table"></i>
           <p>
             Report
@@ -20,13 +20,13 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="/superadmin/data-unit" class="nav-link">
+            <a href="/superadmin/unit" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Units Data</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/superadmin/social-media" class="nav-link">
+            <a href="/superadmin/unit-socmed" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Unit Social Media Data</p>
             </a>
@@ -69,7 +69,7 @@
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-circle"></i>
+          <i class="nav-icon fas fa-user-tag"></i>
           <p>
             Social Media
             <i class="fas fa-angle-left right"></i>

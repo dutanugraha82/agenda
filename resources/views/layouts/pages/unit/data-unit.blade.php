@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="container my-3">
-        <a class="btn text-white" style="background-color:blueviolet;" href="/superadmin/input-unit">+ Add Unit</a>
+        <a class="btn text-white" style="background-color:blueviolet;" href="/superadmin/unit/create">+ Add Unit</a>
     </div>
     @if ($message = Session::get('success'))
         <div class="alert alert-success" role="alert">

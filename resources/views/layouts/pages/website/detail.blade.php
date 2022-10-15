@@ -61,7 +61,7 @@
         </div>
         <div class="container my-4">
             <a href="/websites" style="width: 12rem;" class="btn btn-warning btn-block">Back</a>
-            <form action="/website/delete/{{ $dataWebsite->id }}" method="POST">
+            <form action="/website/{{ $dataWebsite->id }}" method="POST">
                 @csrf
                 @method('delete')
                 <input type="hidden" value="{{ $dataWebsite->web_thumbnail }}" name="oldImage">

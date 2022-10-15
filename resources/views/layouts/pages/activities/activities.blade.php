@@ -4,7 +4,7 @@
 @endsection
 @section('content')
         <div class="container my-3">
-            <a class="btn text-white" style="background-color:blueviolet;" href="/input-activities">+ Add Activities</a>
+            <a class="btn text-white" style="background-color:blueviolet;" href="/activities/create">+ Add Activities</a>
         </div>
         <div class="container">
                 <table class="table table-striped table-bordered" id="table-unit">

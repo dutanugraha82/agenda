@@ -3,6 +3,9 @@
     Detail {{ $dataActivities->act_name }}
 @endsection
 @section('content')
+<form action="/activities/{{ $dataActivities->id }}" method="POST">
+    @csrf
+    @method('delete')
 <div class="container-fluid">
     <div class="card p-3">
         <div class="row">
@@ -41,8 +44,9 @@
         </div>
         <div class="container-fluid" style="display: flex; justify-content: space-between">
             <a href="/activities" style="width: 6rem;" class="btn btn-warning shadow">Back</a>
-            <a href="/delete-activities/{{ $dataActivities->id }}" style="min-width: 6rem" class="btn btn-danger shadow">Delete {{ $dataActivities->act_name }}</a>
+            <button type="submit" style="min-width: 6rem" class="btn btn-danger shadow">Delete {{ $dataActivities->act_name }}</a>
         </div>
     </div>
 </div>
+</form>
 @endsection

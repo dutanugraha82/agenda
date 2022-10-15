@@ -5,7 +5,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="card p-3">
-        <form action="/update-activities/{{ $dataActivities->id }}" method="POST">
+        <form action="/activities/{{ $dataActivities->id }}" method="POST">
         @csrf
         @method('put')
         <div class="row">

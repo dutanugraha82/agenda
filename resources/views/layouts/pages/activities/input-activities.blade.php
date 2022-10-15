@@ -5,7 +5,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="card p-3">
-            <form action="/store-activities" method="POST">
+            <form action="/activities" method="POST">
             @csrf
             <div class="row">
                 <div class="col-md-6">

@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 <div class="container">
-    <form action="/superadmin/update-unit/{{$detailUnit->id}}" method="POST" class="p-2">
+    <form action="/superadmin/unit/{{$detailUnit->id}}" method="POST" class="p-2">
         @csrf
         @method('put')
         <div class="my-3">

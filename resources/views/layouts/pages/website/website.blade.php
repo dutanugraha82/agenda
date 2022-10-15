@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="container-fluid mx-2">
-        <a style="background-color: blueviolet;color:white;width:10rem" class="btn" href="/input-website">+ Add Website</a>
+        <a style="background-color: blueviolet;color:white;width:10rem" class="btn" href="/website/create">+ Add Website</a>
         <div class="card">
             @if ($message = Session::get('success'))
                 <div class="alert alert-success" role="alert">

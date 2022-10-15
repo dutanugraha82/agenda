@@ -5,7 +5,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="card">
-        <form action="/website/update/{{ $dataWebsite->id }}" method="POST" class="p-2" enctype="multipart/form-data">
+        <form action="/website/{{ $dataWebsite->id }}" method="POST" class="p-2" enctype="multipart/form-data">
         @csrf
         @method('put')
         <div class="row">

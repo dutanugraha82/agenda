@@ -1,23 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\User;
-use App\Http\Requests\UserPostRequest;
+
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
 
     public function index(){
-        return view('layouts.pages.dashboard');
-    }
-
-    public function createAdminUniv(){
-        return view('layouts.sign.create-admin-univ');
-    }
-
-    public function storeAdminUniv(UserPostRequest $request){
-        User::create($request->validate());
-        return redirect('/superadmin/');
+        $dataActivities = DB::table('activities')->count();
+        $dataActivitiesPending = DB::table('activities')->where('act_status','=', 'pending')->count();
+        $dataSocMed = DB::table('social_media')->count();
+        $dataSocMedPending = DB::table('social_media')->where('socmed_status','=','pending')->count();
+        $dataWebsites = DB::table('websites')->count();
+        $dataWebsitesPending = DB::table('websites')->where('web_status','=','pending')->count();
+        return view('layouts.pages.dashboard',compact('dataActivities','dataActivitiesPending','dataSocMed','dataSocMedPending','dataWebsites','dataWebsitesPending'));
     }
 
 }

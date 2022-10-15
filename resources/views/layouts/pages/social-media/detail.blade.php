@@ -49,7 +49,7 @@
         </div>
         <div class="container-fluid" style="display: flex; justify-content: space-between">
             <a href="/social-media" style="width: 6rem;" class="btn btn-warning shadow">Back</a>
-            <form action="/delete-social-media/{{ $dataSocialMed->id }}" method="POST">
+            <form action="/social-media/{{ $dataSocialMed->id }}" method="POST">
             @csrf
             @method('delete')
             <input type="hidden" name="oldImage" value="{{ $dataSocialMed->thumbnail }}">

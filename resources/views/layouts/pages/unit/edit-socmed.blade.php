@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <div class="card">
-            <form action="/superadmin/update-unit-socmed/{{ $dataSocmed->id }}" class="p-2" method="POST">
+            <form action="/superadmin/unit-socmed/{{ $dataSocmed->id }}" class="p-2" method="POST">
                 @csrf
                 @method('put')
                 <div class="my-3">

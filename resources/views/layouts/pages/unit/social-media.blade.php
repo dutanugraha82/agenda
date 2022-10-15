@@ -6,7 +6,7 @@
     <div class="container">
         <div class="card">
             <div class="container my-3">
-                <a class="btn text-white" style="background-color:blueviolet;" href="/superadmin/input-unit-socmed">+ Add Unit Social Media</a>
+                <a class="btn text-white" style="background-color:blueviolet;" href="/superadmin/unit-socmed/create">+ Add Unit Social Media</a>
             </div>
             @if ($message = Session::get('success'))
                 <div class="alert alert-success" role="alert">
@@ -41,7 +41,7 @@ function socmed(){
         responsive : true,
         searchable: true,
         ajax : {
-            url : "{{ route('socmed') }}"
+            url : "{{ route('unit-socmed') }}"
         },
         columns : [
             {"data": null, "sortable": false,
