@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -19,12 +20,12 @@ class LoginController extends Controller
         if (Auth::attempt($request->validated())) {
 
 
-            if(Auth::user()->role === 'super_admin') {
+            if(auth()->user()->role == 'super_admin') {
                 return redirect('/superadmin');
-            } else if(Auth::user()->role === 'admin_unit') {
+            } else if(auth()->user()->role == 'admin_unit') {
                 return redirect('/adminunit');
 
-            } else {
+            } else if(auth()->user()->role == 'admin_univ') {
                 return redirect('/adminuniv');
             }
 
@@ -37,6 +38,18 @@ class LoginController extends Controller
                 'email' => $request->validated()['email'],
                 'password' => $request->validated()['password']
             ]);
+
+            if ($response->body()) {
+                // DB::table('users')->insert([
+                //     'email' => $response->email,
+                //     'password' => $response->password
+                // ]);
+            } else {
+                Alert::warning('Login Failed!','email or password wrong!');
+                return redirect('/');
+            }
+            
+            // dd($response);
         }
     }
 
