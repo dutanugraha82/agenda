@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 <div class="container">
-    <form action="/superadmin/store-unit" method="POST" class="p-2">
+    <form action="/superadmin/unit" method="POST" class="p-2">
         @csrf
         <div class="my-3">
             <label for="name"> Unit Name</label>

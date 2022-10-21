@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Http\Requests\SocialMedia;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class SocialMediaRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'socmed_name' => 'required',
+            'socmed_date' => 'required',
+            'socmed_address' => 'required',
+            'caption' => 'required',
+            'category' => 'required',
+            'socmed_url' => 'required',
+            'socmed_status' => 'required',
+            'unit_id' => 'required',
+        ];
+    }
+}

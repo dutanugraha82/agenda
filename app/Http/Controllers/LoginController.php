@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginController extends Controller
 {
@@ -15,35 +19,45 @@ class LoginController extends Controller
 
     public function authenticate(LoginRequest $request){
 
+        $form = $request->validated();
+
         if (Auth::attempt($request->validated())) {
 
 
-            if(Auth::user()->role === 'super_admin') {
-                // echo "halaman super admin";
+            if(auth()->user()->role == 'super_admin') {
                 return redirect('/superadmin');
-            } else if(Auth::user()->role === 'admin_unit') {
-                echo "halaman admin unit";
+            } else if(auth()->user()->role == 'admin_unit') {
+                return redirect('/adminunit');
 
-            } else {
-                echo "halaman admin univ";
+            } else if(auth()->user()->role == 'admin_univ') {
+                return redirect('/adminuniv');
             }
 
-            die;
         }else{
            $response = Http::withHeaders([
                 'Authorization' => '4LUD38P1uCiACFOgH1sy',
                 'Content-Type' => 'application/json'
             ])->post('https://api-gateway.ubpkarawang.ac.id/external/agenda/create-user',[
-                'email' => $request->validated()['email'],
-                'password' => $request->validated()['password']
+                'form-params' => [
+                    'email' => $form['email'],
+                    'password' => $form['password']
+                ]
             ]);
 
-        //    dd($response);
+            if ($response->body()) {
+                // User::create([
+                //     'name' => $response->name,
+                //     'email' => $response->email,
+                //     'password' => Hash::make($response->password)
+                // ]);
+                dd($response->body());
+            } else {
+                Alert::warning('Login Failed!','email or password wrong!');
+                return redirect('/');
+            }
+            
+            // dd($response);
         }
-
-        // return back()->withErrors([
-        //     'email' => 'The provided credentials do not match our records.',
-        // ])->onlyInput('email');
     }
 
     public function logout(Request $request){
@@ -52,7 +66,7 @@ class LoginController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-
-        return redirect('/login');
+        Alert::info('Logout Success!','Thank you, Have a nice day (:');
+        return redirect('/');
     }
 }

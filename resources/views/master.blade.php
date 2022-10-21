@@ -25,12 +25,13 @@
   <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-dark navbar-dark" style="display: flex; justify-content:space-between">
+  <nav class="main-header navbar navbar-expand  navbar-light" style="display: flex; justify-content:space-between">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -86,13 +87,8 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2022</strong>
-    Universitas Buana Perjuangan Karawang </footer>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
+    Universitas Buana Perjuangan Karawang 
+  </footer>
 </div>
 <!-- ./wrapper -->
 
@@ -126,5 +122,9 @@
 <script src="{{ asset('dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+@stack('js')
+@include('sweetalert::alert')
 </body>
 </html>

@@ -25,7 +25,7 @@ class CreateWebsitesTable extends Migration
             $table->text('web_url');
             $table->unsignedBigInteger('unit_id');
             $table->foreign('unit_id')->references('id')->on('units');
-            $table->enum('web_status',['published','pending']);
+            $table->enum('web_status',['pending','published']);
             $table->timestamps();
         });
     }
