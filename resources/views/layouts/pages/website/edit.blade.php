@@ -77,7 +77,7 @@
             </div>
         </div>
         <div class="btn-group">
-            <a href="/websites" style="width:8rem" class="btn rounded btn-warning mr-3">Back</a>
+            <a href="/website" style="width:8rem" class="btn rounded btn-warning mr-3">Back</a>
             <button type="submit" class="btn rounded btn-primary ml-3">Update Data {{ $dataWebsite->web_name }}</button>
         </div>
         </form>

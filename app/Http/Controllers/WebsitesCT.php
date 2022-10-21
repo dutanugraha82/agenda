@@ -26,8 +26,8 @@ class WebsitesCT extends Controller
             ->addColumn('Action', function($dataWebsite){
                 return '<div class="container-fluid">
                         <div class="d-flex">
-                        <a href="/website/'.$dataWebsite->id.'" style="width:5rem;" class="btn btn-primary mr-3">Detail</a>
-                        <a href="/website/'.$dataWebsite->id.'/edit" style="width:5rem;" class="btn btn-warning ml-3">Edit</a>
+                        <a href="/adminuniv/website/'.$dataWebsite->id.'" style="width:5rem;" class="btn btn-primary mr-3">Detail</a>
+                        <a href="/adminuniv/website/'.$dataWebsite->id.'/edit" style="width:5rem;" class="btn btn-warning ml-3">Edit</a>
                         </div>
                         </div>';
             })
@@ -57,11 +57,38 @@ class WebsitesCT extends Controller
     public function store(WebsiteRequest $request)
     {
         $validation = $request->validated();
+
+        // dd($validation);
         $validation['web_thumbnail'] = $request->file('web_thumbnail')->store('web-thumbnail');
         Website::create($validation);
         Alert::success('Success!','Data success stored');
 
-        return redirect('/websites');
+        return redirect('/adminunit/website');
+    }
+
+    public function pending(){
+        if(request()->ajax()){
+            $dataWebsite = Website::where('web_status','=','pending')->get();
+            return datatables()
+            ->of($dataWebsite)
+            ->addIndexColumn()
+            ->addColumn('Action', function($dataWebsite){
+                return '
+                        <a href="/adminuniv/website/'.$dataWebsite->id.'" style="width:5rem;" class="btn btn-primary mr-3">Detail</a>
+                        ';
+            })
+            ->rawColumns(['Action'])
+            ->make(true);
+        }
+        return view('layouts.pages.website.data-pending');
+    }
+
+    public function published($id){
+        Website::find($id)->update([
+            'web_status' => 'published'
+        ]);
+        Alert::success('Data Published!','Data success publish!');
+        return redirect('/adminuniv/website'.'/'.$id);
     }
 
     /**
@@ -108,7 +135,7 @@ class WebsitesCT extends Controller
             Website::find($id)->update($request->validated());
         }
         Alert::warning('Data Updated!','Data success updated!');
-        return redirect('/websites');
+        return redirect('/adminuniv/website');
     }
 
     /**
@@ -122,6 +149,6 @@ class WebsitesCT extends Controller
         Storage::delete($request->oldImage);
         Website::where('id','=', $id)->delete();
         Alert::warning('Delete Success!','Data success deleted');
-        return redirect('/websites')->with('Data success delete!');
+        return redirect('/adminuniv/website');
     }
 }

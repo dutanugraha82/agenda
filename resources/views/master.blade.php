@@ -31,7 +31,7 @@
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-dark navbar-dark" style="display: flex; justify-content:space-between">
+  <nav class="main-header navbar navbar-expand  navbar-light" style="display: flex; justify-content:space-between">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -87,13 +87,8 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2022</strong>
-    Universitas Buana Perjuangan Karawang </footer>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
+    Universitas Buana Perjuangan Karawang 
+  </footer>
 </div>
 <!-- ./wrapper -->
 

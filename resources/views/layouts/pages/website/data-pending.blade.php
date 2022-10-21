@@ -1,11 +1,10 @@
 @extends('master')
-@section('pageTitle')
-    Data Websites
+@section('pagetTitle')
+    Data Pending Websites
 @endsection
 @section('content')
-    <div class="container-fluid mx-2">
-        <a style="background-color: blueviolet;color:white;width:10rem" class="btn" href="/adminunit/website/create">+ Add Website</a>
-        <div class="container-fluid mt-3">
+    <div class="container">
+        <div class="container-fluid">
             <table class="table table-striped table-bordered" id="table-website">
                 <thead>
                     <tr>
@@ -14,7 +13,8 @@
                     <th>Date</th>
                     <th>Type</th>
                     <th>Category</th>
-                    <th>Action</th>
+                    <th>Status</th>
+                    <th>Detail</th>
                 </tr>
                 </thead>
             </table>
@@ -32,7 +32,7 @@ function websites(){
         responsive : true,
         serchable : true,
         ajax : {
-            url : "{{ route('websites') }}"
+            url : "{{ route('web-pending') }}"
         },
         columns : [
             {"data": null, "sortable": false,
@@ -44,6 +44,7 @@ function websites(){
             {data: 'web_date', name: 'date'},
             {data: 'web_type', name: 'type'},
             {data: 'web_category', name: 'category'},
+            {data: 'web_status', name:'status'},
             {data: 'Action', name: 'Action'}
         ]
     })

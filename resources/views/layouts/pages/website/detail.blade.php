@@ -60,13 +60,38 @@
             </div>
         </div>
         <div class="container my-4">
-            <a href="/websites" style="width: 12rem;" class="btn btn-warning btn-block">Back</a>
-            <form action="/website/{{ $dataWebsite->id }}" method="POST">
-                @csrf
-                @method('delete')
-                <input type="hidden" value="{{ $dataWebsite->web_thumbnail }}" name="oldImage">
-                <button type="submit" class="btn btn-danger d-block ml-auto">Delete Data {{ $dataWebsite->web_name }}</button>
-            </form>
+            <div class="row">
+                <div class="col-4">
+                    @auth('adminunit')
+                    <a href="/adminunit/website" style="width: 12rem;" class="btn btn-warning btn-block">Back</a>
+                    @endauth
+                    @auth('adminuniv')
+                    <a href="/adminuniv/website" style="width: 12rem;" class="btn btn-warning btn-block">Back</a>
+                    @endauth
+                </div>
+                @if ($dataWebsite->web_status == 'published')
+                <div class="col-4 text-center">
+                    <p class="bg-success p-2 rounded" style="width:20rem">Website Status : Published</p>
+                </div>
+                @else
+                <div class="col-4">
+                    <form action="/adminuniv/website/{{ $dataWebsite->id }}/publish" method="POST" class="text-center">
+                        @csrf
+                        @method('put')
+                        <button type="submit" style="width: 12rem;" class="btn btn-success">Publish!</button>
+                    </form>
+                </div>
+                @endif
+               
+                <div class="col-4">
+                    <form action="/adminuniv/website/{{ $dataWebsite->id }}" method="POST">
+                        @csrf
+                        @method('delete')
+                        <input type="hidden" value="{{ $dataWebsite->web_thumbnail }}" name="oldImage">
+                        <button type="submit" class="btn btn-danger d-block ml-auto">Delete Data {{ $dataWebsite->web_name }}</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

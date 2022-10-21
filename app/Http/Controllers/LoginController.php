@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -16,6 +18,8 @@ class LoginController extends Controller
     }
 
     public function authenticate(LoginRequest $request){
+
+        $form = $request->validated();
 
         if (Auth::attempt($request->validated())) {
 
@@ -29,21 +33,24 @@ class LoginController extends Controller
                 return redirect('/adminuniv');
             }
 
-            die;
         }else{
            $response = Http::withHeaders([
                 'Authorization' => '4LUD38P1uCiACFOgH1sy',
                 'Content-Type' => 'application/json'
             ])->post('https://api-gateway.ubpkarawang.ac.id/external/agenda/create-user',[
-                'email' => $request->validated()['email'],
-                'password' => $request->validated()['password']
+                'form-params' => [
+                    'email' => $form['email'],
+                    'password' => $form['password']
+                ]
             ]);
 
             if ($response->body()) {
-                // DB::table('users')->insert([
+                // User::create([
+                //     'name' => $response->name,
                 //     'email' => $response->email,
-                //     'password' => $response->password
+                //     'password' => Hash::make($response->password)
                 // ]);
+                dd($response->body());
             } else {
                 Alert::warning('Login Failed!','email or password wrong!');
                 return redirect('/');

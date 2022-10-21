@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 <div class="container my-3">
-    <a class="btn text-white" style="background-color:blueviolet;" href="/social-media/create">+ Add Social Media</a>
+    <a class="btn text-white" style="background-color:blueviolet;" href="/adminunit/social-media/create">+ Add Social Media</a>
 </div>
 <div class="container">
     <div class="container">

@@ -1,22 +1,11 @@
 <?php
-
-use App\Http\Controllers\ActivitiesController;
 use App\Http\Controllers\ActivitiesCT;
-use App\Models\User;
-use Illuminate\Auth\Events\Login;
-use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EditController;
-use App\Http\Middleware\SuperAdminMiddleware;
-use App\Http\Middleware\AdminUnivMiddleware;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SocialMediaCT;
-use App\Http\Controllers\SocMedController;
-use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UnitCT;
 use App\Http\Controllers\UnitSocMedCT;
-use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\WebsitesCT;
 
 /*
@@ -35,30 +24,24 @@ Route::post('/login-proses',[LoginController::class,'authenticate']);
 Route::post('/logout',[LoginController::class,'logout']);
 
 Route::middleware(['superadmin','auth'])->prefix('superadmin')->group(function(){
-    
+    Route::get('/',[UserController::class,'index'])->name('home');
 });
 
 Route::middleware(['adminuniv','auth'])->prefix('adminuniv')->group(function(){
     Route::get('/',[UserController::class,'index'])->name('home');
     Route::get('/unit/delete/{unit_id}',[UnitCT::class,'destroy']);
     Route::get('/unit-socmed/delete/{unit_id}',[UnitSocMedCT::class,'destroy']);
-    Route::resource('unit',UnitCT::class)->except(['destroy'])->names(['index' => 'unit']);
-    Route::resource('unit-socmed', UnitSocMedCT::class)->except(['destroy'])->names(['index'=>'unit-socmed']);
+    Route::get('/website/pending',[WebsitesCT::class,'pending'])->name('web-pending');
+    Route::put('/website/{websites_id}/publish',[WebsitesCT::class,'published']);
+    Route::resource('social-media',SocialMediaCT::class)->except(['create','store'])->names(['index' => 'social-media']);
+    Route::resource('website',WebsitesCT::class)->except(['create','store'])->names(['index' => 'websites']);
+    Route::resource('activities',ActivitiesCT::class)->except(['create','store'])->names(['index' => 'activities']);
+    Route::resource('unit',UnitCT::class)->except(['destroy','create','store'])->names(['index' => 'unit']);
+    Route::resource('unit-socmed', UnitSocMedCT::class)->except(['destroy','create','store'])->names(['index'=>'unit-socmed']);
 });
 
 Route::middleware('adminunit')->prefix('adminunit')->group(function(){
-   
+    Route::resource('website',WebsitesCT::class)->only(['create','index','store'])->names(['index' => 'websites']);
+    Route::resource('activities',ActivitiesCT::class)->only(['index','create','store'])->names(['index' => 'activities']);
+    Route::resource('social-media',SocialMediaCT::class)->only(['index','create','store'])->names(['index' => 'social-media']);
 });
-
-//Route Website Start
-Route::resource('website',WebsitesCT::class)->names(['index' => 'websites']);
-//Route Website End
-
-// Route Activities Start
-Route::resource('activities',ActivitiesCT::class)->except(['index'])->names(['index' => 'activities']);
-// Route Activities End
-
-// Route Social Media Start
-Route::resource('social-media',SocialMediaCT::class)->names(['index' => 'social-media']);
-
-// Route Social Media End

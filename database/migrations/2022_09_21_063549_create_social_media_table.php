@@ -24,7 +24,7 @@ class CreateSocialMediaTable extends Migration
             $table->text('socmed_url');
             $table->unsignedBigInteger('unit_id');
             $table->foreign('unit_id')->references('id')->on('units');
-            $table->enum('socmed_status',['published','pending']);
+            $table->enum('socmed_status',['pending','published']);
             $table->timestamps();
         });
     }

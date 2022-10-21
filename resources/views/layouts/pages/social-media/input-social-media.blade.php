@@ -5,7 +5,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="card p-3">
-        <form action="/social-media" method="POST" enctype="multipart/form-data">
+        <form action="/adminunit/social-media" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-md-6">

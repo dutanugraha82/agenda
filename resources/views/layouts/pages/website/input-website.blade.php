@@ -5,7 +5,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="card">
-            <form action="/website" method="POST" class="p-2" enctype="multipart/form-data">
+            <form action="/adminunit/website" method="POST" class="p-2" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-6">
@@ -62,7 +62,6 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" value="pending" name="web_status">
             <button style="margin-top: 40px" type="submit" class="btn btn-primary">Submit Data Web</button>
             </form>
         </div>

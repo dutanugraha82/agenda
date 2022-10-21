@@ -22,7 +22,7 @@ class CreateAcivitiesTable extends Migration
             $table->enum('type',['public','private']);
             $table->unsignedBigInteger('unit_id');
             $table->foreign('unit_id')->references('id')->on('units');
-            $table->enum('act_status',['published','pending']);
+            $table->enum('act_status',['pending','published']);
             $table->timestamps();
         });
     }

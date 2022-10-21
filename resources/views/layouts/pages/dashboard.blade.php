@@ -21,7 +21,7 @@
                                 <h4>{{ $dataActivities }}</h4>
                             </div>
                         </div>
-                      <a href="#" class="btn btn-primary mt-3">Go to Activities</a>
+                      <a href="/adminuniv/activities/pending" class="btn btn-primary mt-3">Go to Activities</a>
                     </div>
                   </div>
             </div>
@@ -61,7 +61,7 @@
                                 <h4>{{ $dataWebsites }}</h4>
                             </div>
                         </div>
-                      <a href="#" class="btn btn-primary mt-3">Go to Websites</a>
+                      <a href="/adminuniv/website/pending" class="btn btn-primary mt-3">See Data Website</a>
                     </div>
             </div>
         </div>
