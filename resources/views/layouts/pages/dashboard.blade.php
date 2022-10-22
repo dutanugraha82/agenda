@@ -41,7 +41,7 @@
                                 <h4>{{ $dataSocMed }}</h4>
                             </div>
                         </div>
-                      <a href="#" class="btn btn-primary mt-3">Go to Social Media</a>
+                      <a href="/adminuniv/social-media/pending" class="btn btn-primary mt-3">Go to Social Media</a>
                     </div>
                   </div>
             </div>

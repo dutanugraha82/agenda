@@ -36,6 +36,13 @@
                 <div class="mb-3">
                     <label for="status">Status</label>
                     <input type="text" class="form-control" value="{{ $dataSocialMed->socmed_status }}" readonly>
+                    @if (auth()->user()->role == 'admin_univ')
+                    <form action="/adminuniv/social-media/{{ $dataSocialMed->id }}/publish" method="POST">
+                    @csrf
+                    @method('put')
+                    <button class="btn btn-sm btn-success mt-4">Publish {{ $dataSocialMed->socmed_name }}</button>
+                    </form>
+                    @endif
                 </div>
                 <div class="mb-3">
                     <label for="unit">Unit</label>

@@ -95,6 +95,38 @@ class ActivitiesCT extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function actPending(){
+        $dataActivities = Activities::where('act_status','=','pending')->get();
+        if(request()->ajax()){
+            return datatables()
+            ->of($dataActivities)
+            ->addIndexColumn()
+            ->addColumn('action', function($dataActivities){
+                return '
+                <div class="text-center">
+                <a href="/adminuniv/activities/'.$dataActivities->id.'" style="width:5rem;" class="btn btn-sm btn-primary">Detail</a>
+                </div>';
+                
+            })
+            ->addColumn('unit', function($dataSocmed){
+                return $dataSocmed->Unit->unit_name;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+        }
+        return view('layouts.pages.activities.activities-pending',compact('dataActivities'));
+    }
+
+    public function actPublish($id){
+        Activities::find($id)->update([
+            'act_status' => 'published'
+        ]);
+
+        Alert::success('Publish Success','Data success published!');
+        return redirect('/adminuniv/activities/pending');
+    }
+
     public function update(ActivitiesRequest $request, $id)
     {
         Activities::where('id',$id)->update($request->validated());

@@ -3,9 +3,6 @@
     Detail {{ $dataActivities->act_name }}
 @endsection
 @section('content')
-<form action="/activities/{{ $dataActivities->id }}" method="POST">
-    @csrf
-    @method('delete')
 <div class="container-fluid">
     <div class="card p-3">
         <div class="row">
@@ -35,6 +32,11 @@
                 <div class="mb-3">
                     <label for="status">Status</label>
                     <input type="text" class="form-control" value="{{ $dataActivities->act_status }}" readonly>
+                    <form action="/adminuniv/activities/{{ $dataActivities->id }}/publish" method="POST">
+                    @csrf
+                    @method('put')
+                    <button  type="submit" class="btn btn-sm btn-success mt-4">Publish {{ $dataActivities->act_name }}</button>
+                    </form>
                 </div>
                 <div class="mb-3">
                     <label for="unit">Unit</label>
@@ -43,7 +45,10 @@
             </div>
         </div>
         <div class="container-fluid" style="display: flex; justify-content: space-between">
-            <a href="/activities" style="width: 6rem;" class="btn btn-warning shadow">Back</a>
+            <a href="/adminuniv/activities" style="width: 6rem;" class="btn btn-warning shadow">Back</a>
+            <form action="/adminuniv/activities/{{ $dataActivities->id }}" method="POST">
+                @csrf
+                @method('delete')
             <button type="submit" style="min-width: 6rem" class="btn btn-danger shadow">Delete {{ $dataActivities->act_name }}</a>
         </div>
     </div>

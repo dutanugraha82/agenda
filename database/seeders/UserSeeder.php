@@ -31,6 +31,13 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('hamdalah'),
                 'role' => 'admin_univ',
                 'unit_id' =>null
+            ],
+            [
+                'name' => 'Admin Unit',
+                'email' => 'adminunit@ptk.ubpkarawang.ac.id',
+                'password' => Hash::make('istighfar'),
+                'role' => 'admin_unit',
+                'unit_id' => null
             ]
             ];
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\SocialMediaCT;
 use App\Http\Controllers\UnitCT;
 use App\Http\Controllers\UnitSocMedCT;
 use App\Http\Controllers\WebsitesCT;
+use App\Models\Activities;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +32,12 @@ Route::middleware(['adminuniv','auth'])->prefix('adminuniv')->group(function(){
     Route::get('/',[UserController::class,'index'])->name('home');
     Route::get('/unit/delete/{unit_id}',[UnitCT::class,'destroy']);
     Route::get('/unit-socmed/delete/{unit_id}',[UnitSocMedCT::class,'destroy']);
+    Route::get('/activities/pending',[ActivitiesCT::class,'actPending'])->name('act-pending');
     Route::get('/website/pending',[WebsitesCT::class,'pending'])->name('web-pending');
+    Route::get('/social-media/pending',[SocialMediaCT::class,'socMedPending'])->name('socmed-pending');
     Route::put('/website/{websites_id}/publish',[WebsitesCT::class,'published']);
+    Route::put('/activities/{activities_id}/publish',[ActivitiesCT::class,'actPublish']);
+    Route::put('/social-media/{social_media_id}/publish',[SocialMediaCT::class,'socMedPublish']);
     Route::resource('social-media',SocialMediaCT::class)->except(['create','store'])->names(['index' => 'social-media']);
     Route::resource('website',WebsitesCT::class)->except(['create','store'])->names(['index' => 'websites']);
     Route::resource('activities',ActivitiesCT::class)->except(['create','store'])->names(['index' => 'activities']);
@@ -41,6 +46,7 @@ Route::middleware(['adminuniv','auth'])->prefix('adminuniv')->group(function(){
 });
 
 Route::middleware('adminunit')->prefix('adminunit')->group(function(){
+    Route::get('/',[UserController::class,'index'])->name('home');
     Route::resource('website',WebsitesCT::class)->only(['create','index','store'])->names(['index' => 'websites']);
     Route::resource('activities',ActivitiesCT::class)->only(['index','create','store'])->names(['index' => 'activities']);
     Route::resource('social-media',SocialMediaCT::class)->only(['index','create','store'])->names(['index' => 'social-media']);
