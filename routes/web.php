@@ -26,6 +26,9 @@ Route::post('/logout',[LoginController::class,'logout']);
 
 Route::middleware(['superadmin','auth'])->prefix('superadmin')->group(function(){
     Route::get('/',[UserController::class,'index'])->name('home');
+    Route::resource('social-media',SocialMediaCT::class)->except(['create','store'])->names(['index' => 'social-media']);
+    Route::resource('website',WebsitesCT::class)->except(['create','store'])->names(['index' => 'websites']);
+    Route::resource('activities',ActivitiesCT::class)->except(['create','store'])->names(['index' => 'activities']);
 });
 
 Route::middleware(['adminuniv','auth'])->prefix('adminuniv')->group(function(){

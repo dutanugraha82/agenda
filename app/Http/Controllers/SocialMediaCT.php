@@ -23,10 +23,21 @@ class SocialMediaCT extends Controller
                     ->of(SocialMedia::get())
                     ->addIndexColumn()
                     ->addColumn('action', function($dataSocialMed){
-                        return '<div class="btn-group d-flex">
+                        if (auth()->user()->role == "admin_unit") {
+                            return '<div class="btn-group d-flex">
                         <a href="/adminunit/social-media/'.$dataSocialMed->id.'" class="btn btn-primary mr-3">Detail</a>
                         <a href="/adminunit/social-media/'.$dataSocialMed->id.'/edit" class="btn btn-warning ml-3">Edit</a>
                         </div>';
+                        } elseif(auth()->user()->role == "admin_univ") {
+                            return '<div class="btn-group d-flex">
+                            <a href="/adminuniv/social-media/'.$dataSocialMed->id.'" class="btn btn-primary mr-3">Detail</a>
+                            </div>';
+                        }elseif(auth()->user()->role == "super_admin"){
+                            return '<div class="btn-group d-flex">
+                        <a href="/superadmin/social-media/'.$dataSocialMed->id.'" class="btn btn-primary mr-3">Detail</a>
+                        </div>';
+                        } 
+                        
                     })
                     ->addColumn('unit', function($dataSocmed){
                         return $dataSocmed->Unit->unit_name;

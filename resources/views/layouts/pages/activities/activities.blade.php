@@ -3,9 +3,11 @@
     Data Activities
 @endsection
 @section('content')
-        <div class="container my-3">
-            <a class="btn text-white" style="background-color:blueviolet;" href="/adminunit/activities/create">+ Add Activities</a>
-        </div>
+@if (auth()->user()->role == "admin_unit")
+<div class="container my-3">
+    <a class="btn text-white" style="background-color:blueviolet;" href="/adminunit/activities/create">+ Add Activities</a>
+</div>
+@endif 
         <div class="container">
                 <table class="table table-striped table-bordered" id="table-unit">
                     <thead>

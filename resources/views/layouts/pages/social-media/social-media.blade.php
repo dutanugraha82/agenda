@@ -3,9 +3,11 @@
     Data Social Media
 @endsection
 @section('content')
+@if (auth()->user()->role == "admin_unit")
 <div class="container my-3">
     <a class="btn text-white" style="background-color:blueviolet;" href="/adminunit/social-media/create">+ Add Social Media</a>
-</div>
+</div> 
+@endif
 <div class="container">
     <div class="container">
         <table class="table table-striped table-bordered" id="table-unit">

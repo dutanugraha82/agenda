@@ -55,13 +55,24 @@
             </div>
         </div>
         <div class="container-fluid" style="display: flex; justify-content: space-between">
-            <a href="/social-media" style="width: 6rem;" class="btn btn-warning shadow">Back</a>
-            <form action="/social-media/{{ $dataSocialMed->id }}" method="POST">
+            @if (auth()->user()->role == "admin_unit")
+            <a href="/adminunit/social-media" style="width: 6rem;" class="btn btn-warning shadow">Back</a>  
+              
+             
+            @elseif(auth()->user()->role == "admin_univ")
+            <a href="/adminuniv/social-media" style="width: 6rem;" class="btn btn-warning shadow">Back</a> 
+            @elseif(auth()->user()->role == "super_admin")
+            <a href="/superadmin/social-media" style="width: 6rem;" class="btn btn-warning shadow">Back</a>
+            @endif
+            
+            @if (auth()->user()->role == "admin_unit")
+            <form action="/adminunit/social-media/{{ $dataSocialMed->id }}" method="POST">
             @csrf
             @method('delete')
             <input type="hidden" name="oldImage" value="{{ $dataSocialMed->thumbnail }}">
             <button type="submit" class="btn btn-danger">Delete Data {{ $dataSocialMed->socmed_name }}</button>
             </form>
+            @endif
         </div>
     </div>
 </div>

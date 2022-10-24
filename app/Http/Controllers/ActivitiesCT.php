@@ -23,11 +23,23 @@ class ActivitiesCT extends Controller
             ->of($dataActivities)
             ->addIndexColumn()
             ->addColumn('action', function($dataActivities){
-                return '
+                if (auth()->user()->role == "admin_unit") {
+                    return '
                 <div class="text-center">
-                <a href="/activities/'.$dataActivities->id.'/edit" style="width:5rem;" class="btn btn-sm btn-warning">Edit</a>
-                <a href="/activities/'.$dataActivities->id.'" style="width:5rem;" class="btn btn-sm btn-primary">Detail</a>
+                <a href="adminunit/activities/'.$dataActivities->id.'/edit" style="width:5rem;" class="btn btn-sm btn-warning">Edit</a>
+                <a href="adminunit/activities/'.$dataActivities->id.'" style="width:5rem;" class="btn btn-sm btn-primary">Detail</a>
                 </div>';
+                } elseif(auth()->user()->role == "admin_univ") {
+                    return '
+                <div class="text-center">
+                <a href="/adminuniv/activities/'.$dataActivities->id.'" style="width:5rem;" class="btn btn-sm btn-primary">Detail</a>
+                </div>';
+                } elseif(auth()->user()->role == "super_admin"){
+                    return '
+                    <div class="text-center">
+                    <a href="/superadmin/activities/'.$dataActivities->id.'" style="width:5rem;" class="btn btn-sm btn-primary">Detail</a>
+                    </div>';
+                }
                 
             })
             ->addColumn('unit', function($dataSocmed){
