@@ -31,7 +31,7 @@
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand  navbar-light" style="display: flex; justify-content:space-between">
+  <nav class="main-header navbar navbar-expand  navbar-light d-flex justify-content-between" >
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -40,10 +40,16 @@
         </a>
       </li>
     </ul>
-    <form action="/logout" method="POST" class="d-none d-md-block">
-      @csrf
-      <button style="width: 8rem; letter-spacing:3px" class="btn btn-danger d-block ml-auto"><b>Logout</b></button>
-    </form>
+    <div class="d-flex align-items-center justify-content-between gap-3">
+      <div class="flex-column" style="font-size:12px;margin-right:5px">
+        <i>Signed As:</i>
+        <b>{{ auth()->user()->name }} </b>
+      </div>
+      <form action="/logout" method="POST" class="d-none d-md-block">
+        @csrf
+        <button  class="btn btn-danger d-block ml-auto"><b>Logout</b></button>
+      </form>
+    </div>
   </nav>
   <!-- /.navbar -->
 
@@ -55,40 +61,25 @@
       <span class="brand-text font-weight-light">Agenda System</span>
     </a>
 
-    <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 mb-2">
-          <p class="text-white ml-3" style="letter-spacing: 4px">{{ auth()->user()->name }}</p>
-      </div>
-
-      <!-- SidebarSearch Form -->
-
-      <!-- Sidebar Menu -->
       @include('partitions.sidebar')
-      <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper p-1">
 
     <!-- Main content -->
-    <div class="card">
-      <div class="container mt-3">
-              <h3 style="font-family: monospace; letter-spacing:3px" class="text-center my-2">@yield('pageTitle')</h3>
-      </div>
-      <hr>
+    <div class="container">
+      <h3 style="font-weight:bold;margin-left:3px;margin-top:10px">@yield('pageTitle')</h3>
+ 
       @yield('content')
+</div>
   </div>
     <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2022</strong>
-    Universitas Buana Perjuangan Karawang 
-  </footer>
+
 </div>
 <!-- ./wrapper -->
 
