@@ -27,6 +27,8 @@ class LoginController extends Controller
             if(auth()->user()->role == 'super_admin') {
                 return redirect('/superadmin');
             } else if(auth()->user()->role == 'admin_unit') {
+
+                // disini bikin kondisi, jika unit belum diploting tidak bisa masuk sistem 
                 return redirect('/adminunit');
 
             } else if(auth()->user()->role == 'admin_univ') {
@@ -34,29 +36,30 @@ class LoginController extends Controller
             }
 
         }else{
-           $response = Http::withHeaders([
+            $response = Http::withHeaders([
                 'Authorization' => '4LUD38P1uCiACFOgH1sy',
                 'Content-Type' => 'application/json'
-            ])->post('https://api-gateway.ubpkarawang.ac.id/external/agenda/create-user',[
-                'form-params' => [
-                    'email' => $form['email'],
-                    'password' => $form['password']
-                ]
-            ]);
-
-            if ($response->body()) {
-                // User::create([
-                //     'name' => $response->name,
-                //     'email' => $response->email,
-                //     'password' => Hash::make($response->password)
-                // ]);
-                dd($response->body());
+            ])->post('https://api-gateway.ubpkarawang.ac.id/external/agenda/create-user',$request->validated());
+            
+            
+            if ($response->json()) {
+            
+                $user = $response->json()['data'];
+            
+                User::create([
+                    'name' => $user['name'],
+                    'email' => $user['email'],
+                    'password' => Hash::make($user['password']),
+                    'role' => 'admin_unit'
+                ]);
+                
+                //disini munculin notifikasi "persetujuan akses diterima jika sudah mendapatkan unit ploting, hubungi admin segera"
+            
+            
             } else {
                 Alert::warning('Login Failed!','email or password wrong!');
                 return redirect('/');
-            }
-            
-            // dd($response);
+            }  
         }
     }
 
