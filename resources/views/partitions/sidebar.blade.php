@@ -140,13 +140,7 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="/superadmin/create-admin-univ" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Create Admin University</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/superadmin/create-admin-unit" class="nav-link">
+            <a href="/superadmin/users" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Create Admin Unit</p>
             </a>

@@ -18,9 +18,10 @@ class SocialMediaCT extends Controller
      */
     public function index()
     {
+        $dataSocialMed = SocialMedia::all();
         if (request()->ajax()) {
             return datatables()
-                    ->of(SocialMedia::get())
+                    ->of($dataSocialMed)
                     ->addIndexColumn()
                     ->addColumn('action', function($dataSocialMed){
                         if (auth()->user()->role == "admin_unit") {

@@ -3,6 +3,7 @@ use App\Http\Controllers\ActivitiesCT;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MakeUsersCT;
 use App\Http\Controllers\SocialMediaCT;
 use App\Http\Controllers\UnitCT;
 use App\Http\Controllers\UnitSocMedCT;
@@ -26,6 +27,7 @@ Route::post('/logout',[LoginController::class,'logout']);
 
 Route::middleware(['superadmin','auth'])->prefix('superadmin')->group(function(){
     Route::get('/',[UserController::class,'index'])->name('home');
+    Route::resource('users',MakeUsersCT::class)->names(['index' => 'users']);
     Route::resource('social-media',SocialMediaCT::class)->except(['create','store'])->names(['index' => 'social-media']);
     Route::resource('website',WebsitesCT::class)->except(['create','store'])->names(['index' => 'websites']);
     Route::resource('activities',ActivitiesCT::class)->except(['create','store'])->names(['index' => 'activities']);
