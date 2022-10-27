@@ -1,9 +1,13 @@
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-      <!-- Add icons to the links using the .nav-icon class
-           with font-awesome or any other icon font library -->
       <li class="nav-item">
+        @if (auth()->user()->role == "admin_univ")
         <a href="/adminuniv" class="nav-link">
+          
+          @elseif(auth()->user()->role == "super_admin")
+          <a href="/superadmin" class="nav-link">
+            
+        @endif
           <i class="nav-icon fas fa-table"></i>
           <p>
             Report
@@ -52,8 +56,13 @@
               <i class="far fa-circle nav-icon"></i>
               <p>Websites Data</p>
             </a>
-            @else
+            @elseif(auth()->user()->role == "admin_unit")
             <a href="/adminunit/website" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Websites Data</p>
+            </a>
+            @elseif(auth()->user()->role == "super_admin")
+            <a href="/superadmin/website" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Websites Data</p>
             </a>
@@ -72,15 +81,20 @@
         <ul class="nav nav-treeview">
           <li class="nav-item">
             @if (auth()->user()->role == 'admin_univ')
-            <a href="/adinuniv/activities" class="nav-link">
+            <a href="/adminuniv/activities" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Activities Data</p>
             </a>
-            @else
-            <a href="/adinunit/activities" class="nav-link">
+            @elseif(auth()->user()->role == "admin_unit")
+            <a href="/adminunit/activities" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Activities Data</p>
             </a>
+           @elseif(auth()->user()->role == "super_admin")
+           <a href="/superadmin/activities" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Activities Data</p>
+          </a>
             @endif
            
           </li>
@@ -101,8 +115,13 @@
               <i class="far fa-circle nav-icon"></i>
               <p>Social Media Data</p>
             </a>
-            @else
+            @elseif(auth()->user()->role == 'admin_unit')
             <a href="/adminunit/social-media" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Social Media Data</p>
+            </a>
+            @elseif(auth()->user()->role == 'super_admin')
+            <a href="/superadmin/social-media" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Social Media Data</p>
             </a>
@@ -110,6 +129,7 @@
           </li>
         </ul>
       </li>
+      @if (auth()->user()->role == "super_admin")
       <li class="nav-item">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-people-arrows"></i>
@@ -120,19 +140,14 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="/superadmin/create-admin-univ" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Create Admin University</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/superadmin/create-admin-unit" class="nav-link">
+            <a href="/superadmin/users" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Create Admin Unit</p>
             </a>
           </li>
         </ul>
       </li>
+      @endif
       <li class="nav-item mt-5 d-block d-md-none">
         <form action="/logout" method="POST">
           @csrf

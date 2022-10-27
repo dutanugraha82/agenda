@@ -24,12 +24,27 @@ class WebsitesCT extends Controller
             ->of(Website::get())
             ->addIndexColumn()
             ->addColumn('Action', function($dataWebsite){
-                return '<div class="container-fluid">
+                if (auth()->user()->role == "admin_unit") {
+                    return '<div class="container-fluid">
                         <div class="d-flex">
-                        <a href="/adminuniv/website/'.$dataWebsite->id.'" style="width:5rem;" class="btn btn-primary mr-3">Detail</a>
-                        <a href="/adminuniv/website/'.$dataWebsite->id.'/edit" style="width:5rem;" class="btn btn-warning ml-3">Edit</a>
+                        <a href="/adminunit/website/'.$dataWebsite->id.'" style="width:5rem;" class="btn btn-primary mr-3">Detail</a>
+                        <a href="/adminunit/website/'.$dataWebsite->id.'/edit" style="width:5rem;" class="btn btn-warning ml-3">Edit</a>
                         </div>
                         </div>';
+                } elseif(auth()->user()->role == "admin_univ") {
+                    return '<div class="container-fluid">
+                        <div class="d-flex">
+                        <a href="/adminuniv/website/'.$dataWebsite->id.'" style="width:5rem;" class="btn btn-primary mr-3">Detail</a>
+                        </div>
+                        </div>';
+                }elseif(auth()->user()->role == "super_admin"){
+                    return '<div class="container-fluid">
+                            <div class="d-flex">
+                            <a href="/superadmin/website/'.$dataWebsite->id.'" style="width:5rem;" class="btn btn-primary mr-3">Detail</a>
+                            </div>
+                            </div>';
+                }
+                
             })
             ->rawColumns(['Action'])
             ->make(true);

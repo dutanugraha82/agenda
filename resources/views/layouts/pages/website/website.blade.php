@@ -3,8 +3,11 @@
     Data Websites
 @endsection
 @section('content')
-    <div class="container-fluid mx-2">
-        <a style="background-color: blueviolet;color:white;width:10rem" class="btn" href="/adminunit/website/create">+ Add Website</a>
+@if (auth()->user()->role == "admin_unit")
+<div class="container-fluid mx-2">
+    <a style="background-color: blueviolet;color:white;width:10rem" class="btn" href="/adminunit/website/create">+ Add Website</a>
+</div>
+@endif
         <div class="container-fluid mt-3">
             <table class="table table-striped table-bordered" id="table-website">
                 <thead>
@@ -19,7 +22,6 @@
                 </thead>
             </table>
         </div>
-    </div>
 @endsection
 @push('js')
 <script type="text/javascript">

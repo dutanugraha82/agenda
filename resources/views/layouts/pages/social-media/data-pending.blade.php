@@ -1,6 +1,6 @@
 @extends('master')
 @section('pagetTitle')
-    Data Pending Activities
+    Data Pending Social Media
 @endsection
 @section('content')
     <div class="container">
@@ -10,10 +10,11 @@
                     <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Date</th>
                     <th>Address</th>
-                    <th>Type</th>
+                    <th>Category</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th>Detail</th>
                 </tr>
                 </thead>
             </table>
@@ -31,7 +32,7 @@ function websites(){
         responsive : true,
         serchable : true,
         ajax : {
-            url : "{{ route('act-pending') }}"
+            url : "{{ route('socmed-pending') }}"
         },
         columns : [
             {"data": null, "sortable": false,
@@ -39,10 +40,11 @@ function websites(){
                 return meta.row + meta.settings._iDisplayStart + 1
             }
             },
-            {data: 'act_name', name: 'name'},
-            {data: 'act_address', name: 'address'},
-            {data: 'type', name: 'type'},
-            {data: 'act_status', name:'status'},
+            {data: 'socmed_name', name: 'name'},
+            {data: 'socmed_date', name: 'date'},
+            {data: 'socmed_address', name: 'adress'},
+            {data: 'category', name: 'category'},
+            {data: 'socmed_status', name:'status'},
             {data: 'action', name: 'action'}
         ]
     })

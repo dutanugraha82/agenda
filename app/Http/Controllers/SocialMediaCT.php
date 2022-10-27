@@ -18,15 +18,27 @@ class SocialMediaCT extends Controller
      */
     public function index()
     {
+        $dataSocialMed = SocialMedia::all();
         if (request()->ajax()) {
             return datatables()
-                    ->of(SocialMedia::get())
+                    ->of($dataSocialMed)
                     ->addIndexColumn()
                     ->addColumn('action', function($dataSocialMed){
-                        return '<div class="btn-group d-flex">
-                        <a href="/social-media/'.$dataSocialMed->id.'" class="btn btn-primary mr-3">Detail</a>
-                        <a href="/social-media/'.$dataSocialMed->id.'/edit" class="btn btn-warning ml-3">Edit</a>
+                        if (auth()->user()->role == "admin_unit") {
+                            return '<div class="btn-group d-flex">
+                        <a href="/adminunit/social-media/'.$dataSocialMed->id.'" class="btn btn-primary mr-3">Detail</a>
+                        <a href="/adminunit/social-media/'.$dataSocialMed->id.'/edit" class="btn btn-warning ml-3">Edit</a>
                         </div>';
+                        } elseif(auth()->user()->role == "admin_univ") {
+                            return '<div class="btn-group d-flex">
+                            <a href="/adminuniv/social-media/'.$dataSocialMed->id.'" class="btn btn-primary mr-3">Detail</a>
+                            </div>';
+                        }elseif(auth()->user()->role == "super_admin"){
+                            return '<div class="btn-group d-flex">
+                        <a href="/superadmin/social-media/'.$dataSocialMed->id.'" class="btn btn-primary mr-3">Detail</a>
+                        </div>';
+                        } 
+                        
                     })
                     ->addColumn('unit', function($dataSocmed){
                         return $dataSocmed->Unit->unit_name;
@@ -61,7 +73,7 @@ class SocialMediaCT extends Controller
         $validation['thumbnail'] = $request->file('thumbnail')->store('thumbnail-socmed');
         SocialMedia::create($validation);
         Alert::success('Data Stored!','Data social media stored!');
-        return redirect('/social-media');
+        return redirect('/adminunit/social-media');
     }
 
     /**
@@ -107,7 +119,37 @@ class SocialMediaCT extends Controller
             SocialMedia::find($id)->update($request->validated());
         }
         Alert::info('Data Updated!','Data success updated!');
-        return redirect('/social-media');
+        return redirect('/adminunit/social-media');
+    }
+
+    public function socMedPending(){
+        if (request()->ajax()) {
+            return datatables()
+                    ->of(SocialMedia::where('socmed_status','=','pending')->get())
+                    ->addIndexColumn()
+                    ->addColumn('action', function($dataSocialMed){
+                        return '<div class="btn-group d-flex">
+                        <a href="/adminuniv/social-media/'.$dataSocialMed->id.'" class="btn btn-primary mr-3">Detail</a>
+                        </div>';
+                    })
+                    ->addColumn('unit', function($dataSocmed){
+                        return $dataSocmed->Unit->unit_name;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
+
+        return view('layouts.pages.social-media.data-pending');
+
+    }
+
+    public function socMedPublish($id){
+        SocialMedia::find($id)->update([
+            'socmed_status' => 'published'
+        ]);
+        
+        Alert::success('Data Published!','Data success published!');
+        return redirect('/adminuniv/social-media/pending');
     }
 
     /**
@@ -121,6 +163,6 @@ class SocialMediaCT extends Controller
         Storage::delete($request->oldImage);
         SocialMedia::find($id)->delete();
         Alert::warning('Data Deleted!','Data success deleted!');
-        return redirect('/social-media');
+        return redirect('/adminunit/social-media');
     }
 }

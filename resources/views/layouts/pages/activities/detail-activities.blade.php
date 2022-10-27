@@ -3,9 +3,6 @@
     Detail {{ $dataActivities->act_name }}
 @endsection
 @section('content')
-<form action="/activities/{{ $dataActivities->id }}" method="POST">
-    @csrf
-    @method('delete')
 <div class="container-fluid">
     <div class="card p-3">
         <div class="row">
@@ -35,6 +32,13 @@
                 <div class="mb-3">
                     <label for="status">Status</label>
                     <input type="text" class="form-control" value="{{ $dataActivities->act_status }}" readonly>
+                    @if (auth()->user()->role == 'admin_univ')
+                    <form action="/adminuniv/activities/{{ $dataActivities->id }}/publish" method="POST">
+                    @csrf
+                    @method('put')
+                    <button  type="submit" class="btn btn-sm btn-success mt-4">Publish {{ $dataActivities->act_name }}</button>
+                    </form>
+                    @endif
                 </div>
                 <div class="mb-3">
                     <label for="unit">Unit</label>
@@ -43,8 +47,19 @@
             </div>
         </div>
         <div class="container-fluid" style="display: flex; justify-content: space-between">
-            <a href="/activities" style="width: 6rem;" class="btn btn-warning shadow">Back</a>
+            @if (auth()->user()->role == "admin_unit")
+            <a href="/adminunit/activities" style="width: 6rem;" class="btn btn-warning shadow">Back</a>
+            @elseif(auth()->user()->role == "admin_univ")
+            <a href="/adminunit/activities" style="width: 6rem;" class="btn btn-warning shadow">Back</a>
+            @elseif(auth()->user()->role == "super_admin")
+            <a href="/superadmin/activities" style="width: 6rem;" class="btn btn-warning shadow">Back</a>
+            @endif
+        @if (auth()->user()->role == "admin_unit")
+            <form action="/adminunit/activities/{{ $dataActivities->id }}" method="POST">
+                @csrf
+                @method('delete')
             <button type="submit" style="min-width: 6rem" class="btn btn-danger shadow">Delete {{ $dataActivities->act_name }}</a>
+        @endif
         </div>
     </div>
 </div>

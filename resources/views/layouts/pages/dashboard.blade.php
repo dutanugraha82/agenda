@@ -21,7 +21,11 @@
                                 <h4>{{ $dataActivities }}</h4>
                             </div>
                         </div>
-                      <a href="/adminuniv/activities/pending" class="btn btn-primary mt-3">Go to Activities</a>
+                        @if (auth()->user()->role == "admin_univ")
+                        <a href="/adminuniv/activities/pending" class="btn btn-primary mt-3">Go to Activities</a> 
+                        @elseif (auth()->user()->role == "super_admin")
+                        <a href="/superadmin/activities/pending" class="btn btn-primary mt-3">Go to Activities</a>
+                        @endif
                     </div>
                   </div>
             </div>
@@ -41,7 +45,11 @@
                                 <h4>{{ $dataSocMed }}</h4>
                             </div>
                         </div>
-                      <a href="#" class="btn btn-primary mt-3">Go to Social Media</a>
+                        @if (auth()->user()->role == "admin_univ")
+                        <a href="/adminuniv/social-media/pending" class="btn btn-primary mt-3">Go to Social Media</a>
+                        @elseif (auth()->user()->role == "super_admin")
+                        <a href="/superadmin/social-media/pending" class="btn btn-primary mt-3">Go to Social Media</a>
+                        @endif
                     </div>
                   </div>
             </div>
@@ -61,7 +69,11 @@
                                 <h4>{{ $dataWebsites }}</h4>
                             </div>
                         </div>
-                      <a href="/adminuniv/website/pending" class="btn btn-primary mt-3">See Data Website</a>
+                        @if (auth()->user()->role == "admin_univ")
+                        <a href="/adminuniv/website/pending" class="btn btn-primary mt-3">See Data Website</a> 
+                        @elseif (auth()->user()->role == "super_admin")
+                        <a href="/superadmin/website/pending" class="btn btn-primary mt-3">See Data Website</a>
+                        @endif
                     </div>
             </div>
         </div>

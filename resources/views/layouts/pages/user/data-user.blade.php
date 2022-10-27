@@ -3,11 +3,9 @@
     Data Social Media
 @endsection
 @section('content')
-@if (auth()->user()->role == "admin_unit")
 <div class="container my-3">
-    <a class="btn text-white" style="background-color:blueviolet;" href="/adminunit/social-media/create">+ Add Social Media</a>
+    <a class="btn text-white" style="background-color:blueviolet;" href="/superadmin/users/create">+ Add Account</a>
 </div> 
-@endif
 <div class="container">
     <div class="container">
         <table class="table table-striped table-bordered" id="table-unit">
@@ -15,11 +13,9 @@
                <tr>
                     <th>No</th>
                     <th>Name</th>
-                    <th>Date</th>
-                    <th>Address</th>
-                    <th>Category</th>
+                    <th>Email</th>
+                    <th>Role</th>
                     <th>Unit</th>
-                    <th>Status</th>
                     <th>Action</th>
               </tr>
             </thead>
@@ -38,7 +34,7 @@
         responsive : true,
         searchable : true,
         ajax : {
-            url : "{{ route('social-media') }}"
+            url : "{{ route('users') }}"
         },
         columns : [
             {"data": null, "sortable": false,
@@ -46,12 +42,10 @@
                 return meta.row + meta.settings._iDisplayStart + 1
             }
             },
-            {data: 'socmed_name', name: 'name'},
-            {data: 'socmed_date', name: 'date'},
-            {data: 'socmed_address', name: 'address'},
-            {data: 'category', name: 'category'},
+            {data: 'name', name: 'name'},
+            {data: 'email', name: 'email'},
+            {data: 'role', name: 'role'},
             {data: 'unit', name: 'unit.name'},
-            {data: 'socmed_status', name: 'status'},
             {data: 'action', name: 'action'}
         ]
     })
