@@ -18,6 +18,28 @@ class WebsitesCT extends Controller
      */
     public function index()
     {
+
+        if(auth()->user()->role == 'super_admin'){
+            if(request()->ajax()){
+                $dataWebsite = Website::where('web_status','=','published')->get();
+                return datatables()
+                ->of($dataWebsite)
+                ->addIndexColumn()
+                ->addColumn('Action', function($dataWebsite){
+                        return '<div class="container-fluid">
+                                <div class="d-flex">
+                                <a href="/superadmin/website/'.$dataWebsite->id.'" style="width:5rem;" class="btn btn-primary mr-3">Detail</a>
+                                </div>
+                                </div>';
+                    
+                })
+                ->rawColumns(['Action'])
+                ->make(true);
+            }
+        }else{
+
+        }
+
         if(request()->ajax()){
             $dataWebsite = Website::get();
             return datatables()
@@ -37,12 +59,6 @@ class WebsitesCT extends Controller
                         <a href="/adminuniv/website/'.$dataWebsite->id.'" style="width:5rem;" class="btn btn-primary mr-3">Detail</a>
                         </div>
                         </div>';
-                }elseif(auth()->user()->role == "super_admin"){
-                    return '<div class="container-fluid">
-                            <div class="d-flex">
-                            <a href="/superadmin/website/'.$dataWebsite->id.'" style="width:5rem;" class="btn btn-primary mr-3">Detail</a>
-                            </div>
-                            </div>';
                 }
                 
             })

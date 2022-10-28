@@ -21,6 +21,7 @@
                                 <h4>{{ $dataActivities }}</h4>
                             </div>
                         </div>
+                        <p class="my-3">Data Published : {{  $dataActivitiesPublish }}</p>
                         @if (auth()->user()->role == "admin_univ")
                         <a href="/adminuniv/activities/pending" class="btn btn-primary mt-3">Go to Activities</a> 
                         @elseif (auth()->user()->role == "super_admin")
@@ -45,6 +46,7 @@
                                 <h4>{{ $dataSocMed }}</h4>
                             </div>
                         </div>
+                        <p class="my-3">Data Published : {{  $dataSocMedPublish }}</p>
                         @if (auth()->user()->role == "admin_univ")
                         <a href="/adminuniv/social-media/pending" class="btn btn-primary mt-3">Go to Social Media</a>
                         @elseif (auth()->user()->role == "super_admin")
@@ -69,6 +71,7 @@
                                 <h4>{{ $dataWebsites }}</h4>
                             </div>
                         </div>
+                        <p class="my-3">Data Published : {{  $dataWebsitesPublish }}</p>
                         @if (auth()->user()->role == "admin_univ")
                         <a href="/adminuniv/website/pending" class="btn btn-primary mt-3">See Data Website</a> 
                         @elseif (auth()->user()->role == "super_admin")
