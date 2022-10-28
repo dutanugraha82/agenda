@@ -25,8 +25,13 @@ Route::get('/',[LoginController::class,'login'])->name('login')->middleware('gue
 Route::post('/login-proses',[LoginController::class,'authenticate']);
 Route::post('/logout',[LoginController::class,'logout']);
 
-Route::middleware(['superadmin','auth', 'revalidate'])->prefix('superadmin')->group(function(){
+Route::middleware(['superadmin','auth','revalidate'])->prefix('superadmin')->group(function(){
     Route::get('/',[UserController::class,'index'])->name('home');
+    Route::get('/activities/pending',[ActivitiesCT::class,'actPending'])->name('act-pending');
+    Route::get('/website/pending',[WebsitesCT::class,'pending'])->name('web-pending');
+    Route::get('/social-media/pending',[SocialMediaCT::class,'socMedPending'])->name('socmed-pending');
+    Route::get('/unit/delete/{unit_id}',[UnitCT::class,'destroy']);
+    Route::get('/unit-socmed/delete/{unit_id}',[UnitSocMedCT::class,'destroy']);
     Route::resource('users',MakeUsersCT::class)->names(['index' => 'users']);
     Route::resource('social-media',SocialMediaCT::class)->except(['create','store'])->names(['index' => 'social-media']);
     Route::resource('website',WebsitesCT::class)->except(['create','store'])->names(['index' => 'websites']);
@@ -35,8 +40,6 @@ Route::middleware(['superadmin','auth', 'revalidate'])->prefix('superadmin')->gr
 
 Route::middleware(['adminuniv','auth','revalidate'])->prefix('adminuniv')->group(function(){
     Route::get('/',[UserController::class,'index'])->name('home');
-    Route::get('/unit/delete/{unit_id}',[UnitCT::class,'destroy']);
-    Route::get('/unit-socmed/delete/{unit_id}',[UnitSocMedCT::class,'destroy']);
     Route::get('/activities/pending',[ActivitiesCT::class,'actPending'])->name('act-pending');
     Route::get('/website/pending',[WebsitesCT::class,'pending'])->name('web-pending');
     Route::get('/social-media/pending',[SocialMediaCT::class,'socMedPending'])->name('socmed-pending');
