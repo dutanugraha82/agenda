@@ -21,7 +21,7 @@ class WebsitesCT extends Controller
         if(request()->ajax()){
             $dataWebsite = Website::get();
             return datatables()
-            ->of(Website::get())
+            ->of($dataWebsite)
             ->addIndexColumn()
             ->addColumn('Action', function($dataWebsite){
                 if (auth()->user()->role == "admin_unit") {
@@ -88,9 +88,17 @@ class WebsitesCT extends Controller
             ->of($dataWebsite)
             ->addIndexColumn()
             ->addColumn('Action', function($dataWebsite){
-                return '
+                if (auth()->user()->role == 'admin_univ') {
+                    return '
                         <a href="/adminuniv/website/'.$dataWebsite->id.'" style="width:5rem;" class="btn btn-primary mr-3">Detail</a>
                         ';
+                } elseif(auth()->user()->role == 'super_admin') {
+                    return '
+                        <a href="/superadmin/website/'.$dataWebsite->id.'" style="width:5rem;" class="btn btn-primary mr-3">Detail</a>
+                        ';
+                }
+                
+                
             })
             ->rawColumns(['Action'])
             ->make(true);
@@ -140,7 +148,6 @@ class WebsitesCT extends Controller
      */
     public function update(WebsiteRequest $request, $id)
     {
-        // dd($request);
         if($request->file('web_thumbnail')){
             $validation = $request->validated();
             $validation['web_thumbnail'] = $request->file('web_thumbnail')->store('web-thumbnail');

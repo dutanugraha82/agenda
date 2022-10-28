@@ -30,9 +30,6 @@ class MakeUsersCT extends Controller
                         <a href="/superadmin/users/'.$dataUser->id.'/edit" class="btn btn-warning ml-3">Edit</a>
                         </div>';
             })
-            ->addColumn('unit', function($dataUser){
-                return $dataUser->Unit->unit_name;
-            })
             ->rawColumns(['action'])
             ->make(true);
         }
@@ -60,7 +57,7 @@ class MakeUsersCT extends Controller
     public function store(UserRequest $request)
     {
         $validation = $request->validated();
-        $validation['role'] = 'admin_unit';
+        $validation['role'] = 'admin_univ';
         $validation['password'] = Hash::make($request->password);
         User::create($validation);
         Alert::success('User Created!','Success created user!');
@@ -75,7 +72,9 @@ class MakeUsersCT extends Controller
      */
     public function show($id)
     {
-        //
+        $dataUser = User::find($id);
+        // dd($dataUser);
+        return view('layouts.pages.user.detail-user', compact('dataUser'));
     }
 
     /**

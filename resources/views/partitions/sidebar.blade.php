@@ -7,13 +7,14 @@
           @elseif(auth()->user()->role == "super_admin")
           <a href="/superadmin" class="nav-link">
             
+            <i class="nav-icon fas fa-table"></i>
+            <p>
+              Report
+            </p>
+          </a>
+        </li>
         @endif
-          <i class="nav-icon fas fa-table"></i>
-          <p>
-            Report
-          </p>
-        </a>
-      </li>
+      @if (auth()->user()->role == "admin_univ")
       <li class="nav-item">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-copy"></i>
@@ -24,23 +25,20 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            @if (auth()->user()->role == "super_admin")
-            <a href="/superadmin/unit" class="nav-link">
+            <a href="/adminuniv/unit" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Units Data</p>
             </a> 
-            @endif
           </li>
           <li class="nav-item">
-            @if (auth()->user()->role == "super_admin")
-            <a href="/superadmin/unit-socmed" class="nav-link">
+            <a href="/adminuniv/unit-socmed" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Unit Social Media Data</p>
             </a>
-            @endif
           </li>
         </ul>
       </li>
+      @endif
       <li class="nav-item">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-globe"></i>
@@ -142,7 +140,7 @@
           <li class="nav-item">
             <a href="/superadmin/users" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Create Admin Unit</p>
+              <p>Create Admin Univ</p>
             </a>
           </li>
         </ul>

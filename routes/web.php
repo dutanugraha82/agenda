@@ -25,18 +25,21 @@ Route::get('/',[LoginController::class,'login'])->name('login')->middleware('gue
 Route::post('/login-proses',[LoginController::class,'authenticate']);
 Route::post('/logout',[LoginController::class,'logout']);
 
-Route::middleware(['superadmin','auth'])->prefix('superadmin')->group(function(){
+Route::middleware(['superadmin','auth','revalidate'])->prefix('superadmin')->group(function(){
     Route::get('/',[UserController::class,'index'])->name('home');
+    Route::get('/activities/pending',[ActivitiesCT::class,'actPending'])->name('act-pending');
+    Route::get('/website/pending',[WebsitesCT::class,'pending'])->name('web-pending');
+    Route::get('/social-media/pending',[SocialMediaCT::class,'socMedPending'])->name('socmed-pending');
+    Route::get('/unit/delete/{unit_id}',[UnitCT::class,'destroy']);
+    Route::get('/unit-socmed/delete/{unit_id}',[UnitSocMedCT::class,'destroy']);
     Route::resource('users',MakeUsersCT::class)->names(['index' => 'users']);
     Route::resource('social-media',SocialMediaCT::class)->except(['create','store'])->names(['index' => 'social-media']);
     Route::resource('website',WebsitesCT::class)->except(['create','store'])->names(['index' => 'websites']);
     Route::resource('activities',ActivitiesCT::class)->except(['create','store'])->names(['index' => 'activities']);
 });
 
-Route::middleware(['adminuniv','auth'])->prefix('adminuniv')->group(function(){
+Route::middleware(['adminuniv','auth','revalidate'])->prefix('adminuniv')->group(function(){
     Route::get('/',[UserController::class,'index'])->name('home');
-    Route::get('/unit/delete/{unit_id}',[UnitCT::class,'destroy']);
-    Route::get('/unit-socmed/delete/{unit_id}',[UnitSocMedCT::class,'destroy']);
     Route::get('/activities/pending',[ActivitiesCT::class,'actPending'])->name('act-pending');
     Route::get('/website/pending',[WebsitesCT::class,'pending'])->name('web-pending');
     Route::get('/social-media/pending',[SocialMediaCT::class,'socMedPending'])->name('socmed-pending');
@@ -50,7 +53,7 @@ Route::middleware(['adminuniv','auth'])->prefix('adminuniv')->group(function(){
     Route::resource('unit-socmed', UnitSocMedCT::class)->except(['destroy','create','store'])->names(['index'=>'unit-socmed']);
 });
 
-Route::middleware('adminunit')->prefix('adminunit')->group(function(){
+Route::middleware(['adminunit','auth','revalidate'])->prefix('adminunit')->group(function(){
     Route::get('/',[UserController::class,'index'])->name('home');
     Route::resource('website',WebsitesCT::class)->only(['create','index','store'])->names(['index' => 'websites']);
     Route::resource('activities',ActivitiesCT::class)->only(['index','create','store'])->names(['index' => 'activities']);

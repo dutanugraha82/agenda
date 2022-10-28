@@ -20,6 +20,13 @@
             </table>
         </div>
     </div>
+    <div class="container my-4">
+        @if (auth()->user()->role == 'admin_univ')
+            <a href="/adminuniv/" style="width: 7rem" class="btn btn-warning">Back</a>
+        @elseif(auth()->user()->role == 'super_admin')
+            <a href="/superadmin/" style="width: 7rem"  class="btn btn-warning">Back</a>
+        @endif
+    </div>
 @endsection
 @push('js')
 <script type="text/javascript">

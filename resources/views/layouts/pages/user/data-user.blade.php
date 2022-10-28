@@ -15,7 +15,6 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Role</th>
-                    <th>Unit</th>
                     <th>Action</th>
               </tr>
             </thead>
@@ -45,7 +44,6 @@
             {data: 'name', name: 'name'},
             {data: 'email', name: 'email'},
             {data: 'role', name: 'role'},
-            {data: 'unit', name: 'unit.name'},
             {data: 'action', name: 'action'}
         ]
     })

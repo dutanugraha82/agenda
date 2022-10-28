@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'superadmin' => \App\Http\Middleware\SuperAdminMiddleware::class,
         'adminuniv' => \App\Http\Middleware\AdminUnivMiddleware::class,
         'adminunit' => \App\Http\Middleware\AdminUnitMiddleware::class,
+        'revalidate' => \App\Http\Middleware\RevalidateBackHistory::class
     ];
 }
