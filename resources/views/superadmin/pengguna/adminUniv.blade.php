@@ -7,24 +7,26 @@
         </div>
     @endif
 
-<div class="container my-3">
-    <a class="btn text-white btn-primary btn-sm" href="/superadmin/pengguna/admin-univ/create"><i class="fas fa-plus"></i> <span>Tambah Admin Univ</span></a>
-</div> 
 <div class="container">
-    <div class="container">
-        <table class="table table-striped table-bordered" id="table-unit">
-            <thead>
-               <tr>
-                    <th>No</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Unit</th>
-                    <th>Modified At</th>
-                    <th>Action</th>
-              </tr>
-            </thead>
-          </table>
+    <a class="btn text-white btn-primary btn-sm mb-3" href="/superadmin/pengguna/admin-univ/create"><i class="fas fa-plus"></i> <span>Tambah Admin Univ</span></a>
+
+    <div class="card p-3">
+    <div class="table-responsive">
+            <table class="table table-striped table-bordered" id="table-unit">
+                <thead>
+                <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Unit</th>
+                        <th>Modified At</th>
+                        <th>Action</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
     </div>
+   
 </div>
 @endsection
 @push('js')

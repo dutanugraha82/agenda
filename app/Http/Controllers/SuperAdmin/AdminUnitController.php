@@ -77,6 +77,6 @@ class AdminUnitController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
-        return redirect()->route('superadmin.pengguna.admin-unit')->with('msg','Admin unit berhasil dihapus');
+        return redirect()->back()->with('msg','Admin unit berhasil dihapus');
     }
 }

@@ -8,7 +8,9 @@
     @endif
 
 <div class="container">
-    <div class="container">
+    
+<div class="card p-3">
+    <div class="table-responsive">
         <table class="table table-striped table-bordered" id="table-unit">
             <thead>
                <tr>
@@ -21,7 +23,8 @@
               </tr>
             </thead>
           </table>
-    </div>
+</div>
+</div>
 </div>
 @endsection
 @push('js')
