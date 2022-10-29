@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
   <title>{{ auth()->user()->name }} | Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -26,6 +28,11 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -43,7 +50,14 @@
     <div class="d-flex align-items-center justify-content-between gap-3">
       <div class="flex-column" style="font-size:12px;margin-right:5px">
         <i>Signed As:</i>
-        <b>{{ auth()->user()->name }} </b>
+
+        @if(auth()->user()->role == 'super_admin')
+          <b>Superadmin </b>
+        @elseif(auth()->user()->role == 'admin_univ')
+          <b>Admin Univ </b>
+        @else
+          <b>Admin Unit</b>
+        @endif
       </div>
       <form action="/logout" method="POST" class="d-none d-md-block">
         @csrf
@@ -84,7 +98,8 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+
+
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- Bootstrap 4 -->
@@ -113,9 +128,10 @@
 <script src="{{ asset('dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
 @stack('js')
 @include('sweetalert::alert')
+
 </body>
 </html>

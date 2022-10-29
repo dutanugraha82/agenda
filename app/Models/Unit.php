@@ -23,4 +23,8 @@ class Unit extends Model
     public function website(){
         return $this->hasMany(Website::class);
     }
+
+    public function user(){
+        return $this->hasOne(User::class);
+    }
 }

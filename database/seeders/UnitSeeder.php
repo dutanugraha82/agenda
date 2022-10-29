@@ -14,9 +14,22 @@ class UnitSeeder extends Seeder
      */
     public function run()
     {
-        Unit::create([
-            'unit_name' => 'test',
-            'url' => 'www.google.com'
-        ]);
+
+        $units = [
+            'pusdatin',
+            'akademik',
+            'lppm',
+            'lpm',
+            'kepegawaian',
+            'marketing dan dokumentasi',
+            'spi',
+            'lhkk'
+        ];
+
+        foreach($units as $unit) {
+            Unit::create([
+                'unit_name' => $unit
+            ]);
+        }
     }
 }
