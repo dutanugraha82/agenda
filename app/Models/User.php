@@ -6,6 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
+
 
 class User extends Authenticatable
 {
@@ -20,6 +23,18 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password','role','unit_id'
     ];
+
+    public function getCreatedAtAttribute($date){
+        return  $this->attributes['created_at'] = Carbon::parse($date)->format('d M Y H:i:s');
+    }
+    public function getUpdatedAtAttribute($date){
+        return  $this->attributes['updated_at'] = Carbon::parse($date)->format('d M Y H:i:s');
+    }
+
+    function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
 
     public function unit(){
         return $this->belongsTo(Unit::class);

@@ -1,7 +1,7 @@
 <?php
 use App\Http\Controllers\ActivitiesCT;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+// use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MakeUsersCT;
 use App\Http\Controllers\SocialMediaCT;
@@ -9,6 +9,10 @@ use App\Http\Controllers\UnitCT;
 use App\Http\Controllers\UnitSocMedCT;
 use App\Http\Controllers\WebsitesCT;
 use App\Models\Activities;
+use App\Http\Controllers\SuperAdmin\AdminUnivController;
+use App\Http\Controllers\SuperAdmin\AdminUnitController;
+use App\Http\Controllers\SuperAdmin\DashboardController as SuperAdminDashboard;
+use App\Http\Controllers\UnitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +29,20 @@ Route::get('/',[LoginController::class,'login'])->name('login')->middleware('gue
 Route::post('/login-proses',[LoginController::class,'authenticate']);
 Route::post('/logout',[LoginController::class,'logout']);
 
+Route::post('json/unit',[UnitController::class,'getUnit'])->name('getUnit');
+
 Route::middleware(['superadmin','auth','revalidate'])->prefix('superadmin')->group(function(){
-    Route::get('/',[UserController::class,'index'])->name('home');
+
+    Route::get('/',[SuperAdminDashboard::class,'index']);
+
+    Route::prefix('pengguna')->group(function() {
+
+        Route::resource('admin-univ',AdminUnivController::class)->names(['index' => 'superadmin.pengguna.admin-univ']);
+        Route::resource('admin-unit',AdminUnitController::class)->names(['index' => 'superadmin.pengguna.admin-unit']);
+    });
+
+
+    // Route::get('/',[UserController::class,'index'])->name('home');
     Route::get('/activities/pending',[ActivitiesCT::class,'actPending'])->name('act-pending');
     Route::get('/website/pending',[WebsitesCT::class,'pending'])->name('web-pending');
     Route::get('/social-media/pending',[SocialMediaCT::class,'socMedPending'])->name('socmed-pending');
@@ -39,7 +55,7 @@ Route::middleware(['superadmin','auth','revalidate'])->prefix('superadmin')->gro
 });
 
 Route::middleware(['adminuniv','auth','revalidate'])->prefix('adminuniv')->group(function(){
-    Route::get('/',[UserController::class,'index'])->name('home');
+    // Route::get('/',[UserController::class,'index'])->name('home');
     Route::get('/activities/pending',[ActivitiesCT::class,'actPending'])->name('act-pending');
     Route::get('/website/pending',[WebsitesCT::class,'pending'])->name('web-pending');
     Route::get('/social-media/pending',[SocialMediaCT::class,'socMedPending'])->name('socmed-pending');
@@ -54,7 +70,7 @@ Route::middleware(['adminuniv','auth','revalidate'])->prefix('adminuniv')->group
 });
 
 Route::middleware(['adminunit','auth','revalidate'])->prefix('adminunit')->group(function(){
-    Route::get('/',[UserController::class,'index'])->name('home');
+    // Route::get('/',[UserController::class,'index'])->name('home');
     Route::resource('website',WebsitesCT::class)->only(['create','index','store'])->names(['index' => 'websites']);
     Route::resource('activities',ActivitiesCT::class)->only(['index','create','store'])->names(['index' => 'activities']);
     Route::resource('social-media',SocialMediaCT::class)->only(['index','create','store'])->names(['index' => 'social-media']);
