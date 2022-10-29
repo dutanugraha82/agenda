@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Models\SocMed;  
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Carbon\Carbon;
 class Unit extends Model
 {
     use HasFactory;
@@ -27,4 +27,12 @@ class Unit extends Model
     public function user(){
         return $this->hasOne(User::class);
     }
+
+    public function getCreatedAtAttribute($date){
+        return  $this->attributes['created_at'] = Carbon::parse($date)->format('d M Y H:i:s');
+    }
+    public function getUpdatedAtAttribute($date){
+        return  $this->attributes['updated_at'] = Carbon::parse($date)->format('d M Y H:i:s');
+    }
+
 }

@@ -29,7 +29,7 @@
     </li>
   
     <li class="nav-item">
-      <a href="/adminuniv" class="nav-link">      
+      <a href="/superadmin/unit" class="nav-link">      
             <i class="nav-icon fas fa-building"></i>
             <p>Unit</p>
       </a>

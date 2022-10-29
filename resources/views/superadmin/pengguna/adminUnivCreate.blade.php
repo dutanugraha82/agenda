@@ -1,7 +1,7 @@
 @extends('master')
 @section('pageTitle','Tambah Admin Universitas')
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
  
         <div class="card p-2">
             <form action="/superadmin/pengguna/admin-univ" method="POST">

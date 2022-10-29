@@ -11,8 +11,8 @@ use App\Http\Controllers\WebsitesCT;
 use App\Models\Activities;
 use App\Http\Controllers\SuperAdmin\AdminUnivController;
 use App\Http\Controllers\SuperAdmin\AdminUnitController;
+use App\Http\Controllers\SuperAdmin\UnitController as SuperAdminUnit;
 use App\Http\Controllers\SuperAdmin\DashboardController as SuperAdminDashboard;
-use App\Http\Controllers\UnitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,18 +29,18 @@ Route::get('/',[LoginController::class,'login'])->name('login')->middleware('gue
 Route::post('/login-proses',[LoginController::class,'authenticate']);
 Route::post('/logout',[LoginController::class,'logout']);
 
-Route::post('json/unit',[UnitController::class,'getUnit'])->name('getUnit');
+Route::post('unit/select2',[SuperAdminUnit::class,'select2'])->name('getUnit');
 
 Route::middleware(['superadmin','auth','revalidate'])->prefix('superadmin')->group(function(){
 
     Route::get('/',[SuperAdminDashboard::class,'index']);
 
     Route::prefix('pengguna')->group(function() {
-
         Route::resource('admin-univ',AdminUnivController::class)->names(['index' => 'superadmin.pengguna.admin-univ']);
         Route::resource('admin-unit',AdminUnitController::class)->names(['index' => 'superadmin.pengguna.admin-unit']);
     });
 
+    Route::resource('unit',SuperAdminUnit::class);
 
     // Route::get('/',[UserController::class,'index'])->name('home');
     Route::get('/activities/pending',[ActivitiesCT::class,'actPending'])->name('act-pending');

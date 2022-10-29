@@ -16,7 +16,9 @@ class AdminUnivController extends Controller
      */
     public function index()
     {
-        $adminUniv = User::with('unit')->where('role','admin_univ')->get();
+        $adminUniv = User::with('unit')
+                            ->where('role','admin_univ')
+                            ->get();
         if (request()->ajax()){
             return datatables()
             ->of($adminUniv)
@@ -105,7 +107,7 @@ class AdminUnivController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
-        return redirect()->route('superadmin.pengguna.admin-univ')->with('msg','Admin universitas berhasil dihapus');
+        return redirect()->back()->with('msg','Admin universitas berhasil dihapus');
 
     }
 }
