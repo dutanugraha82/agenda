@@ -31,7 +31,7 @@
             <div class="d-flex" style="justify-content: space-between">
                 <a href="/superadmin/users" style="width: 5rem;" class="btn btn-warning">Back</a>
                 <form action="/superadmin/users/{{ $dataUser->id }}" method="POST">
-                @method('destroy')
+                @method('delete')
                 @csrf
                 <button type="submit" class="btn btn-danger">Delete {{ $dataUser->name }}</button>
                 </form>

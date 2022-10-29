@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row" style="padding-top: 5%; padding-bottom:10%">
             <div class="col-md-4">
-                <div class="card mx-auto text-center shadow p-2" style="width: 18rem;">
+                <div class="card mx-auto text-center shadow p-4" style="width: 18rem;">
                     <i class="nav-icon fa fa-4x fa-calendar"></i>
                     <div class="card-body">
                         <h5>Activities</h5>
@@ -31,7 +31,7 @@
                   </div>
             </div>
             <div class="col-md-4">
-                <div class="card mx-auto text-center shadow p-2" style="width: 18rem;">
+                <div class="card mx-auto text-center shadow p-4" style="width: 18rem;">
                     <i class="nav-icon fa fa-4x fa-user-tag"></i>
                     <div class="card-body">
                         <h5>Social Media</h5>
@@ -56,7 +56,7 @@
                   </div>
             </div>
             <div class="col-md-4">
-                <div class="card mx-auto shadow text-center p-2" style="width: 18rem;">
+                <div class="card mx-auto shadow text-center p-4" style="width: 18rem;">
                     <i class="nav-icon fa fa-4x fa-globe"></i>
                     <div class="card-body">
                         <h5>Websites</h5>

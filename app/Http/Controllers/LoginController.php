@@ -23,15 +23,26 @@ class LoginController extends Controller
 
         if (Auth::attempt($request->validated())) {
 
-
             if(auth()->user()->role == 'super_admin') {
                 return redirect('/superadmin');
-            } else if(auth()->user()->role == 'admin_unit') {
 
-                // disini bikin kondisi, jika unit belum diploting tidak bisa masuk sistem 
-                return redirect('/adminunit');
+            } elseif(auth()->user()->role == 'admin_unit')
+            {
+                if(auth()->user()->unit_id != NULL){    
+                    Alert::success('Login Berhasil','Selamat Datang!');
+                    return redirect('/adminunit');
+                }elseif(auth()->user()->unit_id == NULL){
+                    Auth::logout();
 
-            } else if(auth()->user()->role == 'admin_univ') {
+                    $request->session()->invalidate();
+
+                    $request->session()->regenerateToken();
+                    Alert::info('Unit Anda belum diploting!','Silahkan menghubungi Super Admin!');
+                    return redirect('/');
+                }
+                
+            }elseif(auth()->user()->role == 'admin_univ')
+            {
                 return redirect('/adminuniv');
             }
 
@@ -53,7 +64,8 @@ class LoginController extends Controller
                     'role' => 'admin_unit'
                 ]);
                 
-                //disini munculin notifikasi "persetujuan akses diterima jika sudah mendapatkan unit ploting, hubungi admin segera"
+                Alert::info('Informasi!','persetujuan akses diterima jika sudah mendapatkan unit ploting, hubungi admin segera');
+                return redirect('/');
             
             
             } else {

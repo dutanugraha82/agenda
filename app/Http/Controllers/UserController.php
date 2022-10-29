@@ -9,6 +9,7 @@ class UserController extends Controller
 {
 
     public function index(){
+
         $dataActivities = DB::table('activities')->count();
         $dataActivitiesPending = DB::table('activities')->where('act_status','=', 'pending')->count();
         $dataActivitiesPublish = DB::table('activities')->where('act_status','=','published')->count();
