@@ -19,17 +19,23 @@ class LoginController extends Controller
 
     public function authenticate(LoginRequest $request){
 
-        $form = $request->validated();
 
         if (Auth::attempt($request->validated())) {
-
 
             if(auth()->user()->role == 'super_admin') {
                 return redirect('/superadmin');
             } else if(auth()->user()->role == 'admin_unit') {
 
-                // disini bikin kondisi, jika unit belum diploting tidak bisa masuk sistem 
-                return redirect('/adminunit');
+                if(!is_null(auth()->user()->unit_id)) {
+                    Alert::success('Login Berhasil','Selamat Datang!');
+                    return redirect('/adminunit');
+                } else {
+                    Auth::logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
+                    Alert::info('Unit Anda belum diploting!','Silahkan menghubungi Super Admin!');
+                    return redirect('/');
+                }
 
             } else if(auth()->user()->role == 'admin_univ') {
                 return redirect('/adminuniv');
@@ -37,13 +43,14 @@ class LoginController extends Controller
 
         }else{
             $response = Http::withHeaders([
-                'Authorization' => '4LUD38P1uCiACFOgH1sy',
+                'Authorization' => env('AGENDA_ACCESS_KEY'),
                 'Content-Type' => 'application/json'
             ])->post('https://api-gateway.ubpkarawang.ac.id/external/agenda/create-user',$request->validated());
-            
-            
-            if ($response->json()) {
-            
+
+            if($response->getStatusCode() === 404) {
+                Alert::warning('Login Failed!','email or password wrong!');
+                return redirect('/');
+            } else {
                 $user = $response->json()['data'];
             
                 User::create([
@@ -52,14 +59,12 @@ class LoginController extends Controller
                     'password' => Hash::make($user['password']),
                     'role' => 'admin_unit'
                 ]);
-                
-                //disini munculin notifikasi "persetujuan akses diterima jika sudah mendapatkan unit ploting, hubungi admin segera"
-            
-            
-            } else {
-                Alert::warning('Login Failed!','email or password wrong!');
+
+                Alert::info('Informasi!','persetujuan akses diterima jika sudah mendapatkan unit ploting, hubungi admin segera');
                 return redirect('/');
-            }  
+
+            }
+            
         }
     }
 
