@@ -85,9 +85,8 @@
   <div class="content-wrapper p-1" style="background-color:#F5F5F5">
 
     <!-- Main content -->
-    <div class="container" >
+    <div class="container-fluid p-4" >
       <h3 style="font-weight:bold;margin-left:3px;margin-top:10px">@yield('pageTitle')</h3>
- 
       @yield('content')
     </div>
   </div>

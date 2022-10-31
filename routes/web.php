@@ -1,7 +1,7 @@
 <?php
 use App\Http\Controllers\ActivitiesCT;
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MakeUsersCT;
 use App\Http\Controllers\SocialMediaCT;
@@ -42,36 +42,37 @@ Route::middleware(['superadmin','auth','revalidate'])->prefix('superadmin')->gro
 
     Route::resource('unit',SuperAdminUnit::class);
 
-    // Route::get('/',[UserController::class,'index'])->name('home');
+    Route::get('/',[UserController::class,'index'])->name('home');
+    Route::get('/report',[UserController::class,'report']);
     Route::get('/activities/pending',[ActivitiesCT::class,'actPending'])->name('act-pending');
     Route::get('/website/pending',[WebsitesCT::class,'pending'])->name('web-pending');
     Route::get('/social-media/pending',[SocialMediaCT::class,'socMedPending'])->name('socmed-pending');
     Route::get('/unit/delete/{unit_id}',[UnitCT::class,'destroy']);
     Route::get('/unit-socmed/delete/{unit_id}',[UnitSocMedCT::class,'destroy']);
     Route::resource('users',MakeUsersCT::class)->names(['index' => 'users']);
-    Route::resource('social-media',SocialMediaCT::class)->except(['create','store'])->names(['index' => 'social-media']);
-    Route::resource('website',WebsitesCT::class)->except(['create','store'])->names(['index' => 'websites']);
-    Route::resource('activities',ActivitiesCT::class)->except(['create','store'])->names(['index' => 'activities']);
+    Route::resource('social-media',SocialMediaCT::class)->only(['show','index'])->names(['index' => 'social-media']);
+    Route::resource('website',WebsitesCT::class)->only(['show','index'])->names(['index' => 'websites']);
+    Route::resource('activities',ActivitiesCT::class)->only(['show','index'])->names(['index' => 'activities']);
 });
 
 Route::middleware(['adminuniv','auth','revalidate'])->prefix('adminuniv')->group(function(){
-    // Route::get('/',[UserController::class,'index'])->name('home');
+    Route::get('/',[UserController::class,'index'])->name('home');
     Route::get('/activities/pending',[ActivitiesCT::class,'actPending'])->name('act-pending');
     Route::get('/website/pending',[WebsitesCT::class,'pending'])->name('web-pending');
     Route::get('/social-media/pending',[SocialMediaCT::class,'socMedPending'])->name('socmed-pending');
     Route::put('/website/{websites_id}/publish',[WebsitesCT::class,'published']);
     Route::put('/activities/{activities_id}/publish',[ActivitiesCT::class,'actPublish']);
     Route::put('/social-media/{social_media_id}/publish',[SocialMediaCT::class,'socMedPublish']);
-    Route::resource('social-media',SocialMediaCT::class)->except(['create','store'])->names(['index' => 'social-media']);
-    Route::resource('website',WebsitesCT::class)->except(['create','store'])->names(['index' => 'websites']);
-    Route::resource('activities',ActivitiesCT::class)->except(['create','store'])->names(['index' => 'activities']);
+    Route::resource('social-media',SocialMediaCT::class)->only(['show','index'])->names(['index' => 'social-media']);
+    Route::resource('website',WebsitesCT::class)->only(['show','index'])->names(['index' => 'websites']);
+    Route::resource('activities',ActivitiesCT::class)->only(['show','index'])->names(['index' => 'activities']);
     Route::resource('unit',UnitCT::class)->except(['destroy','create','store'])->names(['index' => 'unit']);
     Route::resource('unit-socmed', UnitSocMedCT::class)->except(['destroy','create','store'])->names(['index'=>'unit-socmed']);
 });
 
 Route::middleware(['adminunit','auth','revalidate'])->prefix('adminunit')->group(function(){
-    // Route::get('/',[UserController::class,'index'])->name('home');
-    Route::resource('website',WebsitesCT::class)->only(['create','index','store'])->names(['index' => 'websites']);
-    Route::resource('activities',ActivitiesCT::class)->only(['index','create','store'])->names(['index' => 'activities']);
-    Route::resource('social-media',SocialMediaCT::class)->only(['index','create','store'])->names(['index' => 'social-media']);
+    Route::get('/',[UserController::class,'index'])->name('home');
+    Route::resource('website',WebsitesCT::class)->names(['index' => 'websites']);
+    Route::resource('activities',ActivitiesCT::class)->names(['index' => 'activities']);
+    Route::resource('social-media',SocialMediaCT::class)->names(['index' => 'social-media']);
 });

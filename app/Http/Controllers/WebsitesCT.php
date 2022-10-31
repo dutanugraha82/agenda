@@ -172,8 +172,8 @@ class WebsitesCT extends Controller
         }else{
             Website::find($id)->update($request->validated());
         }
-        Alert::warning('Data Updated!','Data success updated!');
-        return redirect('/adminuniv/website');
+        Alert::info('Data Updated!','Data success updated!');
+        return redirect('/adminunit/website');
     }
 
     /**
@@ -187,6 +187,6 @@ class WebsitesCT extends Controller
         Storage::delete($request->oldImage);
         Website::where('id','=', $id)->delete();
         Alert::warning('Delete Success!','Data success deleted');
-        return redirect('/adminuniv/website');
+        return redirect('/adminunit/website');
     }
 }
