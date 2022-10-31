@@ -22,4 +22,8 @@ class UserController extends Controller
         return view('layouts.pages.dashboard',compact('dataActivities','dataActivitiesPending','dataSocMed','dataSocMedPending','dataWebsites','dataWebsitesPending','dataActivitiesPublish','dataSocMedPublish','dataWebsitesPublish'));
     }
 
+    public function report(){
+        
+    }
+
 }
