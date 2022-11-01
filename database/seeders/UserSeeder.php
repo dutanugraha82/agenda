@@ -4,8 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -21,21 +19,21 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Super Admin',
                 'email' => 'superadmin@ptk.ubpkarawang.ac.id',
-                'password' => Hash::make('bismilah'),
+                'password' => 'bismilah',
                 'role' => 'super_admin',
                 'unit_id' =>null
             ],
             [
                 'name' => 'Admin Univ',
                 'email' => 'adminuniv@ptk.ubpkarawang.ac.id',
-                'password' => Hash::make('hamdalah'),
+                'password' => 'hamdalah',
                 'role' => 'admin_univ',
                 'unit_id' =>null
             ],
             [
                 'name' => 'Admin Unit',
                 'email' => 'adminunit@ptk.ubpkarawang.ac.id',
-                'password' => Hash::make('istighfar'),
+            'password' => 'istighfar',
                 'role' => 'admin_unit',
                 'unit_id' => null
             ]
