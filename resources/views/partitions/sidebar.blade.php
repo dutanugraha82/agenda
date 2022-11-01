@@ -1,11 +1,12 @@
 <nav class="mt-2">
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-    @if (auth()->user()->role != 'admin_unit')
     <li class="nav-item">
       @if (auth()->user()->role == "admin_univ")
       <a href="/adminuniv" class="nav-link">      
         @elseif(auth()->user()->role == "super_admin")
-        <a href="/superadmin" class="nav-link">           
+        <a href="/superadmin" class="nav-link">  
+        @elseif(auth()->user()->role == 'admin_unit')   
+        <a href="/adminunit" class="nav-link">       
           @endif
           <i class="nav-icon fas fa-table"></i>
           <p>
@@ -13,7 +14,6 @@
           </p>
         </a>
       </li>
-    @endif
     @if (auth()->user()->role == "admin_univ")
     <li class="nav-item">
       <a href="#" class="nav-link">
