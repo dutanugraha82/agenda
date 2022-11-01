@@ -7,8 +7,7 @@
         </div>
     @endif
 
-<div class="container">
-    
+<div class="container-fluid">    
 <div class="card p-3">
     <div class="table-responsive">
         <table class="table table-striped table-bordered" id="table-unit">

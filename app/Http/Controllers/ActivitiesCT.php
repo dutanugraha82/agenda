@@ -26,8 +26,8 @@ class ActivitiesCT extends Controller
                 if (auth()->user()->role == "admin_unit") {
                     return '
                 <div class="text-center">
-                <a href="adminunit/activities/'.$dataActivities->id.'/edit" style="width:5rem;" class="btn btn-sm btn-warning">Edit</a>
-                <a href="adminunit/activities/'.$dataActivities->id.'" style="width:5rem;" class="btn btn-sm btn-primary">Detail</a>
+                <a href="/adminunit/activities/'.$dataActivities->id.'/edit" style="width:5rem;" class="btn btn-sm btn-warning">Edit</a>
+                <a href="/adminunit/activities/'.$dataActivities->id.'" style="width:5rem;" class="btn btn-sm btn-primary">Detail</a>
                 </div>';
                 } elseif(auth()->user()->role == "admin_univ") {
                     return '
@@ -72,7 +72,7 @@ class ActivitiesCT extends Controller
     {
         Activities::create($request->validated());
         Alert::success('Success!','Data activities has stored!');
-        return redirect('/activities');
+        return redirect('/adminunit/activities');
     }
 
     /**
@@ -136,14 +136,14 @@ class ActivitiesCT extends Controller
         ]);
 
         Alert::success('Publish Success','Data success published!');
-        return redirect('/adminuniv/activities/pending');
+        return redirect('/adminunit/activities/pending');
     }
 
     public function update(ActivitiesRequest $request, $id)
     {
         Activities::where('id',$id)->update($request->validated());
         Alert::info('Data Updated!','Data success updated!');
-        return redirect('/activities');
+        return redirect('/adminunit/activities');
     }
 
     /**
@@ -156,6 +156,6 @@ class ActivitiesCT extends Controller
     {
         Activities::find($id)->delete();
         Alert::warning('Data Deleted!','Data success deleted!');
-        return redirect('/activities');
+        return redirect('/adminunit/activities');
     }
 }

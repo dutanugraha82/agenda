@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -19,12 +17,12 @@ class LoginController extends Controller
 
     public function authenticate(LoginRequest $request){
 
-
         if (Auth::attempt($request->validated())) {
 
             if(auth()->user()->role == 'super_admin') {
                 return redirect('/superadmin');
-            } else if(auth()->user()->role == 'admin_unit') {
+
+            } elseif(auth()->user()->role == 'admin_unit'){
 
                 if(!is_null(auth()->user()->unit_id)) {
                     Alert::success('Login Berhasil','Selamat Datang!');
@@ -36,8 +34,8 @@ class LoginController extends Controller
                     Alert::info('Unit Anda belum diploting!','Silahkan menghubungi Super Admin!');
                     return redirect('/');
                 }
-
-            } else if(auth()->user()->role == 'admin_univ') {
+                
+            }elseif(auth()->user()->role == 'admin_univ'){
                 return redirect('/adminuniv');
             }
 
@@ -46,7 +44,8 @@ class LoginController extends Controller
                 'Authorization' => env('AGENDA_ACCESS_KEY'),
                 'Content-Type' => 'application/json'
             ])->post('https://api-gateway.ubpkarawang.ac.id/external/agenda/create-user',$request->validated());
-
+            
+            
             if($response->getStatusCode() === 404) {
                 Alert::warning('Login Failed!','email or password wrong!');
                 return redirect('/');
@@ -56,7 +55,7 @@ class LoginController extends Controller
                 User::create([
                     'name' => $user['name'],
                     'email' => $user['email'],
-                    'password' => Hash::make($user['password']),
+                    'password' => $user['password'],
                     'role' => 'admin_unit'
                 ]);
 
@@ -64,7 +63,6 @@ class LoginController extends Controller
                 return redirect('/');
 
             }
-            
         }
     }
 

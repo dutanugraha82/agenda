@@ -5,7 +5,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="card">
-        <form action="/website/{{ $dataWebsite->id }}" method="POST" class="p-2" enctype="multipart/form-data">
+        <form action="/adminunit/website/{{ $dataWebsite->id }}" method="POST" class="p-2" enctype="multipart/form-data">
         @csrf
         @method('put')
         <div class="row">
@@ -77,7 +77,7 @@
             </div>
         </div>
         <div class="btn-group">
-            <a href="/website" style="width:8rem" class="btn rounded btn-warning mr-3">Back</a>
+            <a href="/adminunit/website" style="width:8rem" class="btn rounded btn-warning mr-3">Back</a>
             <button type="submit" class="btn rounded btn-primary ml-3">Update Data {{ $dataWebsite->web_name }}</button>
         </div>
         </form>

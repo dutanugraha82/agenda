@@ -38,6 +38,7 @@
                     <div class="my-4">
                         <label for="web_category">Web Category</label>
                         <select name="web_category" id="" class="form-control">
+                            <option value="">----Choose Category----</option>
                             <option value="nasional">Nasional</option>
                             <option value="internasional">internasional </option>
                         </select>

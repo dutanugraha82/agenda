@@ -85,7 +85,9 @@ class MakeUsersCT extends Controller
      */
     public function edit($id)
     {
-        //
+        $dataUser = User::find($id);
+        $dataUnit = Unit::all();
+        return view('layouts.pages.user.edit-user', compact('dataUser','dataUnit'));
     }
 
     /**
@@ -108,6 +110,8 @@ class MakeUsersCT extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::find($id)->delete();
+        Alert::info('Delete Success!','User success deleted!');
+        return redirect('/superadmin/users');
     }
 }

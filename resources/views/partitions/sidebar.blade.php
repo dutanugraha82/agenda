@@ -1,5 +1,6 @@
-<nav class="mt-2" >
-    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" style="font-size:14px">
+<nav class="mt-2">
+
+<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" style="font-size:14px">
     @if(auth()->user()->role == 'super_admin')
     <li class="nav-item">
       <a href="/superadmin" class="nav-link">      
@@ -58,6 +59,66 @@
         <p>Reporting</p>
       </a>
     </li>
+
+    @elseif(auth()->user()->role == 'admin_univ')
+
+    <li class="nav-item">
+      <a href="/superadmin" class="nav-link">      
+            <i class="nav-icon fas fa-chart-line"></i>
+            <p>Dashboard</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/adminuniv" class="nav-link">      
+            <i class="nav-icon fas fa-hiking"></i>
+            <p>Kegiatan</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/adminuniv" class="nav-link">      
+            <i class="nav-icon fas fa-user-friends"></i>
+            <p>Media Sosial</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/adminuniv" class="nav-link">      
+            <i class="nav-icon fas fa-globe"></i>
+            <p>Situs</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/adminuniv" class="nav-link">      
+        <i class="nav-icon fas fa-table"></i>
+        <p>Reporting</p>
+      </a>
+    </li>
+
+    @else
+
+    <li class="nav-item">
+      <a href="/superadmin" class="nav-link">      
+            <i class="nav-icon fas fa-chart-line"></i>
+            <p>Dashboard</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/adminuniv" class="nav-link">      
+            <i class="nav-icon fas fa-hiking"></i>
+            <p>Kegiatan</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/adminuniv" class="nav-link">      
+            <i class="nav-icon fas fa-user-friends"></i>
+            <p>Media Sosial</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/adminuniv" class="nav-link">      
+            <i class="nav-icon fas fa-globe"></i>
+            <p>Situs</p>
+      </a>
+    </li>
     @endif
 
 
@@ -69,4 +130,4 @@
         </form>
       </li>
     </ul>
-  </nav>
+</nav>

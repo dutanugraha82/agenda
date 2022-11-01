@@ -5,7 +5,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="card p-3">
-        <form action="/activities/{{ $dataActivities->id }}" method="POST">
+        <form action="/adminunit/activities/{{ $dataActivities->id }}" method="POST">
         @csrf
         @method('put')
         <div class="row">
@@ -53,7 +53,7 @@
         </div>
 
         <div class="container text-center mt-5 mb-3" style="display: flex; justify-content: space-between;">
-            <a href="/activities" style="background-color: rgb(247, 247, 59);min-width: 6rem;" class="btn shadow">Back</a>
+            <a href="/adminunit/activities" style="background-color: rgb(247, 247, 59);min-width: 6rem;" class="btn shadow">Back</a>
             <button type="submit" class="btn btn-success shadow">Update Data Activities</button>
         </div>
         </form>
