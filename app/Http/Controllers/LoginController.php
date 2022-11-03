@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -17,13 +18,15 @@ class LoginController extends Controller
 
     public function authenticate(LoginRequest $request){
 
+        $form = $request->validated();
+
         if (Auth::attempt($request->validated())) {
 
             if(auth()->user()->role == 'super_admin') {
                 return redirect('/superadmin');
 
-            } elseif(auth()->user()->role == 'admin_unit'){
-
+            } elseif(auth()->user()->role == 'admin_unit')
+            {
                 if(!is_null(auth()->user()->unit_id)) {
                     Alert::success('Login Berhasil','Selamat Datang!');
                     return redirect('/adminunit');
@@ -35,7 +38,8 @@ class LoginController extends Controller
                     return redirect('/');
                 }
                 
-            }elseif(auth()->user()->role == 'admin_univ'){
+            }elseif(auth()->user()->role == 'admin_univ')
+            {
                 return redirect('/adminuniv');
             }
 

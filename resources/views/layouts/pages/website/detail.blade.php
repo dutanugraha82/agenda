@@ -37,8 +37,8 @@
                             <label for="status">Status</label>
                             <div class="d-flex">
                                 <p style="text-decoration: underline" class="text-muted">{{ $dataWebsite->web_status }}</p>
-                            @if ($dataWebsite->web_status == 'pending')
-                            @if (auth()->user()->role == 'admin_univ')
+                                @if (auth()->user()->role == 'admin_univ')
+                                @if ($dataWebsite->web_status == 'pending')
                             <div class="ml-3">
                                 <form action="/adminuniv/website/{{ $dataWebsite->id }}/publish" method="POST">
                                     @csrf
