@@ -41,7 +41,7 @@ Route::middleware(['superadmin','auth','revalidate'])->prefix('superadmin')->gro
     });
 
     Route::resource('unit',SuperAdminUnit::class);
-
+    Route::get('/',[UserController::class,'report']);
     Route::get('/',[UserController::class,'index'])->name('home');
     Route::get('/report',[UserController::class,'report']);
     Route::get('/activities/pending',[ActivitiesCT::class,'actPending'])->name('act-pending');
