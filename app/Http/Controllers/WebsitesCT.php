@@ -97,30 +97,30 @@ class WebsitesCT extends Controller
         return redirect('/adminunit/website');
     }
 
-    public function pending(){
-        if(request()->ajax()){
-            $dataWebsite = Website::where('web_status','=','pending')->get();
-            return datatables()
-            ->of($dataWebsite)
-            ->addIndexColumn()
-            ->addColumn('Action', function($dataWebsite){
-                if (auth()->user()->role == 'admin_univ') {
-                    return '
-                        <a href="/adminuniv/website/'.$dataWebsite->id.'" style="width:5rem;" class="btn btn-primary mr-3">Detail</a>
-                        ';
-                } elseif(auth()->user()->role == 'super_admin') {
-                    return '
-                        <a href="/superadmin/website/'.$dataWebsite->id.'" style="width:5rem;" class="btn btn-primary mr-3">Detail</a>
-                        ';
-                }
+    // public function pending(){
+    //     if(request()->ajax()){
+    //         $dataWebsite = Website::where('web_status','=','pending')->get();
+    //         return datatables()
+    //         ->of($dataWebsite)
+    //         ->addIndexColumn()
+    //         ->addColumn('Action', function($dataWebsite){
+    //             if (auth()->user()->role == 'admin_univ') {
+    //                 return '
+    //                     <a href="/adminuniv/website/'.$dataWebsite->id.'" style="width:5rem;" class="btn btn-primary mr-3">Detail</a>
+    //                     ';
+    //             } elseif(auth()->user()->role == 'super_admin') {
+    //                 return '
+    //                     <a href="/superadmin/website/'.$dataWebsite->id.'" style="width:5rem;" class="btn btn-primary mr-3">Detail</a>
+    //                     ';
+    //             }
                 
                 
-            })
-            ->rawColumns(['Action'])
-            ->make(true);
-        }
-        return view('layouts.pages.website.data-pending');
-    }
+    //         })
+    //         ->rawColumns(['Action'])
+    //         ->make(true);
+    //     }
+    //     return view('layouts.pages.website.data-pending');
+    // }
 
     public function published($id){
         Website::find($id)->update([
