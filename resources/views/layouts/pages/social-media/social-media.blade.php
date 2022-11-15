@@ -6,7 +6,7 @@
 @if (auth()->user()->role == "admin_unit")
 <div class="container my-3">
     <a class="btn text-white" style="background-color:blueviolet;" href="/adminunit/social-media/create">+ Add Social Media</a>
-</div> 
+</div>
 @endif
 <div class="container">
     <div class="container">
@@ -38,7 +38,7 @@
         responsive : true,
         searchable : true,
         ajax : {
-            url : "{{ route('social-media') }}"
+            url : "{{ route('socialmedia') }}"
         },
         columns : [
             {"data": null, "sortable": false,

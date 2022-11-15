@@ -30,7 +30,7 @@ class UnitSocMedCT extends Controller
                         </div>
                         </div>
                         ';
-                
+
             })
             ->addColumn('unit', function($dataSocmed){
                 return $dataSocmed->Unit->unit_name;
@@ -38,7 +38,7 @@ class UnitSocMedCT extends Controller
             ->rawColumns(['action'])
             ->make(true);
         }
-        return view('layouts.pages.unit.social-media');
+        return view('layouts.pages.unit.socialmedia');
     }
 
     /**

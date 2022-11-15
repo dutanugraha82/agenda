@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SuperAdmin\StoreAdminUnivRequest;
 use App\Http\Requests\SuperAdmin\UpdateAdminUnivRequest;
 use App\Models\User;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminUnivController extends Controller
 {
@@ -26,7 +27,7 @@ class AdminUnivController extends Controller
             ->addColumn('action', function($row){
 
                 return '<div class="d-flex justify-content-start">
-                <a href="/superadmin/pengguna/admin-univ/'.$row->id.'/edit" class="btn btn-warning btn-sm">Edit</a> 
+                <a href="/superadmin/pengguna/admin-univ/'.$row->id.'/edit" class="btn btn-warning btn-sm">Edit</a>
                             <form action='.route('admin-univ.destroy',['admin_univ' => $row->id]).' method="POST">
                                 '.csrf_field().'
                                 '.method_field("DELETE").'
@@ -36,7 +37,7 @@ class AdminUnivController extends Controller
                             </form>
                         </div>
                         ';
-              
+
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -65,8 +66,9 @@ class AdminUnivController extends Controller
     {
 
         User::create($request->validated() + ['role' => 'admin_univ']);
-        return redirect()->route('superadmin.pengguna.admin-univ')->with('msg','Admin universitas berhasil ditambah');
-        
+        Alert::success('Berhasil','Admin universitas berhasil disimpan');
+        return redirect()->route('superadmin.pengguna.admin-univ');
+
     }
 
 
@@ -94,7 +96,8 @@ class AdminUnivController extends Controller
     {
 
         User::where('id',$id)->update($request->validated() + ['role' => 'admin_univ']);
-        return redirect()->route('superadmin.pengguna.admin-univ')->with('msg','Admin universitas berhasil disunting');
+        Alert::success('Berhasil','Admin universitas berhasil disunting');
+        return redirect()->route('superadmin.pengguna.admin-univ');
 
     }
 
@@ -107,7 +110,8 @@ class AdminUnivController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
-        return redirect()->back()->with('msg','Admin universitas berhasil dihapus');
+        Alert::success('Berhasil','Admin universitas berhasil dihapus');
+        return redirect()->back();
 
     }
 }

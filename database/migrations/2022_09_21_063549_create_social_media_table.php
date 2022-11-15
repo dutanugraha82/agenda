@@ -16,7 +16,7 @@ class CreateSocialMediaTable extends Migration
         Schema::create('social_media', function (Blueprint $table) {
             $table->id();
             $table->string('socmed_name');
-            $table->date('socmed_date');
+            $table->dateTime('socmed_date');
             $table->text('socmed_address');
             $table->text('caption');
             $table->string('thumbnail');
@@ -24,7 +24,9 @@ class CreateSocialMediaTable extends Migration
             $table->text('socmed_url');
             $table->unsignedBigInteger('unit_id');
             $table->foreign('unit_id')->references('id')->on('units');
-            $table->enum('socmed_status',['pending','published']);
+            $table->enum('socmed_status',['reject','pending','publish'])->default('pending');
+            $table->text('feedback')->nullable();
+            $table->dateTime('status_at')->nullable();
             $table->timestamps();
         });
     }

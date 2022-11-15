@@ -4,13 +4,6 @@
 @endsection
 @section('content')
 
-@if (session('msg'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>{{session('msg')}}</strong>
-        </div>
-    @endif
-
-   
     <div class="container">
     <a class="btn text-white btn-primary btn-sm mb-3" href="/superadmin/unit/create"><i class="fas fa-plus"></i> <span>Tambah Unit</span></a>
     <div class="card p-3">
@@ -21,8 +14,7 @@
                     <th scope="col">No</th>
                     <th scope="col">Unit Name</th>
                     <th scope="col">Url</th>
-                    <th scope="col">Created At</th>
-                    <th>Updated At</th>
+                    <th>Modified At</th>
                     <th scope="col" class="text-center">Action</th>
               </tr>
             </thead>
@@ -52,15 +44,19 @@
             }
             },
             {data: 'unit_name', name: 'unit_name'},
-            {data: 'url', name: 'url'},
+            {
+                data: 'url',
+                render : function(url) {
+                    return "<a href="+url+" target='_blank'>link</a>";
+                }
+            },
             {data: 'updated_at', name: 'updated_at'},
-            {data: 'created_at', name: 'created_at'},
             {data: 'action', name: 'action'}
         ],
         "columnDefs": [{
                 "defaultContent": "-",
                 "targets": "_all"
-            }] 
+            }]
     })
 }
 </script>

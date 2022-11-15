@@ -1,13 +1,7 @@
 @extends('master')
 @section('pageTitle','Admin Unit')
 @section('content')
-    @if (session('msg'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>{{session('msg')}}</strong>
-        </div>
-    @endif
-
-<div class="container-fluid">    
+<div class="container-fluid">
 <div class="card p-3">
     <div class="table-responsive">
         <table class="table table-striped table-bordered" id="table-unit">
@@ -51,9 +45,9 @@
             "columnDefs": [{
                 "defaultContent": "-",
                 "targets": "_all"
-            }] 
+            }]
         })
     })
- 
+
 </script>
 @endpush

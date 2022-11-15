@@ -25,6 +25,15 @@ class StoreUnitRequest extends FormRequest
     {
         return [
             'unit_name' => 'required',
+            'url' => 'required|url',
+        ];
+    }
+
+    public function messages(){
+        return [
+            'unit_name.required' => 'Nama unit harus diisi',
+            'url.required' => 'URL harus diisi',
+            'url.url' => 'URL hrus berformat url/http (contoh: https://ubpkarawang.ac.id)',
         ];
     }
 }

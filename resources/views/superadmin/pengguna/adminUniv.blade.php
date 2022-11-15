@@ -1,12 +1,6 @@
 @extends('master')
 @section('pageTitle','Admin Universitas')
 @section('content')
-    @if (session('msg'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>{{session('msg')}}</strong>
-        </div>
-    @endif
-
 <div class="container">
     <a class="btn text-white btn-primary btn-sm mb-3" href="/superadmin/pengguna/admin-univ/create"><i class="fas fa-plus"></i> <span>Tambah Admin Univ</span></a>
 
@@ -26,7 +20,7 @@
             </table>
         </div>
     </div>
-   
+
 </div>
 @endsection
 @push('js')
@@ -54,9 +48,9 @@
             "columnDefs": [{
                 "defaultContent": "-",
                 "targets": "_all"
-            }] 
+            }]
         })
     })
- 
+
 </script>
 @endpush
