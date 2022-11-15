@@ -2,7 +2,7 @@
 @section('pageTitle','Tambah Admin Universitas')
 @section('content')
     <div class="container">
- 
+
         <div class="card p-2">
             <form action="/superadmin/pengguna/admin-univ" method="POST">
                 @csrf
@@ -34,14 +34,14 @@
                     <div class="d-flex justify-content-between align-items-center">
                       <input type="text" class="form-control" name="password" id="password" value="{{ old('password') }}">
                       <button class="btn btn-dark" onclick="generatePassword()">Random</button>
-                      
+
                     </div>
                     @error('password')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary">Buat Akun</button>
+                <button type="submit" class="btn btn-primary btn-sm">Tambah Admin Universitas</button>
             </form>
         </div>
     </div>
@@ -54,7 +54,7 @@
         var chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         var passwordLength = 10;
         var password = "";
-        
+
         for (var i = 0; i <= passwordLength; i++) {
           var randomNumber = Math.floor(Math.random() * chars.length);
           password += chars.substring(randomNumber, randomNumber +1);
@@ -68,7 +68,7 @@
 
 
       $( "#getUnit" ).select2({
-        ajax: { 
+        ajax: {
           url: "{{route('getUnit')}}",
           type: "post",
           dataType: 'json',
@@ -92,5 +92,5 @@
     });
 </script>
 
-   
+
 @endsection

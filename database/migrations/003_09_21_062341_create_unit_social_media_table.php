@@ -15,7 +15,8 @@ class CreateUnitSocialMediaTable extends Migration
     {
         Schema::create('unit_social_media', function (Blueprint $table) {
             $table->id();
-            $table->string('name_unit_socmed');
+            $table->string('account_name');
+            $table->enum('social_media',['facebook','instagram','twitter','tiktok','telegram','other']);
             $table->string('url');
             $table->unsignedBigInteger('unit_id');
             $table->foreign('unit_id')->references('id')->on('units');

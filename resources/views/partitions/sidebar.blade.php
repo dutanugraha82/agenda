@@ -2,25 +2,25 @@
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
     @if (auth()->user()->role == 'super_admin')
       <li class="nav-item">
-        <a href="/superadmin" class="nav-link">      
+        <a href="/superadmin" class="nav-link">
               <i class="nav-icon fas fa-chart-line"></i>
               <p>Dashboard</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="/superadmin/activities" class="nav-link">      
+        <a href="/superadmin/activities" class="nav-link">
               <i class="nav-icon fas fa-hiking"></i>
               <p>Kegiatan</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="/superadmin/social-media" class="nav-link">      
+        <a href="/superadmin/social-media" class="nav-link">
               <i class="nav-icon fas fa-user-friends"></i>
               <p>Media Sosial</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="/superadmin/website" class="nav-link">      
+        <a href="/superadmin/website" class="nav-link">
               <i class="nav-icon fas fa-globe"></i>
               <p>Situs</p>
         </a>
@@ -46,7 +46,7 @@
           </ul>
       </li>
       <li class="nav-item">
-        <a href="/superadmin/unit" class="nav-link">      
+        <a href="/superadmin/unit" class="nav-link">
               <i class="nav-icon fas fa-building"></i>
               <p>Unit</p>
         </a>
@@ -54,31 +54,31 @@
     @endif
     @if (auth()->user()->role == 'admin_univ')
     <li class="nav-item">
-      <a href="/adminuniv" class="nav-link">      
+      <a href="/adminuniv" class="nav-link">
             <i class="nav-icon fas fa-chart-line"></i>
             <p>Dashboard</p>
       </a>
     </li>
       <li class="nav-item">
-        <a href="/adminuniv/activities" class="nav-link">      
+        <a href="/adminuniv/activities" class="nav-link">
               <i class="nav-icon fas fa-hiking"></i>
               <p>Kegiatan</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="/adminuniv/social-media" class="nav-link">      
+        <a href="/adminuniv/social-media" class="nav-link">
               <i class="nav-icon fas fa-user-friends"></i>
               <p>Media Sosial</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="/adminuniv/website" class="nav-link">      
+        <a href="/adminuniv/websites" class="nav-link">
               <i class="nav-icon fas fa-globe"></i>
-              <p>Situs</p>
+              <p>Artikel Situs</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="/adminuniv" class="nav-link">      
+        <a href="/adminuniv/reporting" class="nav-link">
           <i class="nav-icon fas fa-table"></i>
           <p>Reporting</p>
         </a>
@@ -86,31 +86,31 @@
      @endif
     @if (auth()->user()->role == 'admin_unit')
     <li class="nav-item">
-      <a href="/adminunit" class="nav-link">      
+      <a href="/adminunit" class="nav-link">
             <i class="nav-icon fas fa-chart-line"></i>
             <p>Dashboard</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="/adminunit/activities" class="nav-link">      
+      <a href="/adminunit/activities" class="nav-link">
             <i class="nav-icon fas fa-hiking"></i>
             <p>Kegiatan</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="/adminunit/social-media" class="nav-link">      
+      <a href="/adminunit/social-media" class="nav-link">
             <i class="nav-icon fas fa-user-friends"></i>
             <p>Media Sosial</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="/adminunit/website" class="nav-link">      
+      <a href="/adminunit/websites" class="nav-link">
             <i class="nav-icon fas fa-globe"></i>
-            <p>Situs</p>
+            <p>Artikel Situs</p>
       </a>
     </li>
     @endif
-     
+
       <li class="nav-item mt-5 d-block d-md-none">
         <form action="/logout" method="POST">
           @csrf

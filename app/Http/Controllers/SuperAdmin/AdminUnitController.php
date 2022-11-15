@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SuperAdmin\UpdateAdminUnitRequest;
 use App\Models\User;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminUnitController extends Controller
 {
@@ -23,7 +24,7 @@ class AdminUnitController extends Controller
             ->addColumn('action', function($row){
 
                 return '<div class="d-flex justify-content-start">
-                            <a href="/superadmin/pengguna/admin-unit/'.$row->id.'/edit" class="btn btn-warning btn-sm">Edit</a> 
+                            <a href="/superadmin/pengguna/admin-unit/'.$row->id.'/edit" class="btn btn-warning btn-sm">Edit</a>
                             <form action='.route('admin-unit.destroy',['admin_unit' => $row->id]).' method="POST">
                                 '.csrf_field().'
                                 '.method_field("DELETE").'
@@ -33,7 +34,7 @@ class AdminUnitController extends Controller
                             </form>
                         </div>
                         ';
-              
+
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -65,7 +66,8 @@ class AdminUnitController extends Controller
     public function update(UpdateAdminUnitRequest $request, $id)
     {
         User::where('id',$id)->update($request->validated() + ['role' => 'admin_unit']);
-        return redirect()->route('superadmin.pengguna.admin-unit')->with('msg','Admin unit berhasil disunting');
+        Alert::success('Berhasil','Admin unit berhasil disunting');
+        return redirect()->route('superadmin.pengguna.admin-unit');
     }
 
     /**
@@ -77,6 +79,7 @@ class AdminUnitController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
-        return redirect()->back()->with('msg','Admin unit berhasil dihapus');
+        Alert::success('Berhasil','Admin unit berhasil dihapus');
+        return redirect()->back();
     }
 }
