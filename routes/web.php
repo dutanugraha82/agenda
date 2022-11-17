@@ -52,8 +52,8 @@ Route::middleware(['superadmin','auth','revalidate'])->prefix('superadmin')->gro
 
     Route::post('socialmedia',[SuperAdminUnit::class,'social_media_store'])->name('superadmin.unit.socialmedia-store');
     Route::get('unit/{id}/socialmedia',[SuperAdminUnit::class,'social_media'])->name('superadmin.unit.socialmedia');
-Route::delete('unit/socialmedia/{id}',[SuperAdminUnit::class,'social_media_destroy'])->name('superadmin.unit.socialmedia-destroy');
-    Route::resource('unit',SuperAdminUnit::class);
+    Route::delete('unit/socialmedia/{id}',[SuperAdminUnit::class,'social_media_destroy'])->name('superadmin.unit.socialmedia-destroy');
+    Route::resource('unit',SuperAdminUnit::class)->names(['index' => 'unit']);
     Route::get('/',[UserController::class,'report']);
     Route::get('/',[UserController::class,'index'])->name('home');
     Route::get('/report',[UserController::class,'report']);

@@ -24,11 +24,11 @@ class WebsiteController extends Controller
             return datatables()->of($websites)
                                ->addIndexColumn()
                                ->addColumn('thumbnail',function($row){
-                                    return "<a href=". url($row->web_thumbnail)." target='_blank'>link</a>"; 
+                                    return "<a href=".asset('/storage'.'/'.$row->web_thumbnail)." target='_blank'>link</a>"; 
 
                                })
                                ->addColumn('document',function($row){
-                                    return "<a href=". url($row->web_document)." target='_blank'>link</a>"; 
+                                    return "<a href=".asset('/storage'.'/'.$row->web_document)." target='_blank'>link</a>"; 
 
                                })
                                ->addColumn('action',function($row){

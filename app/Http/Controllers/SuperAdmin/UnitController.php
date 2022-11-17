@@ -65,7 +65,7 @@ class UnitController extends Controller
     {
         Unit::create($request->validated());
         Alert::success('Berhasil','Unit berhasil ditambah');
-        return redirect()->route('unit.index');
+        return redirect('/superadmin/unit');
     }
 
     /**

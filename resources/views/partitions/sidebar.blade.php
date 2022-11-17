@@ -98,7 +98,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="/adminunit/social-media" class="nav-link">
+      <a href="/adminunit/socialmedia" class="nav-link">
             <i class="nav-icon fas fa-user-friends"></i>
             <p>Media Sosial</p>
       </a>
