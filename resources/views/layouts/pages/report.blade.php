@@ -40,15 +40,14 @@
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const labelsWebsite = <?php echo json_encode($unitWebsites) ?>
   
     const dataWebsite = {
-      labels: labelsWebsite,
+      labels: ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'],
       datasets: [{
         label: 'Websites Report',
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(255, 99, 132)',
-        data: <?php echo json_encode($totalWebsites)?>,
+        data: <?php echo json_encode($websites)?>,
       }]
     };
   

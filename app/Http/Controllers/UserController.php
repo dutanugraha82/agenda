@@ -28,46 +28,44 @@ class UserController extends Controller
         return view('layouts.pages.dashboard',compact('dataActivities','dataActivitiesPending','dataSocMed','dataSocMedPending','dataWebsites','dataWebsitesPending','dataActivitiesPublish','dataSocMedPublish','dataWebsitesPublish'));
     }
 
-    public function report(){
-
+//     public function report(){
         
+//         $dataWebsites = Unit::select('unit_name',DB::raw('count(websites.unit_id) as jumlah'))->leftJoin('websites',function($join){
+//             $join->on('units.id','=','websites.unit_id');
+//         })->groupBy('unit_name')->get();
 
-        $dataWebsites = Unit::select('unit_name',DB::raw('count(websites.unit_id) as jumlah'))->leftJoin('websites',function($join){
-            $join->on('units.id','=','websites.unit_id');
-        })->groupBy('unit_name')->get();
+//         $totalWebsites = [];
+//         $unitWebsites = [];
+//         foreach ($dataWebsites as $item) {
+//             $totalWebsites[] = $item->jumlah;
+//             $unitWebsites[] = $item->unit_name;
+//         }
 
-        $totalWebsite = [];
-        $unitWebsites = [];
-        foreach ($dataWebsites as $item) {
-            $totalWebsites[] = $item->jumlah;
-            $unitWebsites[] = $item->unit_name;
-        }
+//         $dataActivities = Unit::select('unit_name',DB::raw('count(activities.unit_id) as jumlah'))->leftJoin('activities',function($join){
+//             $join->on('units.id','=','activities.unit_id');
+//         })->groupBy('unit_name')->get();
 
-        $dataActivities = Unit::select('unit_name',DB::raw('count(activities.unit_id) as jumlah'))->leftJoin('activities',function($join){
-            $join->on('units.id','=','activities.unit_id');
-        })->groupBy('unit_name')->get();
-
-        $totalActivities = [];
-        $unitActivities = [];
-        foreach ($dataActivities as $item) {
-            $totalActivities[] = $item->jumlah;
-            $unitActivities[] = $item->unit_name;
-        }
+//         $totalActivities = [];
+//         $unitActivities = [];
+//         foreach ($dataActivities as $item) {
+//             $totalActivities[] = $item->jumlah;
+//             $unitActivities[] = $item->unit_name;
+//         }
         
-        $dataSocMed = Unit::select('unit_name',DB::raw('count(social_media.unit_id) as jumlah'))->leftJoin('social_media',function($join){
-            $join->on('units.id','=','social_media.unit_id');
-        })->groupBy('unit_name')->get();
+//         $dataSocMed = Unit::select('unit_name',DB::raw('count(social_media.unit_id) as jumlah'))->leftJoin('social_media',function($join){
+//             $join->on('units.id','=','social_media.unit_id');
+//         })->groupBy('unit_name')->get();
 
-        $totalSocMed = [];
-        $unitSocMed = [];
-        foreach ($dataSocMed as $item) {
-            $totalSocMed[] = $item->jumlah;
-            $unitSocMed[] = $item->unit_name;
-        }
+//         $totalSocMed = [];
+//         $unitSocMed = [];
+//         foreach ($dataSocMed as $item) {
+//             $totalSocMed[] = $item->jumlah;
+//             $unitSocMed[] = $item->unit_name;
+//         }
        
 
-// dd($dataActivities);
-        return view('layouts.pages.report',compact('unitWebsites','totalWebsites','unitActivities','totalActivities','unitSocMed','totalSocMed'));
-    }
+// // dd($dataActivities);
+//         return view('layouts.pages.report',compact('unitWebsites','totalWebsites','unitActivities','totalActivities','unitSocMed','totalSocMed'));
+//     }
 
 }
