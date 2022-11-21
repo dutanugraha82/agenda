@@ -90,7 +90,8 @@ Route::middleware(['adminuniv','auth','revalidate'])->prefix('adminuniv')->group
 
     Route::controller(AdminUnivReport::class)->group(function(){
         Route::get('report-by-unit','reportByUnit');
-        Route::get('report-by-date/{from}/{to}','reportByDate');
+        // Route::get('report-by-date','inputDate');
+        Route::get('report-by-date','reportByDate');
 
     });
 
