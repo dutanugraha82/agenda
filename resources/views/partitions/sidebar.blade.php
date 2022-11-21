@@ -78,7 +78,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="/adminuniv/reporting" class="nav-link">
+        <a href="/adminuniv/report-by-date" class="nav-link">
           <i class="nav-icon fas fa-table"></i>
           <p>Reporting</p>
         </a>

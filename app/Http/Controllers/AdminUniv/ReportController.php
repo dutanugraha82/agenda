@@ -43,9 +43,9 @@ class ReportController extends Controller
             $join->on('units.id','=','activities.unit_id');
         })->groupBy('units.unit_name')->get();
        
-        // dd($activities);
+        // dd($websites);
 
-        return view('layouts.pages.website.report-website', compact('websites','socialMedia','activities'));
+        return view('report-by-unit', compact('websites','socialMedia','activities'));
         
         // dd($labels2);
         // $dataWebsites = [];
@@ -69,29 +69,29 @@ class ReportController extends Controller
          
         // dd($websites);
 
-        $activities = Activity::select('units.unit_name',
-            DB::raw("sum(if(act_status = 'reject',1,0)) as reject"),
-            DB::raw("sum(if(act_status = 'pending',1,0)) as pending"),
-            DB::raw("sum(if(act_status = 'publish',1,0)) as publish"),
-        )->join('units',function($join){
-            $join->on('units.id','=','activities.unit_id');
-        })->groupBy('units.unit_name')->get();
+        // $activities = Activity::select('units.unit_name',
+        //     DB::raw("sum(if(act_status = 'reject',1,0)) as reject"),
+        //     DB::raw("sum(if(act_status = 'pending',1,0)) as pending"),
+        //     DB::raw("sum(if(act_status = 'publish',1,0)) as publish"),
+        // )->join('units',function($join){
+        //     $join->on('units.id','=','activities.unit_id');
+        // })->groupBy('units.unit_name')->get();
 
-        $socialMedia = SocialMedia::select('units.unit_name',
-            DB::raw("sum(if(socmed_status = 'reject',1,0)) as reject"),
-            DB::raw("sum(if(socmed_status = 'pending',1,0)) as pending"),
-            DB::raw("sum(if(socmed_status = 'publish',1,0)) as publish"),
-        )->join('units',function($join){
-            $join->on('units.id','=','social_media.unit_id');
-        })->groupBy('units.unit_name')->get();
+        // $socialMedia = SocialMedia::select('units.unit_name',
+        //     DB::raw("sum(if(socmed_status = 'reject',1,0)) as reject"),
+        //     DB::raw("sum(if(socmed_status = 'pending',1,0)) as pending"),
+        //     DB::raw("sum(if(socmed_status = 'publish',1,0)) as publish"),
+        // )->join('units',function($join){
+        //     $join->on('units.id','=','social_media.unit_id');
+        // })->groupBy('units.unit_name')->get();
 
-        $tempLabel = '';
-        $labels = [];
-        foreach($websites as $row) {
-            if($tempLabel != $row->unit_name) {
+        // $tempLabel = '';
+        // $labels = [];
+        // foreach($websites as $row) {
+        //     if($tempLabel != $row->unit_name) {
 
-            }
-        }
+        //     }
+        // }
 
         // foreach ($websites as $item) {
         //     // $data = [];
@@ -110,19 +110,69 @@ class ReportController extends Controller
     //    return view('layouts.pages.website.report-website', compact('websites','label','pending','reject','publish'));
     }
 
-    public function reportByDate($from,$to){
+   
 
+    public function reportByDate(){
+        $from = request()->from;
+        $to = request()->to;
 //        $from = '2022-11-01';
 //        $to   = '2023-01-01';
+        if (request()->from || request()->to) {
+            $websites = Website::select('units.unit_name',
+                DB::raw("sum(if(web_status = 'reject',1,0)) as reject"),
+                DB::raw("sum(if(web_status = 'pending',1,0)) as pending"),
+                DB::raw("sum(if(web_status = 'publish',1,0)) as publish"),
+            )->rightJoin('units',function($join){
+                $join->on('units.id','=','websites.unit_id');
+            })->groupBy('units.unit_name')->whereBetween('websites.updated_at',[$from,$to])->get();
 
-        $websites = Website::select('units.unit_name',
+            $socialMedia = SocialMedia::select('units.unit_name',
+                DB::raw("sum(if(socmed_status = 'reject',1,0)) as reject"),
+                DB::raw("sum(if(socmed_status = 'pending',1,0)) as pending"),
+                DB::raw("sum(if(socmed_status = 'publish',1,0)) as publish"),
+            )->rightJoin('units',function($join){
+                $join->on('units.id','=','social_media.unit_id');
+            })->groupBy('units.unit_name')->whereBetween('social_media.updated_at',[$from,$to])->get();
+
+            $activities = Activity::select('units.unit_name',
+                DB::raw("sum(if(act_status = 'reject',1,0)) as reject"),
+                DB::raw("sum(if(act_status = 'pending',1,0)) as pending"),
+                DB::raw("sum(if(act_status = 'publish',1,0)) as publish"),
+            )->rightJoin('units',function($join){
+                $join->on('units.id','=','activities.unit_id');
+            })->groupBy('units.unit_name')->whereBetween('activities.updated_at',[$from,$to])->get();
+    
+            // dd($websites);
+            
+        } else {
+            $websites = Website::select('units.unit_name',
             DB::raw("sum(if(web_status = 'reject',1,0)) as reject"),
             DB::raw("sum(if(web_status = 'pending',1,0)) as pending"),
             DB::raw("sum(if(web_status = 'publish',1,0)) as publish"),
-        )->join('units',function($join){
+        )->rightJoin('units',function($join){
             $join->on('units.id','=','websites.unit_id');
-        })->groupBy('units.unit_name')->whereBetween('websites.updated_at',[$from,$to])->get();
+        })->groupBy('units.unit_name')->get();
 
-        dd($websites);
+        $socialMedia = SocialMedia::select('units.unit_name',
+            DB::raw("sum(if(socmed_status = 'reject',1,0)) as reject"),
+            DB::raw("sum(if(socmed_status = 'pending',1,0)) as pending"),
+            DB::raw("sum(if(socmed_status = 'publish',1,0)) as publish"),
+        )->rightJoin('units',function($join){
+            $join->on('units.id','=','social_media.unit_id');
+        })->groupBy('units.unit_name')->get();
+
+        $activities = Activity::select('units.unit_name',
+            DB::raw("sum(if(act_status = 'reject',1,0)) as reject"),
+            DB::raw("sum(if(act_status = 'pending',1,0)) as pending"),
+            DB::raw("sum(if(act_status = 'publish',1,0)) as publish"),
+        )->rightJoin('units',function($join){
+            $join->on('units.id','=','activities.unit_id');
+        })->groupBy('units.unit_name')->get();
+        }
+
+            // dd($websistes);
+        return view('report-by-date',compact('websites','socialMedia','activities'));
     }
+        
+
 }
