@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ActivitiesRequest;
 use App\Models\Unit;
-use App\Models\Activities;
+use App\Models\Activity;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -17,7 +17,7 @@ class ActivitiesCT extends Controller
      */
     public function index()
     {
-        $dataActivities = Activities::get();
+        $dataActivities = Activity::get();
         if(request()->ajax()){
             return datatables()
             ->of($dataActivities)
@@ -70,7 +70,7 @@ class ActivitiesCT extends Controller
      */
     public function store(ActivitiesRequest $request)
     {
-        Activities::create($request->validated());
+        Activity::create($request->validated());
         Alert::success('Success!','Data activities has stored!');
         return redirect('/adminunit/activities');
     }
@@ -83,7 +83,7 @@ class ActivitiesCT extends Controller
      */
     public function show($id)
     {
-        $dataActivities = Activities::find($id);
+        $dataActivities = Activity::find($id);
         return view('layouts.pages.activities.detail-activities',compact('dataActivities'));
     }
 
@@ -95,7 +95,7 @@ class ActivitiesCT extends Controller
      */
     public function edit($id)
     {
-        $dataActivities = Activities::find($id);
+        $dataActivities = Activity::find($id);
         $dataUnit = Unit::all();
         return view('layouts.pages.activities.edit-activities', compact('dataActivities','dataUnit'));
     }
@@ -109,7 +109,7 @@ class ActivitiesCT extends Controller
      */
 
     public function actPending(){
-        $dataActivities = Activities::where('act_status','=','pending')->get();
+        $dataActivities = Activity::where('act_status','=','pending')->get();
         if(request()->ajax()){
             return datatables()
             ->of($dataActivities)
@@ -131,7 +131,7 @@ class ActivitiesCT extends Controller
     }
 
     public function actPublish($id){
-        Activities::find($id)->update([
+        Activity::find($id)->update([
             'act_status' => 'published'
         ]);
 
@@ -141,7 +141,7 @@ class ActivitiesCT extends Controller
 
     public function update(ActivitiesRequest $request, $id)
     {
-        Activities::where('id',$id)->update($request->validated());
+        Activity::where('id',$id)->update($request->validated());
         Alert::info('Data Updated!','Data success updated!');
         return redirect('/adminunit/activities');
     }
@@ -154,7 +154,7 @@ class ActivitiesCT extends Controller
      */
     public function destroy($id)
     {
-        Activities::find($id)->delete();
+        Activity::find($id)->delete();
         Alert::warning('Data Deleted!','Data success deleted!');
         return redirect('/adminunit/activities');
     }

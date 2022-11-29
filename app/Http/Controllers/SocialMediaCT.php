@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Unit;
+use App\Http\Requests\SuperAdmin\StoreSocialMediaRequest;
 use App\Models\SocialMedia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
-use App\Http\Requests\SocialMedia\SocialMediaRequest;
 
 class SocialMediaCT extends Controller
 {
@@ -47,7 +47,7 @@ class SocialMediaCT extends Controller
                     ->make(true);
         }
 
-        return view('layouts.pages.socialmedia.socialmedia');
+        return view('superadmin.unit.social-media');
     }
 
     /**
@@ -67,7 +67,7 @@ class SocialMediaCT extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SocialMediaRequest $request)
+    public function store(StoreSocialMediaRequest $request)
     {
         $validation = $request->validated();
         $validation['thumbnail'] = $request->file('thumbnail')->store('thumbnail-socmed');
@@ -108,7 +108,7 @@ class SocialMediaCT extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SocialMediaRequest $request, $id)
+    public function update(StoreSocialMediaRequest $request, $id)
     {
         if($request->file('thumbnail')){
             $validation = $request->validated();
