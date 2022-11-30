@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUnitWebsiteTable extends Migration
+class CreateImageWebsiteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateUnitWebsiteTable extends Migration
      */
     public function up()
     {
-        Schema::create('unit_website', function (Blueprint $table) {
+        Schema::create('image_website', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('url');
-            $table->unsignedBigInteger('unit_id');
-            $table->foreign('unit_id')->references('id')->on('units');
+            $table->string('image');
+            $table->unsignedBigInteger('websites_id');
+            $table->foreign('websites_id')->references('id')->on('websites');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateUnitWebsiteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('unit_website');
+        Schema::dropIfExists('image_website');
     }
 }

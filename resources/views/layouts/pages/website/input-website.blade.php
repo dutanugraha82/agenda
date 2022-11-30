@@ -23,6 +23,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="web_document">Web Document</label>
+                        <span>(*Only docx file)</span>
                         <input type="text" class="form-control" name="web_document" required>
                     </div>
                     <div class="mb-3">

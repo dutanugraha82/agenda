@@ -28,6 +28,10 @@ class Unit extends Model
         return $this->hasOne(User::class);
     }
 
+    public function unitWebsite(){
+        return $this->hasMany(UnitWebsite::class);
+    }
+
     public function getCreatedAtAttribute($date){
         return  $this->attributes['created_at'] = Carbon::parse($date)->format('d M Y H:i:s');
     }

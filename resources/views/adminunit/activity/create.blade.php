@@ -37,6 +37,15 @@
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
+                    <div class="mb-3">
+                        <label for="image">Masukan Gambar <sup  style="color:red;font-size:16px">*</sup></label>
+                        <input type="file" class="form-control" name="image" id="image" onchange="imgPreview()" />
+                        <br>
+                        <img class="img-preview mb-3 col-sm-5 border-radius-lg d-block mx-auto">
+                        @error('image')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
 
                 </div>
                 <div class="col-md-6">
@@ -61,6 +70,11 @@
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
+                    <div class="mb-3">
+                        <label for="category">Contoh Gambar</label>
+                        <br>
+                       <img class="rounded col-md-8" src="{{ asset('dist/img/p3.jpg') }}" alt="">
+                    </div>
 
                 </div>
             </div>
@@ -70,4 +84,21 @@
     </div>
 
 @endsection
+@push('js')
+    <script>
+        function imgPreview()
+        {
+            const image = document.querySelector('#image');
+            const imagePreview = document.querySelector('.img-preview');
 
+            imagePreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(oFREvent){
+                imagePreview.src = oFREvent.target.result;
+            }
+        }
+    </script>
+@endpush

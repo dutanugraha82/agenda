@@ -19,6 +19,7 @@ class CreateActivitiesTable extends Migration
             $table->dateTime('act_date');
             $table->text('act_address');
             $table->integer('partisipant');
+            $table->string('image');
             $table->enum('type',['public','private']);
             $table->enum('category',['internal','umum']);
             $table->unsignedBigInteger('unit_id');

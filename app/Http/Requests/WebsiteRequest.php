@@ -27,7 +27,7 @@ class WebsiteRequest extends FormRequest
             'web_name' => 'required',
             'web_date' => 'required',
             'web_address' => 'required',
-            'web_document' => 'required',
+            'web_document' => 'required|mimes:docx',
             'web_type' => 'required',
             'web_category' => 'required',
             'web_url' => 'required',
