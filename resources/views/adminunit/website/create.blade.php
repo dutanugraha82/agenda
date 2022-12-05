@@ -4,8 +4,16 @@
 @endsection
 @section('content')
         <div class="card">
-            <form action="{{ route('websites.store') }}" method="POST" class="p-2" enctype="multipart/form-data">
+            <form action="{{ route('websites.store') }}" method="POST" class="p-2 dropzone" enctype="multipart/form-data" id="upload-form">
             @csrf
+            <div class="mb-3">
+                <label for="unit">Nama Unit</label>
+                <select class="form-control w-25" name="unit_id" id="">
+                    <option value="">Data Unit</option>
+                    <option value="">Data Unit</option>
+                    <option value="">Data Unit</option>
+                </select>
+            </div>
             <div class="mb-3">
                 <label for="web_name">Nama Kegiatan <sup class="text-danger" style="font-size:14px">*</sup></label>
                 <textarea name="web_name" class="form-control" cols="30" rows="3">{{ old('web_name')}}</textarea>
@@ -38,7 +46,7 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="web_thumbnail">Bukti Gambar <sup  style="color:red;font-size:16px">*</sup></label>
+                        <label for="web_thumbnail">Thumbnail <sup  style="color:red;font-size:16px">*</sup></label>
                         <input type="file" class="form-control" name="web_thumbnail" id="image" onchange="imgPreview()">
                         @error('web_thumbnail')
                                 <small class="text-danger">{{ $message }}</small>
@@ -64,22 +72,19 @@
 
                         </div>
                     </div>
+                    <div class="mb-3">
+                        <div class="fallback card p-3">
+                            <input name="image" type="file" multiple />
+                          </div>
+                    </div>
                 </div>
             </div>
-            <div class="mb-3">
-                <label for="web_url">URL Artikel Kegiatan  <sup  style="color:red;font-size:16px">*</sup></label>
-                <small>Situs: @if(!is_null($website->url)) <a href="{{$website->url}}" style="color:blue">{{$website->url}}</a> @else <b class="text-danger">situs unit belum dibuat</b> @endif </small>
-                <textarea name="web_url" class="form-control" cols="30" rows="3">{{ old('web_url')}}</textarea>
-                @error('web_url')
-                        <small class="text-danger">{{ $message }}</small>
-                @enderror
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary">Tambah Artikel</button>
             </div>
            
-
-            <input type="submit" value="Tambah Artikel" class="btn btn-primary btn-sm"/>
-            
-            </form>
-        </div>
+        </form>
+    </div>
    
 @endsection
 @push('js')
@@ -98,5 +103,44 @@
                 imagePreview.src = oFREvent.target.result;
             }
         }
+
+        Dropzone.options.uploadForm = { // The camelized version of the ID of the form element
+
+// The configuration we've talked about above
+autoProcessQueue: false,
+uploadMultiple: true,
+parallelUploads: 100,
+maxFiles: 100,
+
+// The setting up of the dropzone
+init: function() {
+  var myDropzone = this;
+
+  // First change the button to actually tell Dropzone to process the queue.
+  this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+    // Make sure that the form isn't actually being sent.
+    e.preventDefault();
+    e.stopPropagation();
+    myDropzone.processQueue();
+  });
+
+  // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
+  // of the sending event because uploadMultiple is set to true.
+  this.on("sendingmultiple", function() {
+    // Gets triggered when the form is actually being sent.
+    // Hide the success button or the complete form.
+  });
+  this.on("successmultiple", function(files, response) {
+    // Gets triggered when the files have successfully been sent.
+    // Redirect user or notify of success.
+  });
+  this.on("errormultiple", function(files, response) {
+    // Gets triggered when there was an error sending the files.
+    // Maybe show form again, and notify user of error
+  });
+}
+
+}
+
     </script>
 @endpush
