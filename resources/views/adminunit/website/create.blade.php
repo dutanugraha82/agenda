@@ -4,14 +4,15 @@
 @endsection
 @section('content')
         <div class="card">
-            <form action="{{ route('websites.store') }}" method="POST" class="p-2 dropzone" enctype="multipart/form-data" id="upload-form">
+            <form action="{{ route('websites.store') }}" method="POST" class="p-2 dropzone" enctype="multipart/form-data" id="uploadForm">
             @csrf
             <div class="mb-3">
-                <label for="unit">Nama Unit</label>
-                <select class="form-control w-25" name="unit_id" id="">
-                    <option value="">Data Unit</option>
-                    <option value="">Data Unit</option>
-                    <option value="">Data Unit</option>
+                <label for="unit">Unit Situs</label>
+                <select class="form-control w-25" name="#" id="">
+                    <option value="">-----------  Pilih Unit Situs  ----------</option>
+                    @foreach ($webUnit as $item)
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="mb-3">
@@ -52,6 +53,13 @@
                                 <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
+                    <div class="mb-3">
+                        <label for="gambar">Bukti Gambar</label>
+                        <div class="dz-default dz-message dropzoneDragArea p-3">
+                            <span><sup style="color: rgb(65, 170, 255); font-size: 1.8em">+</sup> Upload Gambar</span>
+                            <div class="previews"></div>
+                          </div>
+                    </div>
                 </div>
                 <div class="col-md-6">
                 
@@ -67,15 +75,10 @@
                     </div>
                     <div class="mb-3">
                         <div class="card p-3">
-                            <label for="">Bukti Gambar Preview </label>
+                            <label for="">Preview Thumbnail </label>
                             <img class="img-preview mb-3 col-sm-5 border-radius-lg d-block mx-auto">
 
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="fallback card p-3">
-                            <input name="image" type="file" multiple />
-                          </div>
                     </div>
                 </div>
             </div>
@@ -104,7 +107,7 @@
             }
         }
 
-        Dropzone.options.uploadForm = { // The camelized version of the ID of the form element
+ Dropzone.options.uploadForm = { // The camelized version of the ID of the form element
 
 // The configuration we've talked about above
 autoProcessQueue: false,

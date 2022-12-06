@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Website;
 use App\Http\Requests\AdminUnit\StoreWebsiteRequest;
 use App\Http\Requests\AdminUnit\UpdateWebsiteRequest;
+use App\Models\UnitWebsite;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class WebsiteController extends Controller
@@ -60,8 +61,10 @@ class WebsiteController extends Controller
      */
     public function create()
     {
+        $unit = auth()->user()->unit_id;
+        $webUnit = UnitWebsite::where('unit_id',$unit)->get();
         $website = \App\Models\Unit::find(auth()->user()->unit_id);
-        return view('adminunit.website.create',compact('website'));
+        return view('adminunit.website.create',compact('website','webUnit'));
     }
 
     /**
@@ -73,12 +76,12 @@ class WebsiteController extends Controller
     public function store(StoreWebsiteRequest $request)
     {
         $website = $request->validated();
-        
-        $website['web_thumbnail'] = $request->file('web_thumbnail')->store('thumbnail');
-        $website['web_document'] = $request->file('web_document')->store('document');
-        Website::create($website + ['status' => 'pending','unit_id' => auth()->user()->unit_id]);
-        Alert::success('Berhasil!','Artikel berhasil disimpan');
-        return redirect()->route('websites.index');
+        dd($website);
+        // $website['web_thumbnail'] = $request->file('web_thumbnail')->store('thumbnail');
+        // $website['web_document'] = $request->file('web_document')->store('document');
+        // Website::create($website + ['status' => 'pending','unit_id' => auth()->user()->unit_id]);
+        // Alert::success('Berhasil!','Artikel berhasil disimpan');
+        // return redirect()->route('websites.index');
     }
 
  
