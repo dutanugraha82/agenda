@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\AdminUnit;
 
-use App\Http\Controllers\Controller;
 use App\Models\Website;
+use App\Models\UnitWebsite;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\AdminUnit\StoreWebsiteRequest;
 use App\Http\Requests\AdminUnit\UpdateWebsiteRequest;
-use App\Models\UnitWebsite;
-use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Redis;
 
 class WebsiteController extends Controller
 {
@@ -73,10 +75,10 @@ class WebsiteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreWebsiteRequest $request)
+    public function store(Request $request)
     {
-        $website = $request->validated();
-        dd($website);
+        // $website = $request->validated();
+        dd($request->all());
         // $website['web_thumbnail'] = $request->file('web_thumbnail')->store('thumbnail');
         // $website['web_document'] = $request->file('web_document')->store('document');
         // Website::create($website + ['status' => 'pending','unit_id' => auth()->user()->unit_id]);

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\AdminUnit;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class StoreWebsiteRequest extends FormRequest
 {
@@ -26,11 +27,11 @@ class StoreWebsiteRequest extends FormRequest
         return [
             'web_name' => 'required',
             'web_date' => 'required',
+            'unit_website_id' => 'required', 
             'web_address' => 'required',
             'web_document' => 'required|mimes:pdf',
             'web_category' => 'required',
             'web_thumbnail' => 'required',
-            'web_url' => 'required|url',
         ];
     }
 
