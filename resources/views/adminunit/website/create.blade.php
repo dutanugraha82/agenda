@@ -4,7 +4,7 @@
 @endsection
 @section('content')
         <div class="card">
-            <form action="{{ route('websites.store') }}" method="POST" class="p-2 dropzone " enctype="multipart/form-data">
+            <form action="{{ route('websites.store') }}" method="POST" class="p-2 dropzone " enctype="multipart/form-data" >
             @csrf
             <div class="mb-3">
                 <label for="unit">Unit Situs</label>
@@ -55,9 +55,9 @@
                     </div>
                     <div class="mb-3">
                         <label for="gambar">Bukti Gambar</label>
-                        <div class="dz-default dz-message dropzoneDragArea p-3" id="uploadForm">
+                        <div class="dz-default dz-message dropzoneDragArea p-3"  id="upload-form">
                             <span><sup style="color: rgb(65, 170, 255); font-size: 1.8em">+</sup> Upload Gambar</span>
-                            <div class="previews data-dz-remove"></div> 
+                            <div class="previews"></div> 
                           </div>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-md">Tambah Artikel</button>
+            <button class="btn btn-primary btn-md">Tambah Artikel</button>
         </form>
     </div>
    
@@ -107,11 +107,11 @@
  Dropzone.options.uploadForm = { // The camelized version of the ID of the form element
 
 // The configuration we've talked about above
-autoProcessQueue: true,
+autoProcessQueue: false,
 uploadMultiple: true,
 parallelUploads: 100,
 maxFiles: 100,
-maxFileSize: 1,
+paramName:"file",
 
 // The setting up of the dropzone
 init: function() {

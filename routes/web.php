@@ -26,7 +26,7 @@ use App\Http\Controllers\AdminUniv\WebsiteController as AdminUnivWebsite;
 use App\Http\Controllers\AdminUniv\ActivityController as AdminUnivActivity;
 use App\Http\Controllers\AdminUniv\SocialMediaController as AdminUnivSocialMedia;
 use App\Http\Controllers\AdminUniv\ReportController as AdminUnivReport;
-
+use App\Http\Controllers\UnitWebCT;
 
 /*
 |--------------------------------------------------------------------------
@@ -131,4 +131,5 @@ Route::middleware(['adminunit','auth','revalidate'])->prefix('adminunit')->group
     Route::resource('websites',AdminUnitWebsite::class);
     Route::resource('socialmedia',AdminUnitSocialMedia::class);
     Route::resource('activities',AdminUnitActivity::class);
+    Route::resource('unitweb', UnitWebCT::class);
 });
