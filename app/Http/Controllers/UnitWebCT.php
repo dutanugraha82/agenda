@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UnitWebRequest;
 use App\Models\Unit;
 use App\Models\UnitWeb;
+use App\Models\UnitWebsite;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -25,7 +27,7 @@ class UnitWebCT extends Controller
                                ->addIndexColumn()
                                 ->addColumn('action',function($row){
                                     return '<div class="d-flex justify-content-around">
-                                                            <a href="/adminunit/unitweb/'.$row->id.'/edit" class="btn btn-warning btn-md" style="width:5rem;">Edit</a>
+                                                            <a href="'.route('unitweb.edit',['unitweb' => $row->id]).'" class="btn btn-warning btn-md" style="width:5rem;">Edit</a>
                                                             <form action='.route('unitweb.destroy',['unitweb' => $row->id]).' method="POST">
                                                                 '.csrf_field().'
                                                                 '.method_field("DELETE").'
@@ -93,8 +95,10 @@ class UnitWebCT extends Controller
      */
     public function edit($id)
     {
-        $dataUnit = UnitWeb::where('id',$id)->get();
-        dd($dataUnit);
+        $dataUnitWeb = UnitWeb::find($id);
+        $dataUnit = Unit::all();
+        // dd($dataUnitWeb);
+        return view('adminunit.unit-web.edit',compact('dataUnitWeb','dataUnit'));
 
     }
 
@@ -105,9 +109,12 @@ class UnitWebCT extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UnitWebRequest $request, $id)
     {
-        //
+        // dd($validation);
+        UnitWebsite::find($id)->update($request->validated());
+        Alert::success('Berhasil','Data berhasil disunting!');
+        return redirect('/adminunit/unitweb');
     }
 
     /**
@@ -118,6 +125,8 @@ class UnitWebCT extends Controller
      */
     public function destroy($id)
     {
-        //
+        UnitWebsite::find($id)->delete();
+        Alert::success('Berhasil','Data Berhasil dihapus!');
+        return redirect('/adminunit/unitweb');
     }
 }
