@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UnitWebRequest;
+use App\Models\Unit;
 use App\Models\UnitWeb;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -53,7 +54,9 @@ class UnitWebCT extends Controller
      */
     public function create()
     {
-        return view('adminunit.unit-web.create');
+        $dataUnit = Unit::get();
+        // dd($dataUnit);
+        return view('adminunit.unit-web.create', compact('dataUnit'));
     }
 
     /**
@@ -64,6 +67,8 @@ class UnitWebCT extends Controller
      */
     public function store(UnitWebRequest $request)
     {
+        // dd($request);
+        
         UnitWeb::create($request->validated());
         Alert::success('Berhasil','Data berhasil disimpan!');
         return redirect('/adminunit/unitweb');
@@ -88,7 +93,9 @@ class UnitWebCT extends Controller
      */
     public function edit($id)
     {
-        //
+        $dataUnit = UnitWeb::where('id',$id)->get();
+        dd($dataUnit);
+
     }
 
     /**

@@ -10,7 +10,7 @@ class UnitWeb extends Model
 {
     use HasFactory;
     protected $table = 'unit_website';
-    protected $fillable = ['name','url'];
+    protected $fillable = ['name','url','unit_id'];
     protected $dates = ['created_at'];
 
     public function unit(){
