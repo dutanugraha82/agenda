@@ -5,11 +5,16 @@ namespace App\Http\Controllers\AdminUnit;
 use App\Models\Website;
 use App\Models\UnitWebsite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\WebsiteRequest;
+use Illuminate\Support\Facades\Redis;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\AdminUnit\StoreWebsiteRequest;
 use App\Http\Requests\AdminUnit\UpdateWebsiteRequest;
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Psy\Readline\Hoa\Console;
 
 class WebsiteController extends Controller
 {
@@ -69,6 +74,23 @@ class WebsiteController extends Controller
         return view('adminunit.website.create',compact('website','webUnit'));
     }
 
+    public function uploadFilePond(Request $request){
+        
+        $image = $request->file('image_website')->store('imgWebsite');
+        DB::table('temporary_image_web')->insert([
+            'name'=> $image
+        ]);
+        return $image;
+    }
+
+    public function deleteFilePond(Request $request){
+            DB::table('temporary_image_web')->where([
+                'name' => $request->image
+            ])->delete();
+            unlink(public_path('storage'.'/'.$request->image));
+            return "deleted";
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -77,15 +99,39 @@ class WebsiteController extends Controller
      */
     public function store(Request $request)
     {
-        // $website = $request->validated();
-        dd($request->all());
-        // $website['web_thumbnail'] = $request->file('web_thumbnail')->store('thumbnail');
-        // $website['web_document'] = $request->file('web_document')->store('document');
-        // Website::create($website + ['status' => 'pending','unit_id' => auth()->user()->unit_id]);
-        // Alert::success('Berhasil!','Artikel berhasil disimpan');
-        // return redirect()->route('websites.index');
+        
+        // $request->validated();
+        // $request['web_thumbnail'] = $request->file('web_thumbnail')->store('thumbnail');
+        // $request['web_document'] = $request->file('web_document')->store('document');
+        // $request['status'] = 'pending';
+        // $request['unit_id'] = auth()->user()->unit_id;
+        // dd($request);
+        Website::create([
+            'unit_website_id' => $request->unit_website_id,
+            'web_name' => $request->web_name,
+            'web_date' => $request->web_date,
+            'web_address' => $request->web_address,
+            'web_thumbnail' => $request->file('web_thumbnail')->store('thumbnail'),
+            'web_document' => $request->file('web_document')->store('document'),
+            'web_category' => $request->web_category,
+            'unit_id' => auth()->user()->unit_id,
+        ]);
+        $websiteId = DB::table('websites')->latest('created_at')->first();
+        // dd($websiteId->id);
+        $dataImage = DB::table('temporary_image_web')->get();
+        // dd($websiteId);
+        foreach ($dataImage as $item) {
+            DB::table('image_website')->insert([
+                'image' => $item->name,
+                'websites_id' => $websiteId->id
+            ]);
+        }
+        DB::table('temporary_image_web')->select('*')->delete();
+        Alert::success('Berhasil!','Artikel berhasil disimpan');
+        return redirect()->route('websites.index');
     }
 
+    
  
     /**
      * Show the form for editing the specified resource.

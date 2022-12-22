@@ -129,6 +129,8 @@ Route::middleware(['adminuniv','auth','revalidate'])->prefix('adminuniv')->group
 Route::middleware(['adminunit','auth','revalidate'])->prefix('adminunit')->group(function(){
     Route::get('/',[UserController::class,'index']);
     Route::resource('websites',AdminUnitWebsite::class);
+    Route::post('filepond',[AdminUnitWebsite::class,'uploadFilePond']);
+    Route::delete('revert',[AdminUnitWebsite::class,'deleteFilePond']);
     Route::resource('socialmedia',AdminUnitSocialMedia::class);
     Route::resource('activities',AdminUnitActivity::class);
     Route::resource('unitweb', UnitWebCT::class);

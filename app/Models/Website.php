@@ -11,7 +11,7 @@ class Website extends Model
     use HasFactory;
 
     protected $table = 'websites';
-    protected $fillable = ['web_name','web_date','web_address','web_thumbnail','web_document','web_category','web_url','unit_id','web_status','feedback'];
+    protected $fillable = ['web_name','web_date','web_address','web_thumbnail','web_document','web_category','web_url','unit_id','web_status','feedback','unit_website_id'];
 
     public function unit(){
         return $this->belongsTo(Unit::class);

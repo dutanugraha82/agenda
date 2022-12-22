@@ -4,7 +4,7 @@
 @endsection
 @section('content')
         <div class="card">
-            <form action="{{ route('websites.store') }}" method="POST" class="p-2 dropzone " enctype="multipart/form-data" >
+            <form action="{{ route('websites.store') }}" method="POST" class="p-2" enctype="multipart/form-data" >
             @csrf
             <div class="mb-3">
                 <label for="unit">Unit Situs</label>
@@ -40,7 +40,7 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="web_document">Naskah Artikel/Berita (PDF) <sup  style="color:red;font-size:16px">*</sup></label>
+                        <label for="web_document">Naskah Artikel/Berita (DOCX) <sup  style="color:red;font-size:16px">*</sup></label>
                         <input type="file" class="form-control" name="web_document"/>
                         @error('web_document')
                                 <small class="text-danger">{{ $message }}</small>
@@ -55,9 +55,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="gambar">Bukti Gambar</label>
-                        <div class="dz-default dz-message dropzoneDragArea p-3"  id="upload-form">
-                            <span><sup style="color: rgb(65, 170, 255); font-size: 1.8em">+</sup> Upload Gambar</span>
-                            <div class="previews"></div> 
+                        <div class="p-3">
+                            <input type="file" name="image_website" multiple data-max-files="3" data-allow-reorder="true" data-max-files-size="3MB" id="image-website">
                           </div>
                     </div>
                 </div>
@@ -82,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary btn-md">Tambah Artikel</button>
+            <button type="submit" class="btn btn-primary btn-md">Tambah Artikel</button>
         </form>
     </div>
    
@@ -104,44 +103,53 @@
             }
         }
 
- Dropzone.options.uploadForm = { // The camelized version of the ID of the form element
+        FilePond.registerPlugin(
+            FilePondPluginImagePreview,
+            FilePondPluginImageExifOrientation,
+            FilePondPluginFileValidateSize,
+            FilePondPluginImageEdit
+            );
+            
+        const inputElement = document.querySelector('input[id="image-website"]');
+        const pond = FilePond.create(inputElement); 
+       
 
-// The configuration we've talked about above
-autoProcessQueue: false,
-uploadMultiple: true,
-parallelUploads: 100,
-maxFiles: 100,
-paramName:"file",
+        FilePond.setOptions({
+            server:{
+                //uploadimage
+                process:'/adminunit/filepond',
+                headers:{
+                    'X-CSRF-TOKEN':'{{ csrf_token() }}'
+                },
+                //deleteimage
+                revert: (uniqueFileId, load, error) => {
+                    deleteImage(uniqueFileId);
+                    error('Error while delete image');
+                    load();
+                }
 
-// The setting up of the dropzone
-init: function() {
-  var myDropzone = this;
+            }
+            
+        });
 
-  // First change the button to actually tell Dropzone to process the queue.
-  this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
-    // Make sure that the form isn't actually being sent.
-    e.preventDefault();
-    e.stopPropagation();
-    myDropzone.processQueue();
-  });
-
-  // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
-  // of the sending event because uploadMultiple is set to true.
-  this.on("sendingmultiple", function() {
-    // Gets triggered when the form is actually being sent.
-    // Hide the success button or the complete form.
-  });
-  this.on("successmultiple", function(files, response) {
-    // Gets triggered when the files have successfully been sent.
-    // Redirect user or notify of success.
-  });
-  this.on("errormultiple", function(files, response) {
-    // Gets triggered when there was an error sending the files.
-    // Maybe show form again, and notify user of error
-  });
-}
-
-}
+        function deleteImage(nameFile){
+            $.ajax({
+                url: '/adminunit/revert',
+                headers: {
+                    'X-CSRF-TOKEN':'{{ csrf_token() }}'
+                },
+                type:"DELETE",
+                data:{
+                    image: nameFile
+                },
+                success:function(response){
+                    console.log('sukses')
+                },
+                error:function(response){
+                    console.log('test')
+                }
+            });
+        }
 
     </script>
 @endpush
