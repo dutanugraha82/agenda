@@ -10,8 +10,8 @@
                 @method('put')
                 <div class="my-3">
                     <label for="name">Platform Name</label>
-                    <select name="name_unit_socmed" class="form-control">
-                       <option value="{{ $dataSocmed->name_unit_socmed }}">{{ Str::ucfirst($dataSocmed->name_unit_socmed) }}</option>
+                    <select name="account_name" class="form-control">
+                       <option value="{{ $dataSocmed->account_name }}">{{ Str::ucfirst($dataSocmed->account_name) }}</option>
                        <option value="instagram">Instagram</option>
                         <option value="facebook">Facebook</option>
                         <option value="twitter">Twitter</option>

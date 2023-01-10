@@ -14,26 +14,25 @@ use Illuminate\Support\Facades\DB;
 class ReportController extends Controller
 {
     public function reportByUnit(){
-
-        $websites = Website::select('units.unit_name',
-                        // DB::raw("concat(sum(if(web_status = 'reject',1,0)),','
-                        //                 sum(if(web_status = 'pending',1,0)),','
-                        //                 sum(if(web_status = 'publish',1,0))
-                        //         )"),
-                        DB::raw("sum(if(web_status = 'reject',1,0)) as reject"),
-                        DB::raw("sum(if(web_status = 'pending',1,0)) as pending"),
-                        DB::raw("sum(if(web_status = 'publish',1,0)) as publish")
-                )->rightJoin('units',function($join){
-                    $join->on('units.id','=','websites.unit_id');
-                })->groupBy('units.unit_name')->get();
-
-        $socialMedia = SocialMedia::select('units.unit_name',
-                        DB::raw("sum(if(socmed_status = 'reject',1,0)) as reject"),
-                        DB::raw("sum(if(socmed_status = 'pending',1,0)) as pending"),
-                        DB::raw("sum(if(socmed_status = 'publish',1,0))as publish"),
-        )->rightJoin('units',function($join){
-            $join->on('units.id','=','social_media.unit_id');
-        })->groupBy('units.unit_name')->get();
+        $website = Website::all();
+        // $websites = Website::select('units.unit_name',
+        //                 // DB::raw("concat(sum(if(web_status = 'reject',1,0)),','
+        //                 //                 sum(if(web_status = 'pending',1,0)),','
+        //                 //                 sum(if(web_status = 'publish',1,0))
+        //                 //         )"),
+        //                 DB::raw("sum(if(web_status = 'reject',1,0)) as reject"),
+        //                 DB::raw("sum(if(web_status = 'pending',1,0)) as pending"),
+        //                 DB::raw("sum(if(web_status = 'publish',1,0)) as publish")
+        //         )->rightJoin('units',function($join){
+        //             $join->on('units.id','=','websites.unit_id');
+        //         })->groupBy('units.unit_name')->get();
+        // $socialMedia = SocialMedia::select('units.unit_name',
+        //                 DB::raw("sum(if(socmed_status = 'reject',1,0)) as reject"),
+        //                 DB::raw("sum(if(socmed_status = 'pending',1,0)) as pending"),
+        //                 DB::raw("sum(if(socmed_status = 'publish',1,0))as publish"),
+        // )->rightJoin('units',function($join){
+        //     $join->on('units.id','=','social_media.unit_id');
+        // })->groupBy('units.unit_name')->get();
 
         $activities = Activity::select('units.unit_name',
                         DB::raw("sum(if(act_status = 'reject',1,0)) as reject"),
@@ -42,10 +41,12 @@ class ReportController extends Controller
         )->rightJoin('units',function($join){
             $join->on('units.id','=','activities.unit_id');
         })->groupBy('units.unit_name')->get();
+
        
+        // $dataWebsite = Website::where('unit_id', $websites->unit_id);
         // dd($websites);
 
-        return view('report-by-unit', compact('websites','socialMedia','activities'));
+        return view('layouts.pages.report-unit', compact('website','socialMedia','activities'));
         
         // dd($labels2);
         // $dataWebsites = [];
@@ -172,6 +173,32 @@ class ReportController extends Controller
 
             // dd($websistes);
         return view('report-by-date',compact('websites','socialMedia','activities'));
+    }
+
+    public function webReportUnit($id){
+        $name = Unit::find($id);
+        $pending = Website::where('web_status','=','pending','AND','unit_id','=',$id)->get();
+        $reject = Website::where('web_status','=','reject','AND','unit_id','=',$id)->get();
+        $publish = Website::where('web_status','=','publish','AND','unit_id','=',$id)->get();
+    
+    return view('report-web-unit',compact('pending','reject','publish','name'));
+    // dd($pending);
+
+    }
+
+    public function reportSocMed(){
+        $data = SocialMedia::all();
+        return view('report-socmed',compact('data'));
+    }
+
+    public function reportSocMedUnit($id){
+
+    }
+
+    public function reportAct(){
+        $data = Activity::all();
+
+        return view('report-activities',compact('data'));
     }
         
 

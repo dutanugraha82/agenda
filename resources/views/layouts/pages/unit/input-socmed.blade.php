@@ -9,7 +9,7 @@
                 @csrf
                 <div class="my-3">
                     <label for="name">Platform Name</label>
-                    <select class="form-control" name="name_unit_socmed" id="">
+                    <select class="form-control" name="account_name" id="">
                         <option value="">Choose Platform</option>
                         <option value="instagram">Instagram</option>
                         <option value="facebook">Facebook</option>
@@ -23,7 +23,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="unit">Unit</label>
-                    <select class="form-control" name="unit_id" id="">
+                    <select class="form-control" name="unit_id">
                         <option value="">Choose Unit</option>
                         @foreach ($dataUnit as $item)
                             <option value="{{ $item->id }}">{{ $item->unit_name }}</option>

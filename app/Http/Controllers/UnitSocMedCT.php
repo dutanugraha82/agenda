@@ -26,7 +26,13 @@ class UnitSocMedCT extends Controller
                 return '<div class="container-fluid">
                         <div class="d-flex">
                         <a href="/superadmin/unit-socmed/'.$dataSocmed->id.'/edit" style="width:5rem;" class="btn btn-warning mr-2">Edit</a>
-                        <a href="/superadmin/unit-socmed/delete/'.$dataSocmed->id.'" style="width:5rem;" class="btn btn-danger ml-2">Delete</a>
+                        <form action="/superadmin/unit-socmed/'.$dataSocmed->id.'" method="POST">
+                                                                '.csrf_field().'
+                                                                '.method_field("DELETE").'
+                                                                <button type="submit" class="btn btn-danger" style="width:5rem;" onclick="javascript: return confirm(\'Apakah anda ingin menghapus kegiatan ?\')">
+                                                                    Hapus
+                                                                </button>
+                                                            </form>
                         </div>
                         </div>
                         ';
@@ -38,7 +44,7 @@ class UnitSocMedCT extends Controller
             ->rawColumns(['action'])
             ->make(true);
         }
-        return view('layouts.pages.unit.socialmedia');
+        return view('layouts.pages.unit.social-media');
     }
 
     /**

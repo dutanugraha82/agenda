@@ -4,10 +4,7 @@
 @endsection
 @section('content')
     <div class="container">
-        <div class="card">
-            <div class="container my-3">
-                <a class="btn text-white" style="background-color:blueviolet;" href="/superadmin/unit-socmed/create">+ Add Unit Social Media</a>
-            </div>
+        <div class="card p-3">
             @if ($message = Session::get('success'))
                 <div class="alert alert-success" role="alert">
                     {{ $message }}
@@ -49,7 +46,7 @@ function socmed(){
                 return meta.row + meta.settings._iDisplayStart + 1
             }
             },
-            {data: 'name_unit_socmed', name: 'name'},
+            {data: 'account_name', name: 'name'},
             {data: 'unit', name: 'unit.name'},
             {data: 'url', name: 'url'},
             {data: 'created_at', name: 'create'},

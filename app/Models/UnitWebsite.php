@@ -18,8 +18,12 @@ class UnitWebsite extends Model
 
     protected $dates = ['created_at'];
 
-    public function Unit(){
+    public function unit(){
         return $this->belongsTo(Unit::class);
+    }
+
+    public function website(){
+        return $this->hasMany(Website::class);
     }
 
     public function getCreatedAtAttribute($date){

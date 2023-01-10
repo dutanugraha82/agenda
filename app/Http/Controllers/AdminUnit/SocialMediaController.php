@@ -27,17 +27,17 @@ class SocialMediaController extends Controller
             return datatables()->of($socialMedia)
                                ->addIndexColumn()
                                ->addColumn('thumbnail',function($row){
-                                    return "<a href=". url($row->thumbnail)." target='_blank'>link</a>";
+                                    return "<a href=/storage/".$row->thumbnail." target='_blank'>link</a>";
 
                                })
                                ->addColumn('caption',function($row){
-                                return "<a href=". url($row->caption)." target='_blank'>link</a>";
+                                return "<a href=/storage/".$row->caption." target='_blank'>link</a>";
 
                            })
                                ->addColumn('action',function($row){
                                 return '<div class="d-flex justify-content-start">
                                             <a href="/adminunit/socialmedia/'.$row->id.'/edit" class="btn btn-warning btn-sm">Edit</a>
-                                            <form action='.route('socialmedia.destroy',['social_medium' => $row->id]).' method="POST">
+                                            <form action='.route('socialmedia.destroy',['socialmedia' => $row->id]).' method="POST">
                                                 '.csrf_field().'
                                                 '.method_field("DELETE").'
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="javascript: return confirm(\'Apakah anda ingin menghapus post sosial media ?\')">

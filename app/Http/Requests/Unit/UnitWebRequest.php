@@ -4,7 +4,7 @@ namespace App\Http\Requests\Unit;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SocmedRequest extends FormRequest
+class UnitWebRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,9 @@ class SocmedRequest extends FormRequest
     public function rules()
     {
         return [
-            'account_name' => 'required',
+            'name' => 'required',
             'url' => 'required',
-            'unit_id' => 'required',
+            'unit_id' => 'required'
         ];
     }
 }

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Redis;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\AdminUnit\StoreWebsiteRequest;
 use App\Http\Requests\AdminUnit\UpdateWebsiteRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Psy\Readline\Hoa\Console;
@@ -77,8 +78,10 @@ class WebsiteController extends Controller
     public function uploadFilePond(Request $request){
         
         $image = $request->file('image_website')->store('imgWebsite');
+        $userId = Auth::id(); 
         DB::table('temporary_image_web')->insert([
-            'name'=> $image
+            'name'=> $image,
+            'users_id' => $userId
         ]);
         return $image;
     }
@@ -99,13 +102,8 @@ class WebsiteController extends Controller
      */
     public function store(Request $request)
     {
-        
-        // $request->validated();
-        // $request['web_thumbnail'] = $request->file('web_thumbnail')->store('thumbnail');
-        // $request['web_document'] = $request->file('web_document')->store('document');
-        // $request['status'] = 'pending';
-        // $request['unit_id'] = auth()->user()->unit_id;
         // dd($request);
+        
         Website::create([
             'unit_website_id' => $request->unit_website_id,
             'web_name' => $request->web_name,
@@ -118,7 +116,7 @@ class WebsiteController extends Controller
         ]);
         $websiteId = DB::table('websites')->latest('created_at')->first();
         // dd($websiteId->id);
-        $dataImage = DB::table('temporary_image_web')->get();
+        $dataImage = DB::table('temporary_image_web')->where('users_id','=',Auth::id())->get();
         // dd($websiteId);
         foreach ($dataImage as $item) {
             DB::table('image_website')->insert([
@@ -126,7 +124,7 @@ class WebsiteController extends Controller
                 'websites_id' => $websiteId->id
             ]);
         }
-        DB::table('temporary_image_web')->select('*')->delete();
+        DB::table('temporary_image_web')->where('users_id','=',Auth::id())->delete();
         Alert::success('Berhasil!','Artikel berhasil disimpan');
         return redirect()->route('websites.index');
     }

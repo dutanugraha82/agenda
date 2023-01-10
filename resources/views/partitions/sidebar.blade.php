@@ -8,24 +8,6 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="/superadmin/activities" class="nav-link">
-              <i class="nav-icon fas fa-hiking"></i>
-              <p>Kegiatan</p>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="/superadmin/social-media" class="nav-link">
-              <i class="nav-icon fas fa-user-friends"></i>
-              <p>Media Sosial</p>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="/superadmin/website" class="nav-link">
-              <i class="nav-icon fas fa-globe"></i>
-              <p>Situs</p>
-        </a>
-      </li>
-      <li class="nav-item">
         <a href="#" class="nav-link">
             <i class="nav-icon fas fa-users"></i>
             <p>Pengguna <i class="fas fa-angle-left right"></i></p>
@@ -46,10 +28,30 @@
           </ul>
       </li>
       <li class="nav-item">
-        <a href="/superadmin/unit" class="nav-link">
-              <i class="nav-icon fas fa-building"></i>
-              <p>Unit</p>
+        <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-building"></i>
+            <p>Unit <i class="fas fa-angle-left right"></i></p>
         </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="/superadmin/unit-socmed" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Unit Media Sosial</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/superadmin/unitweb" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Unit Artikel Situs</p>
+            </a>
+            </li>
+          <li class="nav-item">
+            <a href="/superadmin/unit" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Unit Universitas</p>
+            </a>
+            </li>
+          </ul>
       </li>
     @endif
     @if (auth()->user()->role == 'admin_univ')

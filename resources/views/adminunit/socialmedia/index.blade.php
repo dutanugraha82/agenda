@@ -6,7 +6,7 @@
 
 
 <div class="container">
-    <a class="btn btn-primary btn-sm mb-3"  href="/adminunit/social-media/create"><i class="fas fa-plus"></i> Tambah Post Social Media</a>
+    <a class="btn btn-primary btn-sm mb-3"  href="/adminunit/socialmedia/create"><i class="fas fa-plus"></i> Tambah Post Social Media</a>
     <div class="container-fluid mt-3">
             <table class="table table-striped table-bordered" id="table-website">
                 <thead>

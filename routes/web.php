@@ -1,32 +1,35 @@
 <?php
-use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\ActivitiesCT;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\MakeUsersCT;
-use App\Http\Controllers\SocialMediaCT;
 use App\Http\Controllers\UnitCT;
-use App\Http\Controllers\UnitSocMedCT;
-use App\Http\Controllers\WebsitesCT;
 
-
-use App\Http\Controllers\SuperAdmin\AdminUnivController;
-use App\Http\Controllers\SuperAdmin\AdminUnitController;
-use App\Http\Controllers\SuperAdmin\ActivityController as SuperAdminActivity;
-use App\Http\Controllers\SuperAdmin\SocialMediaController as SuperAdminSocialMedia;
-use App\Http\Controllers\SuperAdmin\WebsiteController as SuperAdminWebsite;
-
-use App\Http\Controllers\SuperAdmin\UnitController as SuperAdminUnit;
-use App\Http\Controllers\SuperAdmin\DashboardController as SuperAdminDashboard;
-use App\Http\Controllers\AdminUnit\WebsiteController as AdminUnitWebsite;
-use App\Http\Controllers\AdminUnit\SocialMediaController as AdminUnitSocialMedia;
-use App\Http\Controllers\AdminUnit\ActivityController as AdminUnitActivity;
-use App\Http\Controllers\AdminUniv\WebsiteController as AdminUnivWebsite;
-use App\Http\Controllers\AdminUniv\ActivityController as AdminUnivActivity;
-use App\Http\Controllers\AdminUniv\SocialMediaController as AdminUnivSocialMedia;
-use App\Http\Controllers\AdminUniv\ReportController as AdminUnivReport;
 use App\Http\Controllers\UnitWebCT;
+use App\Http\Controllers\WebsitesCT;
+use App\Http\Controllers\MakeUsersCT;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ActivitiesCT;
+use App\Http\Controllers\UnitSocMedCT;
+use App\Http\Controllers\SocialMediaCT;
+use App\Http\Controllers\UserController;
+
+
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SuperAdmin\AdminUnitController;
+use App\Http\Controllers\SuperAdmin\AdminUnivController;
+use App\Http\Controllers\SuperAdmin\UnitController as SuperAdminUnit;
+use App\Http\Controllers\AdminUniv\ReportController as AdminUnivReport;
+
+use App\Http\Controllers\AdminUnit\WebsiteController as AdminUnitWebsite;
+use App\Http\Controllers\AdminUniv\WebsiteController as AdminUnivWebsite;
+use App\Http\Controllers\AdminUnit\ActivityController as AdminUnitActivity;
+use App\Http\Controllers\AdminUniv\ActivityController as AdminUnivActivity;
+use App\Http\Controllers\SuperAdmin\WebsiteController as SuperAdminWebsite;
+use App\Http\Controllers\SuperAdmin\ActivityController as SuperAdminActivity;
+use App\Http\Controllers\SuperAdmin\DashboardController as SuperAdminDashboard;
+use App\Http\Controllers\AdminUnit\SocialMediaController as AdminUnitSocialMedia;
+use App\Http\Controllers\AdminUniv\SocialMediaController as AdminUnivSocialMedia;
+use App\Http\Controllers\SuperAdmin\SocialMediaController as SuperAdminSocialMedia;
+use App\Http\Controllers\SuperAdmin\UnitWebController as SuperAdminUnitWeb;
+use App\Http\Controllers\AdminUniv\ReportController as ReportController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -65,9 +68,11 @@ Route::middleware(['superadmin','auth','revalidate'])->prefix('superadmin')->gro
     Route::get('unit/{id}/socialmedia',[SuperAdminUnit::class,'social_media'])->name('superadmin.unit.socialmedia');
     Route::delete('unit/socialmedia/{id}',[SuperAdminUnit::class,'social_media_destroy'])->name('superadmin.unit.socialmedia-destroy');
     Route::resource('unit',SuperAdminUnit::class)->names(['index' => 'unit']);
+    Route::resource('unitweb',SuperAdminUnitWeb::class)->names(['index'=>'unitweb']);
     Route::get('/',[UserController::class,'report']);
     Route::get('/',[UserController::class,'index'])->name('home');
     Route::get('/report',[UserController::class,'report']);
+    Route::resource('unit-socmed', UnitSocMedCT::class)->names(['index'=>'unit-socmed']);
 
     // Route::get('/activities/pending',[ActivitiesCT::class,'actPending'])->name('act-pending');
     // Route::get('/website/pending',[WebsitesCT::class,'pending'])->name('web-pending');
@@ -78,7 +83,10 @@ Route::middleware(['superadmin','auth','revalidate'])->prefix('superadmin')->gro
     // Route::resource('socialmedia',SocialMediaCT::class)->only(['show','index'])->names(['index' => 'socialmedia']);
     // Route::resource('website',WebsitesCT::class)->only(['show','index'])->names(['index' => 'websites']);
     // Route::resource('activities',ActivitiesCT::class)->only(['show','index'])->names(['index' => 'activities']);
-
+    Route::get('/website/report',[ReportController::class,'reportByUnit']);
+    Route::get('/website/report/{id}',[ReportController::class,'webReportUnit']);
+    Route::get('/social-media/report',[ReportController::class,'reportSocMed']);
+    Route::get('/activities/report',[ReportController::class,'reportAct']);
 });
 
 Route::middleware(['adminuniv','auth','revalidate'])->prefix('adminuniv')->group(function(){
@@ -123,7 +131,6 @@ Route::middleware(['adminuniv','auth','revalidate'])->prefix('adminuniv')->group
 //    Route::resource('website',WebsitesCT::class)->only(['show','index'])->names(['index' => 'websites']);
 //    Route::resource('activities',ActivitiesCT::class)->only(['show','index'])->names(['index' => 'activities']);
 //    Route::resource('unit',UnitCT::class)->except(['destroy','create','store'])->names(['index' => 'unit']);
-//    Route::resource('unit-socmed', UnitSocMedCT::class)->except(['destroy','create','store'])->names(['index'=>'unit-socmed']);
 });
 
 Route::middleware(['adminunit','auth','revalidate'])->prefix('adminunit')->group(function(){
@@ -133,5 +140,4 @@ Route::middleware(['adminunit','auth','revalidate'])->prefix('adminunit')->group
     Route::delete('revert',[AdminUnitWebsite::class,'deleteFilePond']);
     Route::resource('socialmedia',AdminUnitSocialMedia::class);
     Route::resource('activities',AdminUnitActivity::class);
-    Route::resource('unitweb', UnitWebCT::class);
 });

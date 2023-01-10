@@ -10,7 +10,7 @@ use App\Models\SocMed;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 
-class UnitController extends Controller
+class   UnitController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -149,7 +149,7 @@ class UnitController extends Controller
                                ->make(true);
         }
 
-        return view('superadmin.unit.socialmedia');
+        return view('superadmin.unit.social-media');
 
     }
 
