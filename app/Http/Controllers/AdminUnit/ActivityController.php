@@ -62,7 +62,7 @@ class ActivityController extends Controller
     public function store(StoreActivityRequest $request)
     {
 
-        Activity::create($request->validated() + ['unit_id' => auth()->user()->unit_id,'act_status' => 'pending']);
+        Activity::create($request->validated() + ['unit_id' => auth()->user()->unit_id,'act_status' => 'pending')->store('kegiatan')]);
         Alert::success('Berhasil','Agenda kegiatan berhasil disimpan');
         return redirect()->route('activities.index');
     }
@@ -88,6 +88,7 @@ class ActivityController extends Controller
      */
     public function update(StoreActivityRequest $request, $id)
     {
+        
         Activity::findOrFail($id)->update($request->validated());
         Alert::success('Berhasil','Agenda kegiatan berhasil disunting');
         return redirect()->route('activities.index');

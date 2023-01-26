@@ -10,7 +10,7 @@ class Activity extends Model
 {
     use HasFactory;
     protected $table = 'activities';
-    protected $fillable = ['feedback','act_name','act_date','act_address','partisipant','unit_id','act_status','type','category'];
+    protected $fillable = ['feedback','act_name','act_date','act_address','partisipant','unit_id','act_status','type','category','image'];
     protected $dates = ['created_at'];
 
     public function unit(){

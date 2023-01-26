@@ -83,9 +83,10 @@ Route::middleware(['superadmin','auth','revalidate'])->prefix('superadmin')->gro
     // Route::resource('socialmedia',SocialMediaCT::class)->only(['show','index'])->names(['index' => 'socialmedia']);
     // Route::resource('website',WebsitesCT::class)->only(['show','index'])->names(['index' => 'websites']);
     // Route::resource('activities',ActivitiesCT::class)->only(['show','index'])->names(['index' => 'activities']);
-    Route::get('/website/report',[ReportController::class,'reportByUnit']);
+    Route::get('/website/report',[ReportController::class,'reportWeb']);
     Route::get('/website/report/{id}',[ReportController::class,'webReportUnit']);
-    Route::get('/social-media/report',[ReportController::class,'reportSocMed']);
+    Route::get('/socmed/report',[ReportController::class,'reportSocMed']);
+    Route::get('/socmed/report/{id}',[ReportController::class,'reportSocmedUnit']);
     Route::get('/activities/report',[ReportController::class,'reportAct']);
 });
 

@@ -26,13 +26,24 @@
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label for="act_date">Tanggal Kegiatan<sup  style="color:red;font-size:16px">*</sup></label>
-                        <input type="datetime-local" class="form-control" name="act_date" value="{{ old('act_date',$activity->act_date)}}" />
+                        <input type="datetime-local" class="form-control" name="act_date" value="{{ $activity->act_date }}" />
                         @error('act_date')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label for="partisipant">Jumlah Partisipan <sup  style="color:red;font-size:16px">*</sup></label>
+                        <input type="number" class="form-control" name="partisipant" value="{{old('partisipant',$activity->partisipant)}}"/>
+                        @error('partisipant')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <div class="mb-3">
+                            <label for="">Current Image</label>
+                            <img src="{{ asset('/storage'.'/'.$activity->image) }}" alt="">
+                        </div>
+                        <label for="partisipant">Update Gambar <sup  style="color:red;font-size:16px">*</sup></label>
                         <input type="number" class="form-control" name="partisipant" value="{{old('partisipant',$activity->partisipant)}}"/>
                         @error('partisipant')
                         <small class="text-danger">{{ $message }}</small>

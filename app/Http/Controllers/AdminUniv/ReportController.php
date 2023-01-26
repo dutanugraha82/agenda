@@ -175,6 +175,10 @@ class ReportController extends Controller
         return view('report-by-date',compact('websites','socialMedia','activities'));
     }
 
+    public function reportWeb(){
+        $data = Website::all();
+        return view('report-web', compact('data'));
+    }
     public function webReportUnit($id){
         $name = Unit::find($id);
         $pending = Website::where('web_status','=','pending','AND','unit_id','=',$id)->get();
@@ -192,12 +196,17 @@ class ReportController extends Controller
     }
 
     public function reportSocMedUnit($id){
+        $name = Unit::find($id);
+        $pending = SocialMedia::where('socmed_status','=','pending','AND','unit_id','=',$id)->get();
+        $reject = SocialMedia::where('socmed_status','=','reject','AND','unit_id','=',$id)->get();
+        $publish = SocialMedia::where('socmed_status','=','publish','AND','unit_id','=',$id)->get();
 
+        // dd($p);
+        return view('report-socmed-unit',compact('pending','reject','publish','name'));
     }
 
     public function reportAct(){
         $data = Activity::all();
-
         return view('report-activities',compact('data'));
     }
         

@@ -7,7 +7,7 @@
         <div class="row">
             @foreach ($data as $item)
             <div class="col-md">
-                <a href="/superadmin/socmed/report/{{ $item->unit_id }}" class="list-group-item list-group-item-action active">
+                <a href="/superadmin/website/report/{{ $item->unit_id }}" class="list-group-item list-group-item-action active">
                     <div class="d-flex w-100 justify-content-between">
                       <h5 class="mb-1">{{ $item->unit->unit_name }}</h5>
                     </div>

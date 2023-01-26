@@ -53,7 +53,7 @@
                     <div class="mb-3">
                         <label for="type">Jenis Agenda <sup  style="color:red;font-size:16px">*</sup></label>
                         <select name="type" class="form-control">
-                            <option value="publish" selected="selected">Publish (Umum)</option>
+                            <option value="public" selected="selected">Public (Umum)</option>
                             <option value="private">Private (Rahasia) </option>
                         </select>
                         @error('type')

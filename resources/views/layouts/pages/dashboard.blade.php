@@ -50,7 +50,7 @@
                     @if (auth()->user()->role == "admin_univ")
                     <a href="/adminuniv/social-media/pending" class="btn btn-primary mt-3">Go to Social Media</a>
                     @elseif (auth()->user()->role == "super_admin")
-                    <a href="/superadmin/social-media/report" class="btn btn-primary mt-3">Laporan Data Medsos</a>
+                    <a href="/superadmin/socmed/report" class="btn btn-primary mt-3">Laporan Data Medsos</a>
                     @endif
                 </div>
               </div>

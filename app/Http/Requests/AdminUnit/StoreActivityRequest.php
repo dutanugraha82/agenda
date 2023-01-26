@@ -29,7 +29,7 @@ class StoreActivityRequest extends FormRequest
             'act_date' => 'required',
             'partisipant' => 'required|numeric',
             'type' => 'required',
-            'category' => 'required'
+            'category' => 'required',
         ];
     }
 

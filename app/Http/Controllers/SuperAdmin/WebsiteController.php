@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 class WebsiteController extends Controller
 {
     public function index(){
-        
         if(request()->ajax()){
             $websites = \App\Models\Website::with('unit')->get();
             return datatables()

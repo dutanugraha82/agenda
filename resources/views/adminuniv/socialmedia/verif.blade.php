@@ -14,11 +14,11 @@
                 </tr>
                 <tr>
                     <td class="text-bold">Bukti Gambar</td>
-                    <td><a href="{{url($socialMedia->thumbnail)}}" target="_blank">link</a></td>
+                    <td><a href="{{url('/storage'.'/'.$socialMedia->thumbnail)}}" target="_blank">link</a></td>
                 </tr>
                 <tr>
                     <td class="text-bold">Naskah</td>
-                    <td><a href="{{url($socialMedia->caption)}}">link</td> </td>
+                    <td><a href="{{url('/storage'.'/'.$socialMedia->caption)}}">link</td> </td>
                 </tr>
                 <tr>
                     <td class="text-bold">Kategori Sosial Media</td>
